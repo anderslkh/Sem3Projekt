@@ -1,85 +1,83 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Net;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using NuGet.Protocol;
 using WebAPI.Managers;
+using WebAPI.Models;
 
-namespace WebAPI.Controllers
-{
-    public class PersonsController : Controller
-    {
-        // GET: PersonController
-        public ActionResult Index()
-        {
-            return View();
-        }
+namespace WebAPI.Controllers {
 
-        // GET: PersonController/Details/5
-        public ActionResult Details(string email)
-        {
-            IPersonManager personManager = new PersonManager();
-            return View(personManager.GetPersonByEmail(email));
-        }
+	public class PersonsController : Controller {
+		// GET: api/persons
+		[Route("api/[controller]")]
+		public IActionResult Index() {
+			IManager<Person, string> personManager = new PersonManager();
+			if (personManager.GetAll() != null)
+			{
+				return Ok(personManager.GetAll().ToJson());
+			}
 
-        // GET: PersonController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
+			return NotFound();
+		}
 
-        // POST: PersonController/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// GET: api/persons/5
+		[Route("api/[controller]/{email}")]
+		public IActionResult Details(string? email) {
+			IManager<Person, string> personManager = new PersonManager();
+			if (personManager.GetById(email) != null)
+			{
+				return Ok(personManager.GetById(email));
+			}
+			return NotFound();
+		}
 
-        // GET: PersonController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
+		// GET: PersonsController/Create
+		public ActionResult Create() {
+			return View();
+		}
 
-        // POST: PersonController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+		// POST: PersonsController/Create
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Create(IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
 
-        // GET: PersonController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
+		// GET: PersonsController/Edit/5
+		public ActionResult Edit(int id) {
+			return View();
+		}
 
-        // POST: PersonController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-    }
+		// POST: PersonsController/Edit/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Edit(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
+
+		// GET: PersonsController/Delete/5
+		public ActionResult Delete(int id) {
+			return View();
+		}
+
+		// POST: PersonsController/Delete/5
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public ActionResult Delete(int id, IFormCollection collection) {
+			try {
+				return RedirectToAction(nameof(Index));
+			} catch {
+				return View();
+			}
+		}
+	}
 }

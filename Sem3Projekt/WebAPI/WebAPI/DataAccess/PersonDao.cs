@@ -27,5 +27,17 @@ namespace WebAPI.DataAccess
             }
             return foundPerson;
         }
+
+        public List<Person> GetAll()
+        {
+	        List<Person> foundList = null;
+	        string sqlQuery = "SELECT * FROM Person";
+
+	        using (conn)
+	        {
+		        foundList = conn.Query<Person>(sqlQuery).ToList();
+	        }
+	        return foundList;
+        }
     }
 }

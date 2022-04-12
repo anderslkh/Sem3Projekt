@@ -1,9 +1,9 @@
 ﻿namespace WebAPI.DataAccess
 {
-    public interface IDao<T, R>
+    public interface IDao<T, I>
     {
-        T GetById(R id);
+        T GetById(I id);
 
-        //List<T> GetAll();
+        List<T> GetAll();
     }
 }
