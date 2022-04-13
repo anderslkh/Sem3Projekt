@@ -36,5 +36,18 @@ namespace WebAPI.Managers
 
 		    return foundList;
 	    }
-    }
+	    public bool CreatePerson(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
+		    bool result = false;
+		    Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
+		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
+		    try {
+			    result = personDao.CreatePerson(createPerson);
+		    } catch (Exception e) {
+			    Console.WriteLine(e);
+			    throw;
+		    }
+
+		    return result;
+	    }
+	}
 }

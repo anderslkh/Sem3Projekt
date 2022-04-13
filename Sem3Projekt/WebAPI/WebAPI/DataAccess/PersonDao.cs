@@ -39,5 +39,23 @@ namespace WebAPI.DataAccess
 	        }
 	        return foundList;
         }
-    }
+        public bool CreatePerson(Person person) {
+	        bool result = false;
+	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, NickName, BirthDate, Email) " +
+	                          "VALUES (@FirstName, @LastName, @NickName, @BirthDate, @Email)";
+	        var param = new {
+		        FirstName = person.firstName,
+		        LastName = person.lastName,
+		        NickName = person.nickName,
+		        BirthDate = person.birthDate,
+		        Email = person.email
+	        };
+	        using (conn) {
+		        if (conn.Execute(sqlQuery, param) > 0) {
+			        result = true;
+		        }
+	        }
+	        return result;
+        }
+	}
 }

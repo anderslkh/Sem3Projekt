@@ -146,10 +146,12 @@ namespace WebAPI.Areas.Identity.Pages.Account
 
                 PersonManager personManager = new PersonManager();
                 
-                if (result.Succeeded && personManager.CreatePerson(InputPersonModel.Firstname, InputPersonModel.Lastname,
-	                    InputPersonModel.Nickname, InputPersonModel.Birthdate, Input.Email)
-                )
+
+
+                if (result.Succeeded)
                 {
+	                personManager.CreatePerson(InputPersonModel.Firstname, InputPersonModel.Lastname,
+		                InputPersonModel.Nickname, InputPersonModel.Birthdate, Input.Email);
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
