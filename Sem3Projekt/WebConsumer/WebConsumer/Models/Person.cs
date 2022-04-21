@@ -1,10 +1,10 @@
-﻿namespace WebAPI.Models
+﻿namespace WebConsumer.Models
 {
     public class Person
     {
         public string firstName { get; set; }
         public string lastName { get; set; }
-        public string nickName { get; set; }    
+        public string nickName { get; set; }
         public DateTime birthDate { get; set; }
         public string email { get; }
 
