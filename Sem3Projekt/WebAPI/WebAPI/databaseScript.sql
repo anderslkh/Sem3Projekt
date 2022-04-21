@@ -11,7 +11,7 @@ CREATE Table Person
 );
 
 
-/*
+
 Create with AspNetUsers Normalized Email primary key on Person
 use [3.SemesterDb]
 
@@ -27,4 +27,3 @@ CREATE Table Person
 	FOREIGN KEY (Email) REFERENCES AspNetUsers(NormalizedEmail)
 );
 
-*/

@@ -27,7 +27,7 @@ namespace WebAPI.Controllers {
 			IManager<Person, string> personManager = new PersonManager();
 			if (personManager.GetById(email) != null)
 			{
-				return Ok(personManager.GetById(email));
+				return Ok(personManager.GetById(email).ToJson());
 			}
 			return NotFound();
 		}
