@@ -11,7 +11,7 @@ namespace WebAPI.Controllers {
 			return View();
 		}
 
-		// GET: TournamentsController/Details/5
+		// GET: api/tournaments/5
 		[Route("api/[controller]/{tournamentId}")]
 		public IActionResult Details(int tournamentId)
 		{

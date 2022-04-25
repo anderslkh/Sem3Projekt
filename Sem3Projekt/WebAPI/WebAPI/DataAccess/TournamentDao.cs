@@ -12,19 +12,17 @@ namespace WebAPI.DataAccess {
 			_conn = conn;
 		}
 
-		public Tournament GetById(int id)
+		public Tournament GetById(int tournamentId)
 		{
 			Tournament foundTournament = null;
 			string sqlQuery=
-				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinTeams, MaxTeams FROM Tournament WHERE TournamentId = @TournamentId";
-			var param = new {TournamentId = id};
+				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants FROM Tournament WHERE TournamentId = @TournamentId";
+			var param = new {TournamentId = tournamentId };
 			
 			using (_conn)
 			{
 				foundTournament = _conn.QuerySingle<Tournament>(sqlQuery, param);
-
 			}
-
 			return foundTournament;
 		}
 

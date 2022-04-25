@@ -4,17 +4,16 @@ using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public class TournamentManager : IManager<Tournament, int> {
-		public Tournament GetById(int id)
+		public Tournament GetById(int tournamentId)
 		{
 			Tournament foundTournament = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
 			try
 			{
-				foundTournament = tournamentDao.GetById(id);
+				foundTournament = tournamentDao.GetById(tournamentId);
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
 				throw;
 			}
 

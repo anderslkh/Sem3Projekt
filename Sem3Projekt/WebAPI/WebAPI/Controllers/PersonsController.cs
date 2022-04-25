@@ -11,11 +11,14 @@ namespace WebAPI.Controllers {
 	public class PersonsController : Controller {
 		// GET: api/persons
 		[Route("api/[controller]")]
-		public IActionResult Index() {
-			IManager<Person, string> personManager = new PersonManager();
-			if (personManager.GetAll() != null)
+		public IActionResult Index()
+		{
+
+			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
+			List<Person> foundList = personManager.GetAll();
+			if (foundList.Any())
 			{
-				return Ok(personManager.GetAll().ToJson());
+				return Ok(foundList.ToJson());
 			}
 
 			return NotFound();
@@ -23,11 +26,14 @@ namespace WebAPI.Controllers {
 
 		// GET: api/persons/5
 		[Route("api/[controller]/{email}")]
-		public IActionResult Details(string? email) {
-			IManager<Person, string> personManager = new PersonManager();
-			if (personManager.GetById(email) != null)
+		public IActionResult Details(string email)
+		{
+
+			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
+			Person foundPerson = personManager.GetById(email);
+			if (foundPerson != null)
 			{
-				return Ok(personManager.GetById(email).ToJson());
+				return Ok(foundPerson.ToJson());
 			}
 			return NotFound();
 		}

@@ -18,13 +18,13 @@ namespace WebAPI.DataAccess
         {
             Person foundPerson = null;
 
-            string queryString = 
+            string sqlQuery = 
 	            "SELECT FirstName, LastName, NickName, BirthDate, Email FROM Person where Email = @Email";
 
             var param = new { Email = id };
             using (_conn)
             {
-                foundPerson = _conn.QuerySingle<Person>(queryString, param);
+                foundPerson = _conn.QuerySingle<Person>(sqlQuery, param);
             }
             return foundPerson;
         }
