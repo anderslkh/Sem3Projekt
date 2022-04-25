@@ -13,7 +13,7 @@ namespace WebAPI.DataAccess
 
         public static IDao<Tournament, int> CreateTournamentDao()
         {
-            return new TournamentDao(GetConnection());
+	        return new TournamentDao(GetConnection());
         }
 
         private static SqlConnection GetConnection()

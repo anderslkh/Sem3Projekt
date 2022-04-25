@@ -1,10 +1,26 @@
-﻿using WebAPI.DataAccess;
+using NuGet.Packaging.Rules;
+using WebAPI.DataAccess;
 using WebAPI.Models;
 
 namespace WebAPI.Managers {
-    public class TournamentManager {
+	public class TournamentManager : IManager<Tournament, int> {
+		public Tournament GetById(int tournamentId)
+		{
+			Tournament foundTournament = null;
+			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+			try
+			{
+				foundTournament = tournamentDao.GetById(tournamentId);
+			}
+			catch (Exception e)
+			{
+				throw;
+			}
 
-        public bool EnrollInTournament(string personEmail, int tournamentId)
+			return foundTournament;
+		}
+    
+    public bool EnrollInTournament(string personEmail, int tournamentId)
         {
             bool result = false;
             IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
@@ -22,5 +38,10 @@ namespace WebAPI.Managers {
 
             return result;
         }
-    }
+
+		public List<Tournament> GetAll()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }

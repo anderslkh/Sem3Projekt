@@ -6,24 +6,25 @@ namespace WebAPI.DataAccess
 {
     public class PersonDao : IDao<Person, string>
     {
-        private SqlConnection conn;
+        private readonly SqlConnection _conn;
 
         public PersonDao(SqlConnection conn)
         {
 
-            this.conn = conn;
+            _conn = conn;
         }
 
         public Person GetById(string id)
         {
             Person foundPerson = null;
 
-            string queryString = "SELECT FirstName, LastName, NickName, BirthDate, Email FROM Person where Email = @Email";
+            string sqlQuery = 
+	            "SELECT FirstName, LastName, NickName, BirthDate, Email FROM Person where Email = @Email";
 
             var param = new { Email = id };
-            using (conn)
+            using (_conn)
             {
-                foundPerson = conn.QuerySingle<Person>(queryString, param);
+                foundPerson = _conn.QuerySingle<Person>(sqlQuery, param);
             }
             return foundPerson;
         }
@@ -33,9 +34,9 @@ namespace WebAPI.DataAccess
 	        List<Person> foundList = null;
 	        string sqlQuery = "SELECT * FROM Person";
 
-	        using (conn)
+	        using (_conn)
 	        {
-		        foundList = conn.Query<Person>(sqlQuery).ToList();
+		        foundList = _conn.Query<Person>(sqlQuery).ToList();
 	        }
 	        return foundList;
         }
@@ -50,8 +51,8 @@ namespace WebAPI.DataAccess
 		        BirthDate = person.birthDate,
 		        Email = person.email
 	        };
-	        using (conn) {
-		        if (conn.Execute(sqlQuery, param) > 0) {
+	        using (_conn) {
+		        if (_conn.Execute(sqlQuery, param) > 0) {
 			        result = true;
 		        }
 	        }

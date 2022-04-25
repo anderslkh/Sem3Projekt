@@ -1,18 +1,32 @@
-﻿using Dapper;
 using System.Data.SqlClient;
+using Dapper;
 using WebAPI.Models;
 
 namespace WebAPI.DataAccess {
-    public class TournamentDao : IDao<Tournament, int> {
+	public class TournamentDao : IDao<Tournament, int>
+	{
+		private readonly SqlConnection _conn;
 
-        private SqlConnection conn;
+		public TournamentDao(SqlConnection conn)
+		{
+			_conn = conn;
+		}
 
-        public TournamentDao(SqlConnection conn)
-        {
-            this.conn = conn;
-        }
-
-        public bool EnrollInTournament(string personEmail, int tournamentId)
+		public Tournament GetById(int tournamentId)
+		{
+			Tournament foundTournament = null;
+			string sqlQuery=
+				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants FROM Tournament WHERE TournamentId = @TournamentId";
+			var param = new {TournamentId = tournamentId };
+			
+			using (_conn)
+			{
+				foundTournament = _conn.QuerySingle<Tournament>(sqlQuery, param);
+			}
+			return foundTournament;
+		}
+    
+     public bool EnrollInTournament(string personEmail, int tournamentId)
         {
             bool result = false;
             string sqlQuery = "INSERT INTO PersonInTournament (PersonEmail, TournamentId) " +
@@ -33,14 +47,9 @@ namespace WebAPI.DataAccess {
             }
         }
 
-        public Tournament GetById(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public List<Tournament> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-    }
+		public List<Tournament> GetAll()
+		{
+			throw new NotImplementedException();
+		}
+	}
 }
