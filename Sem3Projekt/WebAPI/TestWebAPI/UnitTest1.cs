@@ -1,4 +1,4 @@
-½using Xunit;
+using Xunit;
 
 namespace TestWebAPI {
 	public class UnitTest1 {
