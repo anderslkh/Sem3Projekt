@@ -36,9 +36,9 @@ namespace WebAPI.DataAccess {
                 PersonEmail = personEmail,
                 TournamentId = tournamentId
             };
-            using (conn)
+            using (_conn)
             {
-                if (conn.Execute(sqlQuery, param) > 0)
+                if (_conn.Execute(sqlQuery, param) > 0)
                 {
                     result = true;
                 }
