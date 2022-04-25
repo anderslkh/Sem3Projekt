@@ -25,6 +25,18 @@ namespace WebAPI.Controllers {
 			return NotFound();
 		}
 
+		[Route("api/[controller]/enroll")]
+        public ActionResult Enroll(string personEmail, int tournamentId)
+        {
+            IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
+            if (manager is TournamentManager tournamentManager)
+            {
+                return Ok(tournamentManager.EnrollInTournament(personEmail, tournamentId));
+            }
+            return NotFound();
+			// another error code
+        }
+
 		// GET: TournamentsController/Create
 		public ActionResult Create() {
 			return View();
