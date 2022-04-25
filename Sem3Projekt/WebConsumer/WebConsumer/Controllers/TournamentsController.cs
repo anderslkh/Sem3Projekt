@@ -1,65 +1,85 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebConsumer.Service;
 
-namespace WebConsumer.Controllers {
-    public class TournamentsController : Controller {
+namespace WebConsumer.Controllers
+{
+    public class TournamentsController : Controller
+    {
         // GET: TournamentsController
-        public ActionResult Index() {
+        public ActionResult Index()
+        {
             return View();
         }
 
         // GET: TournamentsController/Details/5
-        public ActionResult Details(int id) {
-            return View();
+        [Route ("[controller]/{id}")]
+        public async Task<ActionResult> Details(int id)
+        {
+            TournamentService tournamentService = new TournamentService();
+           
+            return View( await tournamentService.GetTournamentById(id));
         }
 
         // GET: TournamentsController/Create
-        public ActionResult Create() {
+        public ActionResult Create()
+        {
             return View();
         }
 
         // POST: TournamentsController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection) {
-            try {
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch {
+            catch
+            {
                 return View();
             }
         }
 
         // GET: TournamentsController/Edit/5
-        public ActionResult Edit(int id) {
+        public ActionResult Edit(int id)
+        {
             return View();
         }
 
         // POST: TournamentsController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection) {
-            try {
+        public ActionResult Edit(int id, IFormCollection collection)
+        {
+            try
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch {
+            catch
+            {
                 return View();
             }
         }
 
         // GET: TournamentsController/Delete/5
-        public ActionResult Delete(int id) {
+        public ActionResult Delete(int id)
+        {
             return View();
         }
 
         // POST: TournamentsController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection) {
-            try {
+        public ActionResult Delete(int id, IFormCollection collection)
+        {
+            try
+            {
                 return RedirectToAction(nameof(Index));
             }
-            catch {
+            catch
+            {
                 return View();
             }
         }
