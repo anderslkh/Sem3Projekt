@@ -1,4 +1,4 @@
-﻿using System.Data.SqlClient;
+using System.Data.SqlClient;
 using Dapper;
 using WebAPI.Models;
 
@@ -25,6 +25,27 @@ namespace WebAPI.DataAccess {
 			}
 			return foundTournament;
 		}
+    
+     public bool EnrollInTournament(string personEmail, int tournamentId)
+        {
+            bool result = false;
+            string sqlQuery = "INSERT INTO PersonInTournament (PersonEmail, TournamentId) " +
+                              "VALUES (@PersonEmail, @TournamentId)";
+            var param = new
+            {
+                PersonEmail = personEmail,
+                TournamentId = tournamentId
+            };
+            using (conn)
+            {
+                if (conn.Execute(sqlQuery, param) > 0)
+                {
+                    result = true;
+                }
+
+                return result;
+            }
+        }
 
 		public List<Tournament> GetAll()
 		{

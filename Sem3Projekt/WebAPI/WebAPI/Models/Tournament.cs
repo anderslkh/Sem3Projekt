@@ -1,4 +1,5 @@
-﻿namespace WebAPI.Models {
+namespace WebAPI.Models {
+  
 	public class Tournament {
 		public int TournamentId { get; }
 		public string TournamentName { get; set; }
