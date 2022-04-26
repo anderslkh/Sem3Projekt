@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using WebComsumer.Models;
+using WebConsumer.Models;
 
 namespace WebConsumer.Service
 {
@@ -32,6 +33,21 @@ namespace WebConsumer.Service
             }
             return foundTournament;
 
+        }
+
+        public async Task<Person> EnrollInTournament(int tournamentId, Person person)
+        {
+            string useUrl = $"{restUrl}enroll/{tournamentId}";
+            var uri = new Uri(useUrl);
+            try
+            {
+                var response = await _client.PostAsJsonAsync(uri, person);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return person;
         }
     }
 
