@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using WebAPI.Managers;
 using WebAPI.Models;
@@ -25,13 +28,14 @@ namespace WebAPI.Controllers {
 			return NotFound();
 		}
 
-		[Route("api/[controller]/enroll")]
-        public ActionResult Enroll(string personEmail, int tournamentId)
+        [Route("api/[controller]/enroll/{tournamentId}")]
+		[HttpPost]
+        public ActionResult Enroll([FromBody]Person inPerson, int tournamentId)
         {
             IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
             if (manager is TournamentManager tournamentManager)
             {
-                return Ok(tournamentManager.EnrollInTournament(personEmail, tournamentId));
+                return Ok(tournamentManager.EnrollInTournament(inPerson.email, tournamentId));
             }
             return NotFound();
 			// another error code
