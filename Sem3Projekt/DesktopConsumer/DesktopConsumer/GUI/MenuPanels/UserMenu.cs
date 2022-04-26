@@ -58,7 +58,7 @@ namespace GUI
             return await Task.Run( async() =>
             {
                 PersonController personController = new PersonController();
-                return await personController.GetPersonByEmail("Mail@mail.com");
+                return await personController.GetPersonByEmail("test@test");
             });
         }
     }

@@ -25,6 +25,12 @@ namespace DesktopComsumer.Models
 			MinParticipants = minParticipants;
 			MaxParticipants = maxParticipants;
 		}
-	}
+
+
+        public override string ToString()
+        {
+            return $"Navn: {TournamentName} | Minimum deltagere: {MinParticipants} | Maximum deltagere: {MaxParticipants}";
+        }
+    }
 }
 
