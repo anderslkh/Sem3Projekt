@@ -15,7 +15,7 @@ namespace WebAPI.Controllers {
 		{
 
 			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
-			List<Person> foundList = personManager.GetAll();
+			List<Person> foundList = personManager.GetAllItems();
 			if (foundList.Any())
 			{
 				return Ok(foundList.ToJson());
@@ -30,7 +30,7 @@ namespace WebAPI.Controllers {
 		{
 
 			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
-			Person foundPerson = personManager.GetById(email);
+			Person foundPerson = personManager.GetItemById(email);
 			if (foundPerson != null)
 			{
 				return Ok(foundPerson.ToJson());

@@ -52,7 +52,7 @@ namespace TestWebAPI {
 		public void GetTournament() {
 			{
 				//Act
-				foundTournament = tournamentDao.GetById(tournamentId);
+				foundTournament = tournamentDao.GetItemById(tournamentId);
 				
 				//Assert
 				Assert.Equal(expectedTournament.TournamentId, foundTournament.TournamentId);
