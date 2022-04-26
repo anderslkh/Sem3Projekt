@@ -1,6 +1,8 @@
-namespace WebAPI.Models {
-  
-	public class Tournament {
+﻿namespace WebComsumer.Models
+{
+
+	public class Tournament
+	{
 		public int TournamentId { get; }
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
@@ -8,10 +10,6 @@ namespace WebAPI.Models {
 		public int MinParticipants { get; set; }
 		public int MaxParticipants { get; set; }
 
-
-        public Tournament()
-        {
-        }
 		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants)
 		{
 			TournamentId = tournamentId;

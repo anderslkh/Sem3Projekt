@@ -2,8 +2,8 @@
 {
     public interface IDao<T, I>
     {
-        T GetById(I id);
+        T GetItemById(I id);
 
-        List<T> GetAll();
+        List<T> GetAllItems();
     }
 }

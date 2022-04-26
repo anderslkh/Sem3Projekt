@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopConsumer.GUI.ContentPanels;
+using DesktopConsumer.GUI.MenuPanels;
 using GUI;
 
 namespace GUI
@@ -25,13 +26,17 @@ namespace GUI
         public static Form CreateTournamentMenuUI()
         {
             //return new TournamentMenu();
-            return null;
+            return new TournamentMenu();
         }
 
         public static Form TournamentListUI()
         {
             //return new TournamentListMenu();
             return null;
+        }
+        public static Form ReadTournamentUI()
+        {
+            return new ReadTournamentContentPanel();
         }
 
         public static Form ReadUserUI()

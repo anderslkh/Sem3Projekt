@@ -12,7 +12,7 @@ namespace WebAPI.DataAccess {
 			_conn = conn;
 		}
 
-		public Tournament GetById(int tournamentId)
+		public Tournament GetItemById(int tournamentId)
 		{
 			Tournament foundTournament = null;
 			string sqlQuery=
@@ -47,9 +47,16 @@ namespace WebAPI.DataAccess {
             }
         }
 
-		public List<Tournament> GetAll()
+		public List<Tournament> GetAllItems()
 		{
-			throw new NotImplementedException();
+			List<Tournament> foundTournaments = null;
+			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants FROM Tournament";
+
+			using (_conn)
+			{
+				foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
+			}
+			return foundTournaments;
 		}
 	}
 }

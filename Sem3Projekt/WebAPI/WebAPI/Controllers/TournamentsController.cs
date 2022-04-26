@@ -1,5 +1,8 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using System.Text.Json;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using WebAPI.Managers;
 using WebAPI.Models;
@@ -7,8 +10,17 @@ using WebAPI.Models;
 namespace WebAPI.Controllers {
 	public class TournamentsController : Controller {
 		// GET: TournamentsController
-		public ActionResult Index() {
-			return View();
+		[Route("api/[controller]")]
+		public IActionResult Index()
+		{
+			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+			List<Tournament> foundTournaments = tournamentManager.GetAllItems();
+			if (foundTournaments.Any())
+			{
+				return Ok(foundTournaments.ToJson());
+			}
+
+			return NotFound();
 		}
 
 		// GET: api/tournaments/5
@@ -16,7 +28,7 @@ namespace WebAPI.Controllers {
 		public IActionResult Details(int tournamentId)
 		{
 			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			Tournament foundTournament = tournamentManager.GetById(tournamentId);
+			Tournament foundTournament = tournamentManager.GetItemById(tournamentId);
 			if (foundTournament != null)
 			{
 				return Ok(foundTournament.ToJson());
@@ -24,6 +36,19 @@ namespace WebAPI.Controllers {
 
 			return NotFound();
 		}
+
+        [Route("api/[controller]/enroll/{tournamentId}")]
+		[HttpPost]
+        public ActionResult Enroll([FromBody]Person inPerson, int tournamentId)
+        {
+            IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
+            if (manager is TournamentManager tournamentManager)
+            {
+                return Ok(tournamentManager.EnrollInTournament(inPerson.email, tournamentId));
+            }
+            return NotFound();
+			// another error code
+        }
 
 		// GET: TournamentsController/Create
 		public ActionResult Create() {

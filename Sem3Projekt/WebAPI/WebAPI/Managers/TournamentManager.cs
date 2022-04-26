@@ -4,13 +4,13 @@ using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public class TournamentManager : IManager<Tournament, int> {
-		public Tournament GetById(int tournamentId)
+		public Tournament GetItemById(int tournamentId)
 		{
 			Tournament foundTournament = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
 			try
 			{
-				foundTournament = tournamentDao.GetById(tournamentId);
+				foundTournament = tournamentDao.GetItemById(tournamentId);
 			}
 			catch (Exception e)
 			{
@@ -28,7 +28,7 @@ namespace WebAPI.Managers {
             {
                 if (dao is TournamentDao tournamentDao)
                 {
-                    tournamentDao.EnrollInTournament(personEmail, tournamentId);
+                    result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
                 }
             }
             catch (Exception e)
@@ -39,9 +39,21 @@ namespace WebAPI.Managers {
             return result;
         }
 
-		public List<Tournament> GetAll()
+		public List<Tournament> GetAllItems()
 		{
-			throw new NotImplementedException();
+			List<Tournament> foundTournaments = null;
+			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+			try
+			{
+				foundTournaments = tournamentDao.GetAllItems();
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+
+			return foundTournaments;
 		}
 	}
 }

@@ -27,8 +27,8 @@ CREATE Table Person
 
 CREATE table Tournament(
 	TournamentId int identity not null primary key,
-	MinTeams int,
-	MaxTeams int not null,
+	MinParticipants int,
+	MaxParticipants int not null,
 	TimeOfEvent datetime not null,
 	RegistrationDeadline datetime not null,
 	TournamentName varchar(255) not null,
