@@ -28,7 +28,7 @@ namespace WebAPI.Managers {
             {
                 if (dao is TournamentDao tournamentDao)
                 {
-                    tournamentDao.EnrollInTournament(personEmail, tournamentId);
+                    result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
                 }
             }
             catch (Exception e)
