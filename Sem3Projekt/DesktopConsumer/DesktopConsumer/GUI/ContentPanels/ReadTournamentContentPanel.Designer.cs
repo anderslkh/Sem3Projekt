@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.txtBirthdate = new System.Windows.Forms.TextBox();
+            this.txtMinNoOfParticipant = new System.Windows.Forms.TextBox();
             this.lblMinNoOfParticipant = new System.Windows.Forms.Label();
             this.lblRegristrationDeadline = new System.Windows.Forms.Label();
-            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtRegistrationDeadline = new System.Windows.Forms.TextBox();
             this.txtTimeOfEvent = new System.Windows.Forms.TextBox();
             this.txtInsertTournamentName = new System.Windows.Forms.TextBox();
             this.lblTimeOfEvent = new System.Windows.Forms.Label();
@@ -40,13 +40,13 @@
             this.lblMaxNoOfParticipant = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // txtBirthdate
+            // txtMinNoOfParticipant
             // 
-            this.txtBirthdate.Location = new System.Drawing.Point(206, 280);
-            this.txtBirthdate.Name = "txtBirthdate";
-            this.txtBirthdate.ReadOnly = true;
-            this.txtBirthdate.Size = new System.Drawing.Size(344, 27);
-            this.txtBirthdate.TabIndex = 16;
+            this.txtMinNoOfParticipant.Location = new System.Drawing.Point(206, 280);
+            this.txtMinNoOfParticipant.Name = "txtMinNoOfParticipant";
+            this.txtMinNoOfParticipant.ReadOnly = true;
+            this.txtMinNoOfParticipant.Size = new System.Drawing.Size(344, 27);
+            this.txtMinNoOfParticipant.TabIndex = 16;
             // 
             // lblMinNoOfParticipant
             // 
@@ -66,13 +66,13 @@
             this.lblRegristrationDeadline.TabIndex = 14;
             this.lblRegristrationDeadline.Text = "Tilmeldingsfrist";
             // 
-            // txtEmail
+            // txtRegistrationDeadline
             // 
-            this.txtEmail.Location = new System.Drawing.Point(206, 205);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.ReadOnly = true;
-            this.txtEmail.Size = new System.Drawing.Size(344, 27);
-            this.txtEmail.TabIndex = 13;
+            this.txtRegistrationDeadline.Location = new System.Drawing.Point(206, 205);
+            this.txtRegistrationDeadline.Name = "txtRegistrationDeadline";
+            this.txtRegistrationDeadline.ReadOnly = true;
+            this.txtRegistrationDeadline.Size = new System.Drawing.Size(344, 27);
+            this.txtRegistrationDeadline.TabIndex = 13;
             // 
             // txtTimeOfEvent
             // 
@@ -132,10 +132,10 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txtMaxNoOfParticipant);
             this.Controls.Add(this.lblMaxNoOfParticipant);
-            this.Controls.Add(this.txtBirthdate);
+            this.Controls.Add(this.txtMinNoOfParticipant);
             this.Controls.Add(this.lblMinNoOfParticipant);
             this.Controls.Add(this.lblRegristrationDeadline);
-            this.Controls.Add(this.txtEmail);
+            this.Controls.Add(this.txtRegistrationDeadline);
             this.Controls.Add(this.txtTimeOfEvent);
             this.Controls.Add(this.txtInsertTournamentName);
             this.Controls.Add(this.lblTimeOfEvent);
@@ -150,10 +150,10 @@
 
         #endregion
 
-        private TextBox txtBirthdate;
+        private TextBox txtMinNoOfParticipant;
         private Label lblMinNoOfParticipant;
         private Label lblRegristrationDeadline;
-        private TextBox txtEmail;
+        private TextBox txtRegistrationDeadline;
         private TextBox txtTimeOfEvent;
         private TextBox txtInsertTournamentName;
         private Label lblTimeOfEvent;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DesktopComsumer.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,14 @@ namespace DesktopConsumer.GUI.ContentPanels
         public ReadTournamentContentPanel()
         {
             InitializeComponent();
+        }
+        public void Populate(Tournament tournament)
+        {
+            txtInsertTournamentName.Text = tournament.TournamentName;
+            txtTimeOfEvent.Text = tournament.TimeOfEvent.ToString();
+            txtRegistrationDeadline.Text = tournament.RegistrationDeadline.ToString();
+            txtMinNoOfParticipant.Text = tournament.MinParticipants.ToString();
+            txtMaxNoOfParticipant.Text = tournament.MaxParticipants.ToString();
         }
     }
 }
