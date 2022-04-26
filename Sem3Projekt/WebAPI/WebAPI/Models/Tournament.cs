@@ -8,6 +8,10 @@ namespace WebAPI.Models {
 		public int MinParticipants { get; set; }
 		public int MaxParticipants { get; set; }
 
+
+        public Tournament()
+        {
+        }
 		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants)
 		{
 			TournamentId = tournamentId;

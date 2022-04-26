@@ -6,8 +6,11 @@
         public string lastName { get; set; }
         public string nickName { get; set; }    
         public DateTime birthDate { get; set; }
-        public string email { get; }
+        public string email { get; set; }
 
+        public Person()
+        {
+        }
         public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
         {
             this.firstName = firstName;
