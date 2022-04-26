@@ -4,8 +4,8 @@ namespace WebAPI.Managers
 {
     public interface IManager<T, I>
     {
-        T GetById(I id);
+        T GetItemById(I id);
 
-        List<T> GetAll();
+        List<T> GetAllItems();
     }
 }

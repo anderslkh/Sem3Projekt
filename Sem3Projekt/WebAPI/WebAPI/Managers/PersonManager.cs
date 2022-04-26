@@ -6,13 +6,13 @@ namespace WebAPI.Managers
     public class PersonManager : IManager<Person, string>
     {
 
-	    public Person GetById(string email)
+	    public Person GetItemById(string email)
         {
 
 	        Person foundPerson = null;
 	        IDao<Person, string> personDao = DaoFactory.CreatePersonDao();
 	        try {
-		        foundPerson = personDao.GetById(email);
+		        foundPerson = personDao.GetItemById(email);
 	        } catch (Exception) {
 
 		        throw;
@@ -20,13 +20,13 @@ namespace WebAPI.Managers
 	        return foundPerson;
         }
 
-	    public List<Person> GetAll()
+	    public List<Person> GetAllItems()
 	    {
 		    List<Person> foundList = null;
 		    IDao<Person, string> personDao = DaoFactory.CreatePersonDao();
 		    try
 		    {
-			    foundList = personDao.GetAll();
+			    foundList = personDao.GetAllItems();
 		    }
 		    catch (Exception e)
 		    {

@@ -9,18 +9,19 @@ namespace WebConsumer.Controllers
     public class TournamentsController : Controller
     {
         // GET: TournamentsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+	        IService<Tournament, int> tournamentService = ServiceFactory.CreateTournamentService();
+	        return View(await tournamentService.GetAllItems());
         }
 
         // GET: TournamentsController/Details/5
-        [Route ("[controller]/{id}")]
-        public async Task<ActionResult> Details(int id)
+        [Route ("[controller]/{tournamentId}")]
+        public async Task<IActionResult> Details(int tournamentId)
         {
             TournamentService tournamentService = new TournamentService();
            
-            return View( await tournamentService.GetTournamentById(id));
+            return View( await tournamentService.GetItem(tournamentId));
         }
 
         //public ActionResult Enroll()

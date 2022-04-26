@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebConsumer.Models;
 using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
@@ -7,18 +8,19 @@ namespace WebConsumer.Controllers
     public class PersonsController : Controller
     {
         // GET: PersonsController
-        public ActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+	        IService<Person, string> personService = ServiceFactory.CreatePersonService();
+            return View(await personService.GetAllItems());
         }
 
         // GET: PersonsController/Details/5
         [Route("[controller]/{email}")]
         [HttpGet]
-        public async Task<ActionResult> Details(string email)
+        public async Task<IActionResult> Details(string email)
         {
-            PersonService personService = new PersonService();
-            return View(await personService.GetPersonByEmail(email));
+            IService<Person, string> personService = ServiceFactory.CreatePersonService();
+            return View(await personService.GetItem(email));
         }
 
         // GET: PersonsController/Create

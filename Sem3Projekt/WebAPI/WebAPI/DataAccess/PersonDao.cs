@@ -14,7 +14,7 @@ namespace WebAPI.DataAccess
             _conn = conn;
         }
 
-        public Person GetById(string id)
+        public Person GetItemById(string id)
         {
             Person foundPerson = null;
 
@@ -29,7 +29,7 @@ namespace WebAPI.DataAccess
             return foundPerson;
         }
 
-        public List<Person> GetAll()
+        public List<Person> GetAllItems()
         {
 	        List<Person> foundList = null;
 	        string sqlQuery = "SELECT * FROM Person";

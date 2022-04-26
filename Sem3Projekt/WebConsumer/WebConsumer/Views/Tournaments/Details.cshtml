@@ -49,7 +49,8 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+
+    @Html.ActionLink("Edit", "Edit", new {  tournamentId = Model.TournamentId }) |
     <a asp-action="Index">Back to List</a> |
-    @Html.ActionLink("Enroll", "Enroll", new {id = Model.TournamentId})
+    @Html.ActionLink("Enroll", "Enroll", new {tournamentId = Model.TournamentId})
 </div>

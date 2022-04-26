@@ -4,7 +4,7 @@ using WebConsumer.Models;
 
 namespace WebConsumer.Service
 {
-    public class TournamentService
+    public class TournamentService : IService<Tournament, int>
     {
         private readonly HttpClient _client;
         private static readonly string restUrl = "https://localhost:7276/api/tournaments/";
@@ -13,7 +13,7 @@ namespace WebConsumer.Service
         {
             _client = new HttpClient();
         }
-        public async Task<Tournament> GetTournamentById(int tournamentId)
+        public async Task<Tournament> GetItem(int tournamentId)
         {
             Tournament foundTournament = null;
             string useUrl = $"{restUrl}{tournamentId}/";
@@ -33,6 +33,23 @@ namespace WebConsumer.Service
             }
             return foundTournament;
 
+        }
+
+        public async Task<List<Tournament>> GetAllItems()
+        {
+            List<Tournament> foundTournaments = null;
+            string useUrl = $"{restUrl}";
+            var uri = new Uri(useUrl);
+            try {
+              var response = await _client.GetAsync(uri);
+              if (response.IsSuccessStatusCode) {
+                var content = await response.Content.ReadAsStringAsync();
+                foundTournaments = JsonConvert.DeserializeObject<List<Tournament>>(content);
+              }
+            } catch (Exception ex) {
+              throw;
+            }
+            return foundTournaments;
         }
 
         public async Task<Person> EnrollInTournament(int tournamentId, Person person)

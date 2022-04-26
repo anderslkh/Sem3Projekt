@@ -10,8 +10,17 @@ using WebAPI.Models;
 namespace WebAPI.Controllers {
 	public class TournamentsController : Controller {
 		// GET: TournamentsController
-		public ActionResult Index() {
-			return View();
+		[Route("api/[controller]")]
+		public IActionResult Index()
+		{
+			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+			List<Tournament> foundTournaments = tournamentManager.GetAllItems();
+			if (foundTournaments.Any())
+			{
+				return Ok(foundTournaments.ToJson());
+			}
+
+			return NotFound();
 		}
 
 		// GET: api/tournaments/5
@@ -19,7 +28,7 @@ namespace WebAPI.Controllers {
 		public IActionResult Details(int tournamentId)
 		{
 			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			Tournament foundTournament = tournamentManager.GetById(tournamentId);
+			Tournament foundTournament = tournamentManager.GetItemById(tournamentId);
 			if (foundTournament != null)
 			{
 				return Ok(foundTournament.ToJson());

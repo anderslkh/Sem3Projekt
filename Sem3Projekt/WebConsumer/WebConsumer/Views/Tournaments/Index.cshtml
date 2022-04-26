@@ -1,0 +1,65 @@
+﻿@model IEnumerable<WebComsumer.Models.Tournament>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TournamentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TournamentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TimeOfEvent)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.RegistrationDeadline)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MinParticipants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MaxParticipants)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.TournamentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TournamentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TimeOfEvent)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegistrationDeadline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MinParticipants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaxParticipants)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { tournamentId = item.TournamentId}) |
+                @Html.ActionLink("Details", "Details", new { tournamentId = item.TournamentId }) |
+                @Html.ActionLink("Delete", "Delete", new { tournamentId = item.TournamentId })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
