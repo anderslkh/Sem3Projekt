@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using WebComsumer.Models;
 using WebConsumer.Models;
 using WebConsumer.Service;
 
@@ -33,20 +34,27 @@ namespace WebConsumer.Controllers
         //}
 
         [HttpGet]
-        [Route("[controller]/enroll/{id}")]
+        [Route("[controller]/enroll/{tournamentId}")]
         public ActionResult Enroll()
         {
             return View();
         }
 
         [HttpPost]
-        [Route("[controller]/enroll/{id}")]
-        public async Task<ActionResult> Enroll(int id, string email)
+        [Route("[controller]/enroll/{tournamentId}")]
+        public async Task<ActionResult> Enroll(int tournamentId, string email)
         {
-            PersonService personService = new PersonService();
-            Person newP = await personService.GetPersonByEmail(email);
-            TournamentService tournamentService = new TournamentService();
-            return View(await tournamentService.EnrollInTournament(id, newP));
+
+            try {
+                PersonService personService = new PersonService();
+                Person newP = await personService.GetItem(email);
+                TournamentService tournamentService = new TournamentService();
+                await tournamentService.EnrollInTournament(tournamentId, newP);
+                return RedirectToAction(nameof(Index));
+            }
+            catch {
+                return View();
+            }
         }
 
         // GET: TournamentsController/Create

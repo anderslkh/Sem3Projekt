@@ -28,10 +28,30 @@ namespace DesktopConsumer.GUI.MenuPanels
             
 
             Button FindTournamentBtn = new Button();
+            Button AllTournamentsBtn = new Button();
+            AllTournamentsBtn.Text = "Alle turneringer";
+            AllTournamentsBtn.Click += new System.EventHandler(AllTournamentsBtn_Click);
             FindTournamentBtn.Text = "Find turnering";
             FindTournamentBtn.Click += new System.EventHandler(FindTournamentBtn_Click);
             buttons.Add(FindTournamentBtn);
+            buttons.Add(AllTournamentsBtn);
             InitializeLayout(buttons);
+        }
+
+        private async void AllTournamentsBtn_Click(object? sender, EventArgs e)
+        {
+            Form allTournaments = UIFactory.ReadTournamentsUI();
+            Task<List<Tournament>> p = PopulateAllTournamentsContentPanel();
+            await p;
+            if (p.IsCompletedSuccessfully)
+            {
+                if (allTournaments is ReadTournamentsContentPanel readTournamentsContent)
+                {
+                    readTournamentsContent.Populate(p.Result);
+                }
+                NavigateTo(allTournaments, ContentPanel);
+            }
+
         }
         private async void FindTournamentBtn_Click(object? sender, EventArgs e)
         {
@@ -48,6 +68,14 @@ namespace DesktopConsumer.GUI.MenuPanels
 
             }
             NavigateTo(readTournament, ContentPanel);
+        }
+
+        public async Task<List<Tournament>> PopulateAllTournamentsContentPanel()
+        {
+            return await Task.Run(async () => {
+                TournamentController tournamentController = new TournamentController();
+                return await tournamentController.GetAllTournaments();
+            });
         }
         public async Task<Tournament> PopulateContentPanel()
         {

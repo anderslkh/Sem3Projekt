@@ -16,6 +16,10 @@ namespace DesktopConsumer.Controller
             tournamentService = new TournamentService();
         }
 
+        public async Task<List<Tournament>> GetAllTournaments()
+        {
+            return await tournamentService.GetAllTournaments();
+        }
         public async Task<Tournament> GetTournamentById(int id)
         {
             return await tournamentService.GetTournamentById(id);
