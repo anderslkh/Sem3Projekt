@@ -36,7 +36,8 @@ namespace WebAPI.Managers
 
 		    return foundList;
 	    }
-	    public bool CreatePerson(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
+
+	    public bool CreateItem(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
 		    bool result = false;
 		    Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
 		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
@@ -49,5 +50,22 @@ namespace WebAPI.Managers
 
 		    return result;
 	    }
-	}
+
+        public bool CreateItem(Person person)
+        {
+			bool res = false;
+
+			PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
+            try
+            {
+				res = personDao.CreatePerson(person);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+			return res;
+        }
+    }
 }

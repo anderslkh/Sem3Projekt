@@ -13,7 +13,6 @@ namespace WebAPI.Controllers {
 		[Route("api/[controller]")]
 		public IActionResult Index()
 		{
-
 			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
 			List<Person> foundList = personManager.GetAllItems();
 			if (foundList.Any())
@@ -46,12 +45,13 @@ namespace WebAPI.Controllers {
 		// POST: PersonsController/Create
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
+		public ActionResult Create(Person person) {
+			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
+            if (person != null)
+            {
+				return Ok(personManager.CreateItem(person));
 			}
+			return NotFound();
 		}
 
 		// GET: PersonsController/Edit/5
