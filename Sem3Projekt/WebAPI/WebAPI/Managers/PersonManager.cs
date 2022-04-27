@@ -37,20 +37,20 @@ namespace WebAPI.Managers
 		    return foundList;
 	    }
 
-	    public bool CreateItem(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
-		    bool result = false;
-		    Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
-		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
-		    try {
-			    result = personDao.CreatePerson(createPerson);
-		    } catch (Exception e) {
-			    Console.WriteLine(e);
-			    throw;
-		    }
+	    //public bool CreateItem(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
+		   // bool result = false;
+		   // Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
+		   // PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
+		   // try {
+			  //  result = personDao.CreateItem(createPerson);
+		   // } catch (Exception e) {
+			  //  Console.WriteLine(e);
+			  //  throw;
+		   // }
 
-		    return result;
-	    }
-
+		   // return result;
+	    //}
+			
         public bool CreateItem(Person person)
         {
 			bool res = false;
@@ -58,7 +58,43 @@ namespace WebAPI.Managers
 			PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
             try
             {
-				res = personDao.CreatePerson(person);
+				res = personDao.CreateItem(person);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+			return res;
+        }
+
+        public bool UpdateItem(Person person)
+        {
+			bool res = false;
+
+			PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
+
+            try
+            {
+				res = personDao.UpdateItem(person);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
+			return res;
+        }
+
+        public bool DeleteItem(string email)
+        {
+			bool res = false;
+
+			PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
+            try
+            {
+				res = personDao.DeleteItem(email);
             }
             catch (Exception)
             {

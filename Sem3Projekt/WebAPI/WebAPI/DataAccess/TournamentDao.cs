@@ -58,5 +58,67 @@ namespace WebAPI.DataAccess {
 			}
 			return foundTournaments;
 		}
-	}
+
+        public bool CreateItem(Tournament tournament)
+        {
+            bool res = false;
+            string sqlQuery = "INSERT INTO Tournament (TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants) VALUES (@TournamentName, @TimeOfEvent, @RegistrationDeadline, @MinParticipants, @MaxParticipants)";
+            var param = new
+            {
+                TournamentName = tournament.TournamentName,
+                TimeOfEvent = tournament.TimeOfEvent,
+                RegistrationDeadline = tournament.RegistrationDeadline,
+                MinParticipants = tournament.MinParticipants,
+                MaxParticipants = tournament.MaxParticipants
+            };
+            using (_conn)
+            {
+                if (_conn.Execute(sqlQuery, param) > 0)
+                {
+                    res = true;
+                }
+            }
+            return res;
+        }
+
+        public bool UpdateItem(Tournament tournament)
+        {
+            bool res = false;
+            string sqlQuery = "UPDATE Tournament SET TournamentName = @TournamentName, TimeOfEvent = @TimeOfEvent, RegistrationDeadline = @RegistrationDeadline, MinParticipants = @MinParticipants, MaxParticipants = @MaxParticipants WHERE TournamentId = @TournamentId";
+            var param = new
+            {
+                TournamentName = tournament.TournamentName,
+                TimeOfEvent = tournament.TimeOfEvent,
+                RegistrationDeadline = tournament.RegistrationDeadline,
+                MinParticipants = tournament.MinParticipants,
+                MaxParticipants = tournament.MaxParticipants
+            };
+            using (_conn)
+            {
+                if (_conn.Execute(sqlQuery, param) == 1)
+                {
+                    res = true;
+                }
+            }
+
+            return res;
+        }
+
+        public bool DeleteItem(int tournamentId)
+        {
+            bool res = false;
+            string sqlQuery = "DELETE FROM Tournament WHERE TournamentId = @TournamentId";
+            var param = new { TournamentId = tournamentId };
+
+            using (_conn)
+            {
+                if (_conn.Execute(sqlQuery, param) == 1)
+                {
+                    res = true;
+                }
+                
+            }
+            return res;
+        }
+    }
 }

@@ -64,5 +64,42 @@ namespace WebAPI.DataAccess
 			}
 			return result;
         }
+
+        public bool UpdateItem(Person person)
+        {
+            bool res = false;
+            string sqlQuery = "UPDATE Person SET FirstName = @FirstName, LastName = @LastName, NickName = @NickName, BirthDate = @BirthDate WHERE Email = @Email";
+            var param = new
+            {
+                FirstName = person.firstName,
+                LastName = person.lastName,
+                NickName = person.nickName,
+                BirthDate = person.birthDate,
+                Email = person.email
+            };
+            using (_conn)
+            {
+                if (_conn.Execute(sqlQuery, param) == 1) 
+                {
+                    res = true;
+                }
+            }
+            return res;
+        }
+
+        public bool DeleteItem(string email)
+        {
+            bool res = false;
+            string sqlQuery = "DELETE FROM Person WHERE Email = @Email";
+            var param = new { Email = email };
+            using (_conn)
+            {
+                if (_conn.Execute(sqlQuery, param) == 1) 
+                {
+                    res = true;
+                }
+            }
+            return res;
+        }
     }
 }
