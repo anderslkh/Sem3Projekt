@@ -39,4 +39,3 @@ CREATE table PersonInTournament(
 	TournamentId int foreign key references Tournament(TournamentId),
 	primary key(PersonEmail, TournamentId)
 );
-
