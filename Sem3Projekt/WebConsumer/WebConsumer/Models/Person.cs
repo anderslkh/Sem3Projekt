@@ -1,20 +1,27 @@
-﻿namespace WebConsumer.Models
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace WebConsumer.Models
 {
-    public class Person
+    public class Person : IdentityUser
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
+        public string FirstName { get; set; }
+        public string Password { get; set; }
+        public string LastName { get; set; }
         public string nickName { get; set; }
-        public DateTime birthDate { get; set; }
-        public string email { get; }
+        public DateTime BirthDate { get; set; }
 
         public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
+            FirstName = firstName;
+            LastName = lastName;
             this.nickName = nickName;
-            this.birthDate = birthDate;
-            this.email = email;
+            BirthDate = birthDate;
+            Email = email;
+        }
+
+        public Person(string userName, string password) : base(userName)
+        {
+            Password = password;
         }
     }
 }

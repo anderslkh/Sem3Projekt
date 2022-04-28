@@ -1,0 +1,43 @@
+﻿@model WebConsumer.Models.Person
+
+@{
+    ViewData["Title"] = "Login";
+}
+
+<h1>Index</h1>
+
+<h4>Person</h4>
+<hr />
+<div class="container border" style="padding:20px">
+    <form asp-action="Login">
+        <div class="form_group row">
+            <div class="col-2">
+                <label>Username:</label>
+            </div>
+            <div class="col-5">
+                <input type="text" name="username" class="form-control" />
+            </div>
+        </div>
+        <div class="form_group row">
+            <div class="col-2">
+                <label>Password:</label>
+            </div>
+            <div class="col-5">
+                <input type="text" name="password" class="form-control" />
+            </div>
+        </div>
+        <div class="form_group row">
+            <div class="col-2">
+                <input type="submit" value="Login" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div>
+    <a asp-action="Login">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

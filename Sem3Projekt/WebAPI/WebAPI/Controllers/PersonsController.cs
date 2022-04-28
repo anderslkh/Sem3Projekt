@@ -24,7 +24,7 @@ namespace WebAPI.Controllers {
 		}
 
 		// GET: api/persons/5
-		[Authorize]
+		[Authorize(Roles = "Admin")]
 		[Route("api/[controller]/{email}")]
 		public IActionResult Details(string email)
 		{

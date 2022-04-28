@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebConsumer.Models;
 using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
 {
+    [Authorize(Roles = "User")]
     public class PersonsController : Controller
     {
         // GET: PersonsController

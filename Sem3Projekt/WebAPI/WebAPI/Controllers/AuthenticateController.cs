@@ -1,10 +1,13 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using System.Transactions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using WebAPI.Data;
+using WebAPI.Managers;
+using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
@@ -14,6 +17,7 @@ namespace WebAPI.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
         private readonly IConfiguration _configuration;
+        private AuthenticateManager authenticateManager;
 
         public AuthenticateController(
             UserManager<IdentityUser> userManager,
@@ -23,13 +27,14 @@ namespace WebAPI.Controllers
             _userManager = userManager;
             _roleManager = roleManager;
             _configuration = configuration;
+            authenticateManager = new AuthenticateManager(_userManager, _roleManager, _configuration);
         }
 
         [HttpPost]
         [Route("login")]
-        public async Task<IActionResult> Login([FromBody] LoginModel model)
+        public async Task<IActionResult> Login([FromBody]Person model)
         {
-            var user = await _userManager.FindByNameAsync(model.Username);
+            var user = await _userManager.FindByNameAsync(model.UserName);
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
                 var userRoles = await _userManager.GetRolesAsync(user);
@@ -37,6 +42,7 @@ namespace WebAPI.Controllers
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.UserName),
+                    new Claim(ClaimTypes.Email, user.Email),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
@@ -60,20 +66,10 @@ namespace WebAPI.Controllers
         [Route("register")]
         public async Task<IActionResult> Register([FromBody] RegisterModel model)
         {
-            var userExists = await _userManager.FindByNameAsync(model.Username);
-            if (userExists != null)
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User already exists!" });
-
-            IdentityUser user = new()
+            if (!authenticateManager.Register(model).Result)
             {
-                Email = model.Email,
-                SecurityStamp = Guid.NewGuid().ToString(),
-                UserName = model.Username
-            };
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (!result.Succeeded)
                 return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-
+            }
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 

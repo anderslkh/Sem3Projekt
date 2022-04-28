@@ -41,15 +41,18 @@ namespace WebAPI.DataAccess
 	        return foundList;
         }
         public bool CreatePerson(Person person) {
+
+
+
 	        bool result = false;
 	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, NickName, BirthDate, Email) " +
 	                          "VALUES (@FirstName, @LastName, @NickName, @BirthDate, @Email)";
 	        var param = new {
-		        FirstName = person.firstName,
-		        LastName = person.lastName,
-		        NickName = person.nickName,
-		        BirthDate = person.birthDate,
-		        Email = person.email
+		        FirstName = person.FirstName,
+		        LastName = person.LastName,
+		        NickName = person.NickName,
+		        BirthDate = person.BirthDate,
+		        Email = person.Email
 	        };
 	        using (_conn) {
 		        if (_conn.Execute(sqlQuery, param) > 0) {
@@ -58,5 +61,5 @@ namespace WebAPI.DataAccess
 	        }
 	        return result;
         }
-	}
+    }
 }

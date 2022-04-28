@@ -12,6 +12,7 @@ namespace WebConsumer.Controllers
         // GET: TournamentsController
         public async Task<IActionResult> Index()
         {
+
 	        IService<Tournament, int> tournamentService = ServiceFactory.CreateTournamentService();
 	        return View(await tournamentService.GetAllItems());
         }

@@ -36,12 +36,11 @@ namespace WebAPI.Managers
 
 		    return foundList;
 	    }
-	    public bool CreatePerson(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
+	    public bool CreateItem(Person person) {
 		    bool result = false;
-		    Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
 		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
 		    try {
-			    result = personDao.CreatePerson(createPerson);
+			    result = personDao.CreatePerson(person);
 		    } catch (Exception e) {
 			    Console.WriteLine(e);
 			    throw;

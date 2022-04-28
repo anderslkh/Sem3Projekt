@@ -44,7 +44,7 @@ namespace WebAPI.Controllers {
             IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
             if (manager is TournamentManager tournamentManager)
             {
-                return Ok(tournamentManager.EnrollInTournament(inPerson.email, tournamentId));
+                return Ok(tournamentManager.EnrollInTournament(inPerson.Email, tournamentId));
             }
             return NotFound();
 			// another error code
