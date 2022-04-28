@@ -26,11 +26,11 @@ namespace WebAPI.DataAccess {
 			return foundTournament;
 		}
     
-     public bool EnrollInTournament(string personEmail, int tournamentId)
+        public bool EnrollInTournament(string personEmail, int tournamentId)
         {
             bool result = false;
             string sqlQuery = "INSERT INTO PersonInTournament (PersonEmail, TournamentId) " +
-                              "VALUES (@PersonEmail, @TournamentId)";
+            "VALUES (@PersonEmail, @TournamentId)";
             var param = new
             {
                 PersonEmail = personEmail,
@@ -42,8 +42,7 @@ namespace WebAPI.DataAccess {
                 {
                     result = true;
                 }
-
-                return result;
+            return result;
             }
         }
 
@@ -51,7 +50,6 @@ namespace WebAPI.DataAccess {
 		{
 			List<Tournament> foundTournaments = null;
 			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants FROM Tournament";
-
 			using (_conn)
 			{
 				foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
@@ -100,7 +98,6 @@ namespace WebAPI.DataAccess {
                     res = true;
                 }
             }
-
             return res;
         }
 
@@ -116,7 +113,6 @@ namespace WebAPI.DataAccess {
                 {
                     res = true;
                 }
-                
             }
             return res;
         }
