@@ -2,19 +2,19 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using WebConsumer.Models;
-using WebConsumer.Models.LoginModels;
 using WebConsumer.Service;
 
 namespace WebConsumer.Controllers {
-    public class LoginController : Controller {
+    public class LoginController : Controller
+    {
 
         [HttpGet]
         [Route("[controller]")]
-        public IActionResult Login() {
+        public IActionResult Login()
+        {
             return View();
         }
 
@@ -33,15 +33,20 @@ namespace WebConsumer.Controllers {
                 {
                     JObject ResultObject = JObject.Parse(result);
                     JToken jt = ResultObject["token"];
-                    string TokenString = (string)jt;
+                    string TokenString = (string) jt;
 
                     JwtSecurityToken jwtToken = new JwtSecurityToken(TokenString);
 
-                    var claimsIdentity = new ClaimsIdentity(jwtToken.Claims, "Login");
-                    
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                        new ClaimsPrincipal(claimsIdentity));
+                    var claimsIdentity = new ClaimsIdentity(jwtToken.Claims,
+                        CookieAuthenticationDefaults.AuthenticationScheme);
 
+                    var authProperties = new AuthenticationProperties
+                    {
+
+                    };
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
+                        new ClaimsPrincipal(claimsIdentity), authProperties);
                 }
             }
             catch (Exception e)
@@ -49,8 +54,16 @@ namespace WebConsumer.Controllers {
                 Console.WriteLine(e);
                 throw;
             }
-            
+
             return View();
+        }
+
+        [HttpGet]
+        [Route("Logout")]
+        public async Task<IActionResult> LogOut()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return View("../Home/Index");
         }
     }
 }

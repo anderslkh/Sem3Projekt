@@ -7,16 +7,15 @@ using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
 {
+    [Authorize]
     public class TournamentsController : Controller
     {
         // GET: TournamentsController
         public async Task<IActionResult> Index()
         {
-
-	        IService<Tournament, int> tournamentService = ServiceFactory.CreateTournamentService();
+            IService<Tournament, int> tournamentService = ServiceFactory.CreateTournamentService();
 	        return View(await tournamentService.GetAllItems());
         }
-
         // GET: TournamentsController/Details/5
         [Route ("[controller]/{tournamentId}")]
         public async Task<IActionResult> Details(int tournamentId)

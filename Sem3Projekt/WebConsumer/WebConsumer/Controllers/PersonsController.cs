@@ -6,7 +6,7 @@ using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
 {
-    [Authorize(Roles = "User")]
+    [Authorize]
     public class PersonsController : Controller
     {
         // GET: PersonsController

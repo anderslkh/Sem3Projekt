@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Net.Http.Headers;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using WebConsumer.Models;
@@ -27,7 +28,7 @@ namespace WebConsumer.Service {
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     result = content;
-
+                    _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", content);
                 }
 
             }
