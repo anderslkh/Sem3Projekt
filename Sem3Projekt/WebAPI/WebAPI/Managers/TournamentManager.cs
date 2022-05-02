@@ -23,10 +23,11 @@ namespace WebAPI.Managers {
     public bool EnrollInTournament(string personEmail, int tournamentId)
         {
             bool result = false;
-            IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
-            try
+			IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
+
+			try
             {
-                if (dao is TournamentDao tournamentDao)
+                if (dao is TournamentDao tournamentDao && tournamentDao.CheckTournamentMaxAvailability(tournamentId))
                 {
                     result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
                 }

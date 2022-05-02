@@ -46,6 +46,33 @@ namespace WebAPI.DataAccess {
                 return result;
             }
         }
+	public int GetNoOfParticipants(int tournamentId)
+        {
+			int result = 0;
+			string sqlQuery = "SELECT COUNT(PersonEmail) FROM PersonInTournament WHERE TournamentId = @TournamentId";
+			var param = new {TournamentId = tournamentId};
+			using(_conn)
+            {
+				result = _conn.Execute(sqlQuery, param);
+            }
+			return result;
+        }
+	public bool CheckTournamentMaxAvailability(int tournamentId)
+        {
+			bool result = false;
+			int participantsInTournament = 0;
+			string sqlQuery = "SELECT MaxParticipants FROM Tournament WHERE TournamentId = @TournamentId";
+			var param = new { TournamentId = tournamentId };
+			using (_conn)
+			{
+				participantsInTournament = _conn.QuerySingle<int>(sqlQuery, param);
+			}
+			if ( GetNoOfParticipants(tournamentId) < participantsInTournament)
+            {
+				result = true;
+            }
+			return result;
+		}
 
 		public List<Tournament> GetAllItems()
 		{
