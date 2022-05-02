@@ -7,16 +7,25 @@ namespace WebConsumer.Models
         public string FirstName { get; set; }
         public string Password { get; set; }
         public string LastName { get; set; }
-        public string nickName { get; set; }
         public DateTime BirthDate { get; set; }
 
-        public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
+        public Person(string firstName, string lastName, string userName, DateTime birthDate, string email) : base(userName)
         {
             FirstName = firstName;
             LastName = lastName;
-            this.nickName = nickName;
             BirthDate = birthDate;
             Email = email;
+        }
+
+        public Person(string firstName, string lastName, string userName, DateTime birthDate, string email,
+            string password) : base(userName)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDate = birthDate;
+            Email = email;
+            Password = password;
+
         }
 
         public Person(string userName, string password) : base(userName)

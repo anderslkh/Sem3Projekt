@@ -17,6 +17,7 @@ namespace WebConsumer.Controllers
 	        return View(await tournamentService.GetAllItems());
         }
         // GET: TournamentsController/Details/5
+        [Authorize(Roles = "Admin")]
         [Route ("[controller]/{tournamentId}")]
         public async Task<IActionResult> Details(int tournamentId)
         {

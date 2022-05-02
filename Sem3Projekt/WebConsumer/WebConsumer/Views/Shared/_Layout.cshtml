@@ -1,4 +1,4 @@
-﻿@using WebConsumer.Controllers
+﻿
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -33,14 +33,16 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Persons" asp-action="Index">Persons</a>
                         </li>
                     </ul>
-                    <div align="right">
+                    <partial name="_LoginPartial"/>
+                    @*<div align="right">
                         <li class="btn">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
-                        </li>
-                        <li class="btn">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="LogOut">Logout</a>
-                        </li>
-                    </div>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="Login">Login</a>
+                            </li>
+                            <li class="btn">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Login" asp-action="LogOut">Logout</a>
+                            </li>
+
+                    </div>*@
                 </div>
 
             </div>

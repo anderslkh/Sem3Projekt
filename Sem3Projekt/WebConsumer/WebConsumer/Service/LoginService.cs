@@ -15,6 +15,27 @@ namespace WebConsumer.Service {
             _client = new HttpClient();
         }
 
+        public async Task<int> Register(RegisterModel registerPerson)
+        {
+            string useUrl = $"{restUrl}register";
+            var uri = new Uri(useUrl);
+            int result = -1;
+            try
+            {
+                var response = await _client.PostAsJsonAsync(uri, registerPerson);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = response.Content.ReadAsStringAsync();
+                    result = Int32.Parse(content.Result);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            return result;
+        }
+
         public async Task<string> Login(string username, string password)
         {
             Person newPerson = new Person(username, password);

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using System.Transactions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using WebAPI.Data;
 using WebAPI.Models;
@@ -19,29 +20,26 @@ namespace WebAPI.Managers {
             _configuration = configuration;
         }
 
-        public async Task<bool> Register(RegisterModel model) {
+        // Returns 0 if user exists
+        // Returns -1 if exception is thrown
+        // Returns 1 if succeded
+        public async Task<int> Register(RegisterModel model) {
             IManager<Person, string> _personManager = ManagerFactory.CreatePersonManager();
             Person user = null;
-            bool succeded = false;
+            int succeded = 0;
             try
             {
                 var userExists = await _userManager.FindByNameAsync(model.Username);
-                if (userExists == null) {
-                    user = new() {
-                        Email = model.Email,
-                        SecurityStamp = Guid.NewGuid().ToString(),
-                        UserName = model.Username,
-                        FirstName = model.FirstName,
-                        LastName = model.LastName,
-                        BirthDate = model.BirthDate,
-                        NickName = model.Username
-                    };
-
+                if (userExists == null)
+                {
+                    succeded = -1;
+                    user = new(model.FirstName, model.LastName, model.Username, model.BirthDate, model.Email);
                     var result = await _userManager.CreateAsync(user, model.Password);
-                    
+
                     if (result.Succeeded) {
-                        succeded = _personManager.CreateItem(user);
+                        _personManager.CreateItem(user);
                         await _userManager.AddToRoleAsync(user, "User");
+                        succeded = 1;
                     }
                     else
                     {
@@ -53,7 +51,6 @@ namespace WebAPI.Managers {
             {
                 await _userManager.DeleteAsync(user);
             }
-
             return succeded;
         }
     }

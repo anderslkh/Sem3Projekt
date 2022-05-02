@@ -3,6 +3,5 @@
 		Task<T> GetItem(I item);
 		Task<List<T>>  GetAllItems();
 
-
-	}
+    }
 }

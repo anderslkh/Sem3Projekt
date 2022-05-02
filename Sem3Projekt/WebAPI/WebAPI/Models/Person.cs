@@ -7,18 +7,13 @@ namespace WebAPI.Models
         public string FirstName { get; set; }
         public string Password { get; set; }
         public string LastName { get; set; }
-        public string NickName { get; set; }    
         public DateTime BirthDate { get; set; }
         
 
-        public Person()
-        {
-        }
-        public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
+        public Person(string firstName, string lastName, string userName, DateTime birthDate, string email) : base(userName)
         {
             FirstName = firstName;
             LastName = lastName;
-            NickName = nickName;
             BirthDate = birthDate;
             Email = email;
         }

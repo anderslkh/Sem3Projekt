@@ -41,8 +41,8 @@ namespace WebAPI.Controllers
 
                 var authClaims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(ClaimTypes.Email, user.Email),
+                    new Claim(ClaimTypes.Name, user.UserName),
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
@@ -64,13 +64,9 @@ namespace WebAPI.Controllers
 
         [HttpPost]
         [Route("register")]
-        public async Task<IActionResult> Register([FromBody] RegisterModel model)
+        public async Task<IActionResult> Register([FromBody]RegisterModel model)
         {
-            if (!authenticateManager.Register(model).Result)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, new Response { Status = "Error", Message = "User creation failed! Please check user details and try again." });
-            }
-            return Ok(new Response { Status = "Success", Message = "User created successfully!" });
+            return Ok(authenticateManager.Register(model).Result);
         }
 
         [HttpPost]

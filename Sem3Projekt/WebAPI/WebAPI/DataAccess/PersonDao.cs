@@ -50,7 +50,7 @@ namespace WebAPI.DataAccess
 	        var param = new {
 		        FirstName = person.FirstName,
 		        LastName = person.LastName,
-		        NickName = person.NickName,
+		        NickName = person.UserName,
 		        BirthDate = person.BirthDate,
 		        Email = person.Email
 	        };
