@@ -27,7 +27,7 @@ namespace WebAPI.Managers {
 
 			try
             {
-                if (dao is TournamentDao tournamentDao && tournamentDao.CheckTournamentMaxAvailability(tournamentId))
+                if (dao is TournamentDao tournamentDao && tournamentDao.CheckTournamentMaxAvailability(tournamentId) && !tournamentDao.IsParticipant(personEmail, tournamentId))
                 {
                     result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
                 }
