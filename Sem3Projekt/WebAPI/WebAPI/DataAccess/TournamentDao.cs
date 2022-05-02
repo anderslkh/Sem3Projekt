@@ -73,7 +73,6 @@ namespace WebAPI.DataAccess {
             }
 			return result;
 		}
-
 		public List<Tournament> GetAllItems()
 		{
 			List<Tournament> foundTournaments = null;
