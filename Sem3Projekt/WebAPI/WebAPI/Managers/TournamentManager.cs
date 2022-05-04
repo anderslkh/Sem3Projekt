@@ -4,53 +4,67 @@ using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public class TournamentManager : IManager<Tournament, int> {
-		public Tournament GetItemById(int tournamentId)
-		{
+		public Tournament GetItemById(int tournamentId) {
 			Tournament foundTournament = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
-			try
-			{
+			try {
 				foundTournament = tournamentDao.GetItemById(tournamentId);
-			}
-			catch (Exception e)
-			{
+			} catch (Exception e) {
 				throw;
 			}
 
 			return foundTournament;
 		}
-    
-    public bool EnrollInTournament(string personEmail, int tournamentId)
-        {
-            bool result = false;
+
+		public bool EnrollInTournament(string personEmail, int tournamentId) {
+			bool result = false;
 			IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
+			int maxParticipants = 0;
 
-			try
-            {
-                if (dao is TournamentDao tournamentDao && tournamentDao.CheckTournamentMaxAvailability(tournamentId) && !tournamentDao.IsParticipant(personEmail, tournamentId))
-                {
-                    result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
-                }
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+			try {
+				//if (dao is TournamentDao tournamentDao)
+				//{
+				//	ParticipantsInTournament foundParticipantsInTournament = tournamentDao.GetTournamentParticipantsAndMax(tournamentId);
 
-            return result;
-        }
+				//	if (foundParticipantsInTournament.MaxParticipants > foundParticipantsInTournament.ParticipantEmails.Count && !foundParticipantsInTournament.ParticipantEmails.Contains(personEmail))
+				//	{
+				//		tournamentDao.EnrollInTournament(personEmail, tournamentId);
+				//	}
+				//}
 
-		public List<Tournament> GetAllItems()
-		{
+				if (dao is TournamentDao tournamentDao) {
+					maxParticipants = tournamentDao.CheckTournamentMaxAvailability(tournamentId);
+					tournamentDao = (TournamentDao)DaoFactory.CreateTournamentDao();
+					if (maxParticipants > tournamentDao.GetNoOfParticipants(tournamentId))
+					{
+						tournamentDao = (TournamentDao) DaoFactory.CreateTournamentDao();
+						if (!tournamentDao.IsParticipant(personEmail, tournamentId)) {
+							tournamentDao = (TournamentDao)DaoFactory.CreateTournamentDao();
+							result = tournamentDao.EnrollInTournament(personEmail, tournamentId);
+						}
+					}
+					
+
+				}
+
+
+
+
+
+			} catch (Exception e) {
+				throw;
+			}
+
+			return result;
+		}
+
+
+		public List<Tournament> GetAllItems() {
 			List<Tournament> foundTournaments = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
-			try
-			{
+			try {
 				foundTournaments = tournamentDao.GetAllItems();
-			}
-			catch (Exception e)
-			{
-				Console.WriteLine(e);
+			} catch (Exception e) {
 				throw;
 			}
 
