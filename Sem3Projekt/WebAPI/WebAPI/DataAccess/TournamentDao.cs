@@ -1,7 +1,9 @@
 using System.Data.SqlClient;
+using System.Transactions;
 using Dapper;
 using Microsoft.AspNetCore.Identity;
 using WebAPI.Models;
+using IsolationLevel = System.Data.IsolationLevel;
 
 namespace WebAPI.DataAccess {
 	public class TournamentDao : IDao<Tournament, int> {
@@ -31,13 +33,23 @@ namespace WebAPI.DataAccess {
 				PersonEmail = personEmail,
 				TournamentId = tournamentId
 			};
-			using (_conn) {
-				if (_conn.Execute(sqlQuery, param) > 0) {
-					result = true;
-				}
+			using (var transaction = new TransactionScope(
+				TransactionScopeOption.Required,
+				new TransactionOptions { IsolationLevel = (System.Transactions.IsolationLevel) IsolationLevel.RepeatableRead },
+				TransactionScopeAsyncFlowOption.Enabled))
+			{
+				int maxNo = CheckTournamentMaxAvailability(tournamentId);
+				int participants = GetNoOfParticipants(tournamentId);
 
-				return result;
+				if (maxNo > participants)
+				{
+					if (_conn.Execute(sqlQuery, param) > 0) {
+						result = true;
+					}
+				}
+				transaction.Complete();
 			}
+			return result;
 		}
 		public int GetNoOfParticipants(int tournamentId) {
 			int result = 0;
