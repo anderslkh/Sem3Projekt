@@ -34,5 +34,31 @@ namespace TestWebAPI {
             
             transaction.Dispose();
         }
+        public void GetNoOfParticipantsTest()
+        {
+            //Arrange
+            int noOfParticipants;
+
+            //Act
+            noOfParticipants = tournamentDao.GetNoOfParticipants(1);
+
+            //Assert
+            Assert.Equal(1, noOfParticipants);
+            transaction.Dispose();
+
+        }
+
+        public void IsParticipantTest()
+        {
+            //Arrange
+            bool result;
+
+            //Act
+            result = tournamentDao.IsParticipant("bob@bob", 1);
+
+            //Assert
+            Assert.True(result);
+            transaction.Dispose();
+        }
     }
 }
