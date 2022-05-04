@@ -36,15 +36,14 @@ namespace WebConsumer.Service {
             return result;
         }
 
-        public async Task<string> Login(string username, string password)
+        public async Task<string> Login(Person person)
         {
-            Person newPerson = new Person(username, password);
             string useUrl = $"{restUrl}login";
             var uri = new Uri(useUrl);
             string result = "";
             try
             {
-                var response = await _client.PostAsJsonAsync(uri, newPerson);
+                var response = await _client.PostAsJsonAsync(uri, person);
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();

@@ -15,7 +15,7 @@ namespace WebConsumer.Service
         public async Task<Person> GetItem(string email)
         {
             Person foundPerson = null;
-            string useUrl =$"{restUrl}{email}/";
+            string useUrl =$"{restUrl}{email}";
             var uri = new Uri(useUrl);
             try
             {
@@ -43,7 +43,7 @@ namespace WebConsumer.Service
 		        var response = await _client.GetAsync(uri);
 		        if (response.IsSuccessStatusCode) {
 			        var content = await response.Content.ReadAsStringAsync();
-			        foundPersons = JsonConvert.DeserializeObject<List<Person>>(content);
+			        foundPersons = JsonConvert.DeserializeObject<List<Person>>(content).ToList();
 		        }
 	        } catch (Exception ex) {
 		        throw;

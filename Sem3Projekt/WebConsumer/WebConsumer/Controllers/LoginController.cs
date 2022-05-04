@@ -24,7 +24,7 @@ namespace WebConsumer.Controllers {
             LoginService loginService = new LoginService();
             try {
                 Person loginPerson = new Person(username, password);
-                result = await loginService.Login(username, password);
+                result = await loginService.Login(loginPerson);
 
                 if (!string.IsNullOrWhiteSpace(result)) {
                     JObject ResultObject = JObject.Parse(result);

@@ -11,11 +11,11 @@ namespace WebAPI.DataAccess {
 			_conn = conn;
 		}
 
-		public Tournament GetItemById(int tournamentId) {
+		public Tournament GetItemById(int personEmail) {
 			Tournament foundTournament = null;
 			string sqlQuery =
 				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants FROM Tournament WHERE TournamentId = @TournamentId";
-			var param = new { TournamentId = tournamentId };
+			var param = new { TournamentId = personEmail };
 
 			using (_conn) {
 				foundTournament = _conn.QuerySingle<Tournament>(sqlQuery, param);
@@ -60,11 +60,11 @@ namespace WebAPI.DataAccess {
 			return participantsInTournament;
 		}
 
-		//public ParticipantsInTournament GetTournamentParticipantsAndMax(int tournamentId) {
+		//public ParticipantsInTournament GetTournamentParticipantsAndMax(int personEmail) {
 		//	ParticipantsInTournament foundParticipantsInTournament = null;
 		//	string sqlQuery = "SELECT PersonEmail, TournamentId, MaxParticipants FROM ParticipantsInTournament WHERE TournamentId = @TournamentId";
 		//	var param = new {
-		//		TournamentId = tournamentId
+		//		TournamentId = personEmail
 		//	};
 		//	using (_conn) {
 		//		foundParticipantsInTournament = _conn.Query<ParticipantsInTournament, string, ParticipantsInTournament>(sqlQuery,

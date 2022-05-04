@@ -18,6 +18,11 @@ namespace WebAPI.Models
             Email = email;
         }
 
+        public Person()
+        {
+
+        }
+
         public Person(string firstName, string lastName, DateTime birthDate, string email)
         {
             FirstName = firstName;

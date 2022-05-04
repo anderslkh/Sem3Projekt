@@ -7,10 +7,10 @@ using WebAPI.Managers;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-
+	[Route("api/[controller]")]
 	public class PersonsController : Controller {
 		// GET: api/persons
-        [Route("api/[controller]")]
+        [HttpGet]
 		public IActionResult Index()
 		{
             IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
@@ -24,7 +24,7 @@ namespace WebAPI.Controllers {
 		}
 
 		// GET: api/persons/5
-        [Route("api/[controller]/{email}")]
+        [Route("{email}")]
 		public IActionResult Details(string email)
 		{
 

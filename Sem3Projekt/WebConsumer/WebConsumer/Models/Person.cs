@@ -24,6 +24,11 @@ namespace WebConsumer.Models
             Email = email;
         }
 
+        public Person()
+        {
+
+        }
+
         public Person(string firstName, string lastName, string userName, DateTime birthDate, string email,
             string password) : base(userName)
         {

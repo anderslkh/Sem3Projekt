@@ -14,14 +14,14 @@ namespace WebAPI.DataAccess
             _conn = conn;
         }
 
-        public Person GetItemById(string id)
+        public Person GetItemById(string personEmail)
         {
             Person foundPerson = null;
 
             string sqlQuery = 
-	            "SELECT FirstName, LastName, BirthDate, Email FROM Person where Email = @Email";
+	            "SELECT FirstName, LastName, BirthDate, Email, UserName FROM PersonView where Email = @Email";
 
-            var param = new { Email = id };
+            var param = new { Email = personEmail };
             using (_conn)
             {
                 foundPerson = _conn.QuerySingle<Person>(sqlQuery, param);
@@ -32,7 +32,7 @@ namespace WebAPI.DataAccess
         public List<Person> GetAllItems()
         {
 	        List<Person> foundList = null;
-	        string sqlQuery = "SELECT * FROM Person";
+	        string sqlQuery = "SELECT * FROM PersonView";
 
 	        using (_conn)
 	        {
