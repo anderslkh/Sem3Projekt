@@ -17,5 +17,13 @@ namespace WebAPI.Models
             BirthDate = birthDate;
             Email = email;
         }
+
+        public Person(string firstName, string lastName, DateTime birthDate, string email)
+        {
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDate = birthDate;
+            Email = email;
+        }
     }
 }

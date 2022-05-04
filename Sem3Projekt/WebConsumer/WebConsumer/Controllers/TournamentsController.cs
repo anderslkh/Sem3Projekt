@@ -1,3 +1,5 @@
+using System.Net;
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,15 +15,15 @@ namespace WebConsumer.Controllers
         // GET: TournamentsController
         public async Task<IActionResult> Index()
         {
-            IService<Tournament, int> tournamentService = ServiceFactory.CreateTournamentService();
-	        return View(await tournamentService.GetAllItems());
+            TournamentService tournamentService = new TournamentService((User as ClaimsPrincipal).FindFirst("access_token").Value);
+            return View(await tournamentService.GetAllItems());
         }
         // GET: TournamentsController/Details/5
         [Authorize(Roles = "Admin")]
         [Route ("[controller]/{tournamentId}")]
         public async Task<IActionResult> Details(int tournamentId)
         {
-            TournamentService tournamentService = new TournamentService();
+            TournamentService tournamentService = new TournamentService((User as ClaimsPrincipal).FindFirst("access_token").Value);
            
             return View( await tournamentService.GetItem(tournamentId));
         }
@@ -49,7 +51,7 @@ namespace WebConsumer.Controllers
             try {
                 PersonService personService = new PersonService();
                 Person newP = await personService.GetItem(email);
-                TournamentService tournamentService = new TournamentService();
+                TournamentService tournamentService = new TournamentService((User as ClaimsPrincipal).FindFirst("access_token").Value);
                 await tournamentService.EnrollInTournament(tournamentId, newP);
                 return RedirectToAction(nameof(Index));
             }

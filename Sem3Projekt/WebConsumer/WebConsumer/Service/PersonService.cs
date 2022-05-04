@@ -26,9 +26,9 @@ namespace WebConsumer.Service
                     foundPerson = JsonConvert.DeserializeObject<Person>(content);
                 }
             }
-            catch (Exception ex)
+            catch (BadHttpRequestException ex)
             {
-                throw;
+                throw ex;
             }
             return foundPerson;
 

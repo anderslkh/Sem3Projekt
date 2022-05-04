@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 using WebConsumer.Models;
@@ -34,10 +35,12 @@ namespace WebConsumer.Controllers {
 
                     var claimsIdentity = new ClaimsIdentity(jwtToken.Claims,
                         CookieAuthenticationDefaults.AuthenticationScheme);
+                    claimsIdentity.AddClaim(new Claim("access_token", jwtToken.RawData));
 
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity));
+                    return View("../Home/Index");
                 }
             }
             catch (Exception e) {
@@ -68,6 +71,14 @@ namespace WebConsumer.Controllers {
         public async Task<IActionResult> LogOut() {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return RedirectToAction("Login");
+        }
+
+        [HttpGet]
+        [Route("Token")]
+        public async Task<string> GetToken()
+        {
+            var token = (User as ClaimsPrincipal).FindFirst("access_token").Value;
+            return token.ToString();
         }
     }
 }

@@ -22,7 +22,8 @@ namespace WebConsumer.Controllers
         public async Task<IActionResult> Details(string email)
         {
             IService<Person, string> personService = ServiceFactory.CreatePersonService();
-            return View(await personService.GetItem(email));
+            Person foundPerson = await personService.GetItem(email);
+            return View(foundPerson);
         }
 
         // GET: PersonsController/Create

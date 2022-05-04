@@ -28,7 +28,7 @@ namespace WebAPI.Managers
 		    {
 			    foundList = personDao.GetAllItems();
 		    }
-		    catch (Exception e)
+		    catch (BadHttpRequestException e)
 		    {
 			    Console.WriteLine(e);
 			    throw;

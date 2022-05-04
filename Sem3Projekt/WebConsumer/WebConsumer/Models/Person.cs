@@ -17,6 +17,13 @@ namespace WebConsumer.Models
             Email = email;
         }
 
+        public Person(string firstName, string lastName, DateTime birthDate, string email) {
+            FirstName = firstName;
+            LastName = lastName;
+            BirthDate = birthDate;
+            Email = email;
+        }
+
         public Person(string firstName, string lastName, string userName, DateTime birthDate, string email,
             string password) : base(userName)
         {

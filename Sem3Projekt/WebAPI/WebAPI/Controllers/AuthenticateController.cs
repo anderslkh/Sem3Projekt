@@ -11,6 +11,9 @@ using WebAPI.Models;
 
 namespace WebAPI.Controllers
 {
+    /*
+     * AuthenticateController controls the login and registering of new users in the API and Database.
+     */
     [Route("api/[controller]")]
     public class AuthenticateController : Controller
     {
@@ -29,7 +32,11 @@ namespace WebAPI.Controllers
             _configuration = configuration;
             authenticateManager = new AuthenticateManager(_userManager, _roleManager, _configuration);
         }
-
+        /*
+         * The login method provides the JWT based on the user logging in.
+         * The JWT is used to make sure the user doesn't have to login again as long as the JWT is valid.
+         *
+         */
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]Person model)
