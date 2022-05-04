@@ -70,10 +70,5 @@ namespace WebAPI.Managers {
 
 			return foundTournaments;
 		}
-
-        public bool CreateItem(Tournament item)
-        {
-            throw new NotImplementedException();
-        }
-    }
+	}
 }

@@ -1,6 +1,4 @@
-﻿using System.Net;
-using System.Net.Http.Headers;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using WebComsumer.Models;
 using WebConsumer.Models;
 
@@ -14,11 +12,6 @@ namespace WebConsumer.Service
         public TournamentService()
         {
             _client = new HttpClient();
-        }
-        public TournamentService(string token)
-        {
-            _client = new HttpClient();
-            _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
         public async Task<Tournament> GetItem(int tournamentId)
         {
@@ -53,9 +46,8 @@ namespace WebConsumer.Service
                 var content = await response.Content.ReadAsStringAsync();
                 foundTournaments = JsonConvert.DeserializeObject<List<Tournament>>(content);
               }
-            } catch (BadHttpRequestException ex)
-            {
-                throw;
+            } catch (Exception ex) {
+              throw;
             }
             return foundTournaments;
         }

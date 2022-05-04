@@ -1,12 +1,10 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebConsumer.Models;
 using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
 {
-    [Authorize]
     public class PersonsController : Controller
     {
         // GET: PersonsController
@@ -22,8 +20,7 @@ namespace WebConsumer.Controllers
         public async Task<IActionResult> Details(string email)
         {
             IService<Person, string> personService = ServiceFactory.CreatePersonService();
-            Person foundPerson = await personService.GetItem(email);
-            return View(foundPerson);
+            return View(await personService.GetItem(email));
         }
 
         // GET: PersonsController/Create

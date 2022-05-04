@@ -28,7 +28,7 @@ namespace WebAPI.Managers
 		    {
 			    foundList = personDao.GetAllItems();
 		    }
-		    catch (BadHttpRequestException e)
+		    catch (Exception e)
 		    {
 			    Console.WriteLine(e);
 			    throw;
@@ -36,11 +36,12 @@ namespace WebAPI.Managers
 
 		    return foundList;
 	    }
-	    public bool CreateItem(Person person) {
+	    public bool CreatePerson(string firstname, string lastname, string nickname, DateTime birthDate, string email) {
 		    bool result = false;
+		    Person createPerson = new Person(firstname, lastname, nickname, birthDate, email);
 		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
 		    try {
-			    result = personDao.CreatePerson(person);
+			    result = personDao.CreatePerson(createPerson);
 		    } catch (Exception e) {
 			    Console.WriteLine(e);
 			    throw;

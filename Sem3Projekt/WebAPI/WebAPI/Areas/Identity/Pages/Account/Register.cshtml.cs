@@ -54,6 +54,9 @@ namespace WebAPI.Areas.Identity.Pages.Account
         [BindProperty]
         public InputModel Input { get; set; }
 
+        [BindProperty]
+        public PersonInputModel InputPersonModel { get; set; }
+
         /// <summary>
         ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
         ///     directly from your code. This API may change or be removed in future releases.
@@ -100,6 +103,27 @@ namespace WebAPI.Areas.Identity.Pages.Account
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
         }
+        public class PersonInputModel
+        {
+	        [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Firstname")]
+            public string Firstname { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Lastname")]
+            public string Lastname { get; set; }
+            
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "Nickname")]
+            public string Nickname { get; set; }
+            
+            [DataType(DataType.DateTime)]
+            [Display(Name = "Birthdate")]
+            public DateTime Birthdate { get; set; }
+        }
 
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -120,9 +144,14 @@ namespace WebAPI.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
 
+                PersonManager personManager = new PersonManager();
+                
+
 
                 if (result.Succeeded)
                 {
+	                personManager.CreatePerson(InputPersonModel.Firstname, InputPersonModel.Lastname,
+		                InputPersonModel.Nickname, InputPersonModel.Birthdate, Input.Email);
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);

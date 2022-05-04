@@ -27,6 +27,26 @@
                 <label asp-for="Input.ConfirmPassword"></label>
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
+            <div class="form-floating">
+                <input asp-for="InputPersonModel.Firstname" class="form-control" autocomplete="firstname" aria-required="true" />
+                <label asp-for="InputPersonModel.Firstname"></label>
+                <span asp-validation-for="InputPersonModel.Firstname" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="InputPersonModel.Lastname" class="form-control" autocomplete="lastname" aria-required="true" />
+                <label asp-for="InputPersonModel.Lastname"></label>
+                <span asp-validation-for="InputPersonModel.Lastname" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="InputPersonModel.Nickname" class="form-control" autocomplete="nickname" aria-required="true" />
+                <label asp-for="InputPersonModel.Nickname"></label>
+                <span asp-validation-for="InputPersonModel.Nickname" class="text-danger"></span>
+            </div>
+            <div class="form-floating">
+                <input asp-for="InputPersonModel.Birthdate" class="form-control" autocomplete="birthdate" aria-required="true" />
+                <label asp-for="InputPersonModel.Birthdate"></label>
+                <span asp-validation-for="InputPersonModel.Birthdate" class="text-danger"></span>
+            </div>
 
             <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
         </form>

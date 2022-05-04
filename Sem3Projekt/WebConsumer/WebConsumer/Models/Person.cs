@@ -1,43 +1,20 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace WebConsumer.Models
+﻿namespace WebConsumer.Models
 {
-    public class Person : IdentityUser
+    public class Person
     {
-        public string FirstName { get; set; }
-        public string Password { get; set; }
-        public string LastName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string firstName { get; set; }
+        public string lastName { get; set; }
+        public string nickName { get; set; }
+        public DateTime birthDate { get; set; }
+        public string email { get; }
 
-        public Person(string firstName, string lastName, string userName, DateTime birthDate, string email) : base(userName)
+        public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
         {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-            Email = email;
-        }
-
-        public Person(string firstName, string lastName, DateTime birthDate, string email) {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-            Email = email;
-        }
-
-        public Person(string firstName, string lastName, string userName, DateTime birthDate, string email,
-            string password) : base(userName)
-        {
-            FirstName = firstName;
-            LastName = lastName;
-            BirthDate = birthDate;
-            Email = email;
-            Password = password;
-
-        }
-
-        public Person(string userName, string password) : base(userName)
-        {
-            Password = password;
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.nickName = nickName;
+            this.birthDate = birthDate;
+            this.email = email;
         }
     }
 }
