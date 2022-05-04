@@ -7,5 +7,7 @@ namespace WebAPI.Managers
         T GetItemById(I id);
 
         List<T> GetAllItems();
+
+        bool CreateItem(T item);
     }
 }

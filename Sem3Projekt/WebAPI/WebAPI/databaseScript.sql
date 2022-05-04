@@ -10,8 +10,8 @@ CREATE Table Person
 	Email nvarchar(256) primary key not null
 );
 
-Create with AspNetUsers Normalized Email primary key on Person
-use [3.SemesterDb]
+--Create with AspNetUsers Normalized Email primary key on Person
+--use [3.SemesterDb]
 
 ALTER TABLE ASPNetUsers ADD UNIQUE (NormalizedEmail);
 
@@ -39,4 +39,3 @@ CREATE table PersonInTournament(
 	TournamentId int foreign key references Tournament(TournamentId),
 	primary key(PersonEmail, TournamentId)
 );
-

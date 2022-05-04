@@ -10,11 +10,10 @@ namespace WebAPI.Controllers {
 
 	public class PersonsController : Controller {
 		// GET: api/persons
-		[Route("api/[controller]")]
+        [Route("api/[controller]")]
 		public IActionResult Index()
 		{
-
-			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
+            IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
 			List<Person> foundList = personManager.GetAllItems();
 			if (foundList.Any())
 			{
@@ -25,7 +24,7 @@ namespace WebAPI.Controllers {
 		}
 
 		// GET: api/persons/5
-		[Route("api/[controller]/{email}")]
+        [Route("api/[controller]/{email}")]
 		public IActionResult Details(string email)
 		{
 

@@ -9,9 +9,9 @@
 
 <form asp-action="Enroll">
     <div class="form-group">
-        <label asp-for="email" class="control-label"></label>
-        <input asp-for="email" class="form-control" />
-        <span asp-validation-for="email" class="text-danger"></span>
+        <label asp-for="Email" class="control-label"></label>
+        <input asp-for="Email" class="form-control" />
+        <span asp-validation-for="@Context.User.FindFirst( "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress").Value" class="text-danger"></span>
     </div>
 <div class="form-group">
     <input type="submit" value="Enroll" class="btn btn-primary" />

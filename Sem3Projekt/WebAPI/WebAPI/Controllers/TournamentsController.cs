@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -8,9 +9,10 @@ using WebAPI.Managers;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	public class TournamentsController : Controller {
+	[Authorize]
+    public class TournamentsController : Controller {
 		// GET: TournamentsController
-		[Route("api/[controller]")]
+        [Route("api/[controller]")]
 		public IActionResult Index()
 		{
 			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
@@ -44,7 +46,7 @@ namespace WebAPI.Controllers {
             IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
             if (manager is TournamentManager tournamentManager)
             {
-                return Ok(tournamentManager.EnrollInTournament(inPerson.email, tournamentId));
+                return Ok(tournamentManager.EnrollInTournament(inPerson.Email, tournamentId));
             }
             return NotFound();
 			// another error code
