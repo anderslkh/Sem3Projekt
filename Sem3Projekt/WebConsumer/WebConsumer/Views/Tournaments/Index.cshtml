@@ -1,4 +1,4 @@
-﻿@model IEnumerable<WebComsumer.Models.Tournament>
+﻿@model IEnumerable<WebComsumer.Models.TournamentDTO>
 
 @{
     ViewData["Title"] = "Index";
@@ -25,10 +25,13 @@
                 @Html.DisplayNameFor(model => model.RegistrationDeadline)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinParticipants)
+                @Html.DisplayNameFor(model => model.MaxNoOfParticipants)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MaxParticipants)
+                @Html.DisplayNameFor(model => model.MinNoOfParticipants)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EnrolledParticipants)
             </th>
             <th></th>
         </tr>
@@ -49,10 +52,13 @@
                 @Html.DisplayFor(modelItem => item.RegistrationDeadline)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MinParticipants)
+                @Html.DisplayFor(modelItem => item.MinNoOfParticipants)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MaxParticipants)
+                @Html.DisplayFor(modelItem => item.MaxNoOfParticipants)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrolledParticipants)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { tournamentId = item.TournamentId}) |

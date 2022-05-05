@@ -1,12 +1,14 @@
 namespace WebAPI.Models {
   
 	public class Tournament {
-		public int TournamentId { get; }
+		public int TournamentId { get; set; }
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
 		public DateTime RegistrationDeadline { get; set; }
 		public int MinParticipants { get; set; }
 		public int MaxParticipants { get; set; }
+
+		public List<string> ListOfParticipantIds { get; set; } = new List<string>();
 
 
         public Tournament()

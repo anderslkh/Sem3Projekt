@@ -6,6 +6,8 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
 using WebAPI.Managers;
+using WebAPI.Model_DTO_s;
+using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
@@ -15,8 +17,8 @@ namespace WebAPI.Controllers {
         [Route("api/[controller]")]
 		public IActionResult Index()
 		{
-			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			List<Tournament> foundTournaments = tournamentManager.GetAllItems();
+			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+			List<TournamentDTO> foundTournaments = tournamentManager.GetAllItems();
 			if (foundTournaments.Any())
 			{
 				return Ok(foundTournaments.ToJson());
@@ -26,11 +28,11 @@ namespace WebAPI.Controllers {
 		}
 
 		// GET: api/tournaments/5
-		[Route("api/[controller]/{tournamentId}")]
+		[Route("api/[controller]/{TournamentId}")]
 		public IActionResult Details(int tournamentId)
 		{
-			IManager<Tournament, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			Tournament foundTournament = tournamentManager.GetItemById(tournamentId);
+			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+			TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
 			if (foundTournament != null)
 			{
 				return Ok(foundTournament.ToJson());
@@ -39,14 +41,14 @@ namespace WebAPI.Controllers {
 			return NotFound();
 		}
 
-        [Route("api/[controller]/enroll/{tournamentId}")]
+        [Route("api/[controller]/enroll/{TournamentId}")]
 		[HttpPost]
-        public ActionResult Enroll([FromBody]Person inPerson, int tournamentId)
+        public ActionResult Enroll([FromBody]EnrollmentDTO enrollmentDto)
         {
-            IManager<Tournament, int> manager = ManagerFactory.CreateTournamentManager();
+	        IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
             if (manager is TournamentManager tournamentManager)
             {
-                return Ok(tournamentManager.EnrollInTournament(inPerson.Email, tournamentId));
+                return Ok(tournamentManager.EnrollInTournament(enrollmentDto));
             }
             return NotFound();
 			// another error code

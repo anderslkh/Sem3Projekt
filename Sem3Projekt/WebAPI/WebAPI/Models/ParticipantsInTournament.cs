@@ -1,14 +1,19 @@
 ﻿namespace WebAPI.Models {
 	public class ParticipantsInTournament {
-		public int TournamentId { get; }
-		public List<string> ParticipantEmails { get; }
-		public int MaxParticipants { get; }
+		public int TournamentId { get; set; }
+		public List<string> ParticipantEmails { get; set; }
+		public int MaxParticipants { get; set; }
 
-		public ParticipantsInTournament(int tournamentId, List<string> personEmails, int maxParticipants)
+		//public ParticipantsInTournament(int TournamentId, List<string> personEmails, int maxParticipants)
+		//{
+		//	TournamentId = TournamentId;
+		//	ParticipantEmails = personEmails;
+		//	MaxParticipants = maxParticipants;
+		//}
+
+		public ParticipantsInTournament()
 		{
-			TournamentId = tournamentId;
-			ParticipantEmails = personEmails;
-			MaxParticipants = maxParticipants;
+			ParticipantEmails = new List<string>();
 		}
 	}
 }

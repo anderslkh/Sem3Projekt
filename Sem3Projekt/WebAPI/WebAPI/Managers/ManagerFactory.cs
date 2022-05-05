@@ -1,8 +1,9 @@
-﻿using WebAPI.Models;
+﻿using WebAPI.Model_DTO_s;
+using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public static class ManagerFactory {
-		public static IManager<Tournament, int> CreateTournamentManager()
+		public static IManager<TournamentDTO, int> CreateTournamentManager()
 		{
 			return new TournamentManager();
 		}
