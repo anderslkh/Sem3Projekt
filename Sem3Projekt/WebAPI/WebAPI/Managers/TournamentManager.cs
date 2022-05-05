@@ -1,3 +1,4 @@
+using Microsoft.Data.SqlClient;
 using NuGet.Packaging.Rules;
 using WebAPI.DataAccess;
 using WebAPI.Model_DTO_s;
@@ -33,14 +34,19 @@ namespace WebAPI.Managers {
 			int result = -1;
 			IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
 
-			try {
-				if (dao is TournamentDao tournamentDao) {
-					result = tournamentDao.EnrollInTournament(enrollmentDto.TournamentId, enrollmentDto.EnrolledParticipants, enrollmentDto.PersonEmail);
+			try
+			{
+				if (dao is TournamentDao tournamentDao && enrollmentDto.MaxNoOfParticipants > enrollmentDto.EnrolledParticipants)
+				{
+					result = tournamentDao.EnrollInTournament(enrollmentDto.TournamentId,
+						enrollmentDto.EnrolledParticipants, enrollmentDto.PersonEmail);
 				}
-			} catch (Exception e)
+			}
+			catch (Exception e)
 			{
 				result = 0;
 			}
+
 			return result;
 		}
 

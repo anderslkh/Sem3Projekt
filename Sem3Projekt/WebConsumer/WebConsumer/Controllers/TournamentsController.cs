@@ -33,15 +33,17 @@ namespace WebConsumer.Controllers {
 
 		[HttpGet]
 		[Route("[controller]/enroll/{TournamentId}")]
-		public ActionResult Enroll(int tournamentId, int enrolledParticipants) {
-			return View(new EnrollmentDTO(tournamentId, enrolledParticipants, User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress")));
+		public ActionResult Enroll(int tournamentId, int enrolledParticipants, int maxNoOfParticipants)
+		{
+			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, User.FindFirstValue("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress"), maxNoOfParticipants);
+			return View(enrollmentDto);
 		}
 
 		[HttpPost]
 		[Route("[controller]/enroll/{TournamentId}")]
-		public async Task<ActionResult> Enroll(int tournamentId, int enrolledParticipants, string personEmail) {
+		public async Task<ActionResult> Enroll(int tournamentId, int enrolledParticipants, string personEmail, int maxNoOfParticipants) {
 			int result = -1;
-			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail);
+			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxNoOfParticipants);
 			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
 			try
 			{
@@ -60,7 +62,7 @@ namespace WebConsumer.Controllers {
 				}
 				case 0:
 				{
-					return View("ErroResult");
+					return View("AlreadyEnrolled");
 					break;
 				}
 			}
@@ -72,20 +74,6 @@ namespace WebConsumer.Controllers {
 
 		// GET: TournamentsController/Create
 		public ActionResult Create() {
-			return View();
-		}
-
-		public ActionResult NoRoomResult() {
-			return View();
-		}
-
-		public ActionResult ErroResult()
-		{
-			return View();
-		}
-
-		public ActionResult SuccesResult()
-		{
 			return View();
 		}
 

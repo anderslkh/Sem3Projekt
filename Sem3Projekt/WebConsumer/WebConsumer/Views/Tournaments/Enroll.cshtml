@@ -12,6 +12,8 @@
         <input asp-for="TournamentId" class="form-control"  readonly="readonly"/>
         <label asp-for="EnrolledParticipants" class="control-label"></label>
         <input asp-for="EnrolledParticipants" class="form-control"  readonly="readonly"/>
+        <label asp-for="MaxNoOfParticipants" class="control-label"></label>
+        <input asp-for="MaxNoOfParticipants" class="form-control"  readonly="readonly"/>
         <label asp-for="PersonEmail" class="control-label"></label>
         <input asp-for="PersonEmail" class="form-control"  readonly="readonly"/>
     </div>
@@ -19,7 +21,7 @@
     <input type="submit" value="Enroll" class="btn btn-primary" />
 </div>
 </form>
-<div>
+@*<div>
     @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
     <a asp-action="Index">Back to List</a>
-</div>
+</div>*@
