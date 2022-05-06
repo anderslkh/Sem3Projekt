@@ -1,4 +1,4 @@
-﻿@model WebComsumer.Models.Tournament
+﻿@model WebComsumer.Models.TournamentDTO
 
 @{
     ViewData["Title"] = "Details";
@@ -35,16 +35,22 @@
             @Html.DisplayFor(model => model.RegistrationDeadline)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinParticipants)
+            @Html.DisplayNameFor(model => model.MinNoOfParticipants)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinParticipants)
+            @Html.DisplayFor(model => model.MinNoOfParticipants)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxParticipants)
+            @Html.DisplayNameFor(model => model.MaxNoOfParticipants)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxParticipants)
+            @Html.DisplayFor(model => model.MaxNoOfParticipants)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.EnrolledParticipants)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.EnrolledParticipants)
         </dd>
     </dl>
 </div>
@@ -52,5 +58,10 @@
 
     @Html.ActionLink("Edit", "Edit", new {  tournamentId = Model.TournamentId }) |
     <a asp-action="Index">Back to List</a> |
-    @Html.ActionLink("Enroll", "Enroll", new {tournamentId = Model.TournamentId})
+    @Html.ActionLink("Enroll", "Enroll", new
+    {
+        tournamentId = Model.TournamentId, 
+        enrolledParticipants = Model.EnrolledParticipants,
+        maxNoOfParticipants = Model.MaxNoOfParticipants
+    })
 </div>

@@ -1,12 +1,13 @@
 ﻿using System.Net;
 using System.Net.Http.Headers;
+using System.Net.Http.Json;
 using Newtonsoft.Json;
 using WebComsumer.Models;
 using WebConsumer.Models;
 
 namespace WebConsumer.Service
 {
-    public class TournamentService : IService<Tournament, int>
+    public class TournamentService : IService<TournamentDTO, int>
     {
         private readonly HttpClient _client;
         private static readonly string restUrl = "https://localhost:7276/api/tournaments/";
@@ -15,14 +16,14 @@ namespace WebConsumer.Service
         {
             _client = new HttpClient();
         }
-        public TournamentService(string token)
+        public TournamentService(string? token)
         {
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
-        public async Task<Tournament> GetItem(int tournamentId)
+        public async Task<TournamentDTO> GetItem(int tournamentId)
         {
-            Tournament foundTournament = null;
+            TournamentDTO foundTournament = null;
             string useUrl = $"{restUrl}{tournamentId}/";
             var uri = new Uri(useUrl);
             try
@@ -31,7 +32,7 @@ namespace WebConsumer.Service
                 if (response.IsSuccessStatusCode)
                 {
                     var content = await response.Content.ReadAsStringAsync();
-                    foundTournament = JsonConvert.DeserializeObject<Tournament>(content);
+                    foundTournament = JsonConvert.DeserializeObject<TournamentDTO>(content);
                 }
             }
             catch (Exception ex)
@@ -42,37 +43,41 @@ namespace WebConsumer.Service
 
         }
 
-        public async Task<List<Tournament>> GetAllItems()
+        public async Task<List<TournamentDTO>> GetAllItems()
         {
-            List<Tournament> foundTournaments = null;
+            List<TournamentDTO> foundTournaments = null;
             string useUrl = $"{restUrl}";
             var uri = new Uri(useUrl);
             try {
               var response = await _client.GetAsync(uri);
               if (response.IsSuccessStatusCode) {
                 var content = await response.Content.ReadAsStringAsync();
-                foundTournaments = JsonConvert.DeserializeObject<List<Tournament>>(content);
+                foundTournaments = JsonConvert.DeserializeObject<List<TournamentDTO>>(content);
               }
-            } catch (BadHttpRequestException ex)
+            } catch (Exception e)
             {
                 throw;
             }
             return foundTournaments;
         }
 
-        public async Task<Person> EnrollInTournament(int tournamentId, Person person)
+        public async Task<int> EnrollInTournament(EnrollmentDTO enrollmentDto)
         {
-            string useUrl = $"{restUrl}enroll/{tournamentId}";
+	        int result = -1;
+	        string useUrl = $"{restUrl}enroll/{enrollmentDto.TournamentId}";
             var uri = new Uri(useUrl);
             try
             {
-                var response = await _client.PostAsJsonAsync(uri, person);
+	            
+                var response = await _client.PostAsJsonAsync(uri, enrollmentDto);
+                result = Int32.Parse(response.Content.ReadAsStringAsync().Result);
+
             }
             catch (Exception)
             {
                 throw;
             }
-            return person;
+            return result;
         }
     }
 

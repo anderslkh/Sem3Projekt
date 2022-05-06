@@ -45,12 +45,11 @@ namespace WebAPI.DataAccess
 
 
 	        bool result = false;
-	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, NickName, BirthDate, Email) " +
-	                          "VALUES (@FirstName, @LastName, @UserName, @BirthDate, @Email)";
+	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, BirthDate, Email) " +
+	                          "VALUES (@FirstName, @LastName, @BirthDate, @Email)";
 	        var param = new {
 		        FirstName = person.FirstName,
 		        LastName = person.LastName,
-		        UserName = person.UserName,
 		        BirthDate = person.BirthDate,
 		        Email = person.Email
 	        };
