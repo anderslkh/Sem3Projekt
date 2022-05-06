@@ -43,13 +43,7 @@ namespace WebAPI.DataAccess {
 			int result = -1;
 			string sqlQuery =
 				"INSERT INTO PersonInTournament (PersonEmail, TournamentId) SELECT * FROM (SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp WHERE NOT EXISTS (SELECT @PersonEmail FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentId)";
-			//"SELECT * FROM (SELECT 'bob@bob' AS PersonEmail, 1 AS TournamentId) AS temp WHERE NOT EXISTS (SELECT 'bob@bob' FROM PersonInTournament WHERE PersonEmail = 'bob@bob')";
-			//string sqlQuery = "INSERT INTO PersonInTournament (PersonEmail, TournamentId) " +
-			//                  "SELECT @PersonEmail AND @TournamentId WHERE NOT EXISTS (" +
-			//                  "SELECT * FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentID)";
-			//string q = "INSERT INTO PersonInTournament (PersonEmail, TournamentId)" +
-			//"SELECT * FROM(SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp" +
-			//"WHERE NOT EXISTS( SELECT @PersonEmail FROM PersonEmail WHERE PersonEmail = @PersonEmail) LIMIT 1"; 
+			
 			var param = new {
 				PersonEmail = personEmail,
 				TournamentId = tournamentId
