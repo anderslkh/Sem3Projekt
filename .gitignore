@@ -348,3 +348,4 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+/Sem3Projekt/WebAPI/TestWebAPI/PersonTest.cs
