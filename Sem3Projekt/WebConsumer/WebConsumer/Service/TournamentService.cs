@@ -2,7 +2,6 @@
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using Newtonsoft.Json;
-using WebComsumer.Models;
 using WebConsumer.Models;
 
 namespace WebConsumer.Service

@@ -1,4 +1,4 @@
-﻿namespace WebComsumer.Models;
+﻿namespace WebConsumer.Models;
 
 public class TournamentDTO {
 	public int TournamentId;

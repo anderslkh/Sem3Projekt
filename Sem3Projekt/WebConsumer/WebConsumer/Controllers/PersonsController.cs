@@ -30,8 +30,7 @@ namespace WebConsumer.Controllers
         }
 
 		//GET: PersonsController/Create
-
-		[Route("create")]
+        [Route("create")]
 		[HttpGet]
 		public ActionResult Create() {
 			return View();

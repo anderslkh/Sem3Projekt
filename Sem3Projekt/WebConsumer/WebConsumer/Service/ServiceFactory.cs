@@ -1,5 +1,4 @@
-﻿using WebComsumer.Models;
-using WebConsumer.Models;
+﻿using WebConsumer.Models;
 
 namespace WebConsumer.Service {
 	public static class ServiceFactory {

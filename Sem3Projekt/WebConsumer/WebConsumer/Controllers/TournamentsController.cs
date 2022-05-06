@@ -3,7 +3,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using WebComsumer.Models;
 using WebConsumer.Models;
 using WebConsumer.Service;
 
@@ -12,26 +11,18 @@ namespace WebConsumer.Controllers {
 	public class TournamentsController : Controller {
 		// GET: TournamentsController
 		public async Task<IActionResult> Index() {
-			TournamentService tournamentService = new TournamentService((User as ClaimsPrincipal).FindFirst("access_token").Value);
+			TournamentService tournamentService = new TournamentService(User.FindFirstValue("access_token"));
 			return View(await tournamentService.GetAllItems());
 		}
 		// GET: TournamentsController/Details/5
 		[Route("[controller]/{TournamentId}")]
 		public async Task<IActionResult> Details(int tournamentId) {
-			TournamentService tournamentService = new TournamentService((User as ClaimsPrincipal).FindFirst("access_token").Value);
+			TournamentService tournamentService = new TournamentService(User.FindFirstValue("access_token"));
 
 			return View(await tournamentService.GetItem(tournamentId));
 		}
 
-		//public ActionResult Enroll()
-		//{
-		//    PersonService personService = new PersonService();
-		//    Person foundPerson = personService.GetPersonByEmail("test@test");
-
-		//    return View();
-		//}
-
-		[HttpGet]
+        [HttpGet]
 		[Route("[controller]/enroll/{TournamentId}")]
 		public ActionResult Enroll(int tournamentId, int enrolledParticipants, int maxNoOfParticipants)
 		{
