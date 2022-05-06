@@ -6,7 +6,7 @@ using WebConsumer.Service;
 
 namespace WebConsumer.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("[controller]")]
     public class PersonsController : Controller
     {

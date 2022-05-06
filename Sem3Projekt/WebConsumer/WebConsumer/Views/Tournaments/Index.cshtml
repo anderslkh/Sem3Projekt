@@ -6,9 +6,6 @@
 
 <h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -61,9 +58,16 @@
                 @Html.DisplayFor(modelItem => item.EnrolledParticipants)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { tournamentId = item.TournamentId}) |
-                @Html.ActionLink("Details", "Details", new { tournamentId = item.TournamentId }) |
-                @Html.ActionLink("Delete", "Delete", new { tournamentId = item.TournamentId })
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Edit", "Edit", new {tournamentId = item.TournamentId});
+                } |
+                @Html.ActionLink("Details", "Details", new {tournamentId = item.TournamentId}) |
+                @if (Context.User.IsInRole("Admin"))
+                {
+                    @Html.ActionLink("Delete", "Delete", new {tournamentId = item.TournamentId});
+                }
+
             </td>
         </tr>
 }

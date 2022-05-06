@@ -23,9 +23,9 @@ namespace WebAPI.Managers {
 					foundTournament.ListOfParticipantIds.Count);
 			}
 			catch (Exception e)
-			{
-				throw;
-			}
+            {
+                throw;
+            }
 
 			return tournamentToTransfer;
 		}
