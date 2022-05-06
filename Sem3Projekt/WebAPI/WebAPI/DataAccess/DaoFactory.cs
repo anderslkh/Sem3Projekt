@@ -7,7 +7,7 @@ namespace WebAPI.DataAccess
     public class DaoFactory
     {
 
-	    private static bool isTest = true;
+	    private static bool isTest = false;
         public static IDao<Person, string> CreatePersonDao() 
         {
             return new PersonDao(GetConnection());
@@ -22,8 +22,7 @@ namespace WebAPI.DataAccess
         {
 	        if (isTest)
 	        {
-		        return new SqlConnection(
-			        ConfigurationManager.ConnectionStrings["TestConnectionString"].ConnectionString);
+		        return new SqlConnection(ConfigurationManager.ConnectionStrings["TestConnectionString"].ConnectionString);
 	        }
             return new SqlConnection(ConfigurationManager.ConnectionStrings["MainConnectionString"].ConnectionString);
         }

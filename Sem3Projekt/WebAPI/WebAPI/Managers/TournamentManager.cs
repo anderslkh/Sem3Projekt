@@ -46,7 +46,6 @@ namespace WebAPI.Managers {
 			{
 				result = 0;
 			}
-
 			return result;
 		}
 

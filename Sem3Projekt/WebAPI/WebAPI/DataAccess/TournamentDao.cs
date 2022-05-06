@@ -58,7 +58,7 @@ namespace WebAPI.DataAccess {
 			};
 			using (_conn)
 			{
-				
+				//Repeatable Read
 				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
 				{
 					result = _conn.Execute(sqlQueryInsert, param);
