@@ -32,18 +32,23 @@ namespace WebAPI.Managers {
 
 		public int EnrollInTournament(EnrollmentDTO enrollmentDto) {
 			int result = -1;
+			// Creating a data access object to communicate with datasource.
 			IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
-
 			try
 			{
+				// If the created instance of the IDao is a tournamentDao the we cast it to be so,
+				// which gives access to the methods within tournamentDao spicifically.
+				// This is because the method Enroll is not general, it is only relevant for tournaments.
+				// The the if statement also checks if there is room in the tournament, before accessing datasource.
 				if (dao is TournamentDao tournamentDao && enrollmentDto.MaxNoOfParticipants > enrollmentDto.EnrolledParticipants)
 				{
-					result = tournamentDao.EnrollInTournament(enrollmentDto.TournamentId,
-						enrollmentDto.EnrolledParticipants, enrollmentDto.PersonEmail);
+					result = tournamentDao.EnrollInTournament(enrollmentDto);
 				}
 			}
 			catch (Exception e)
 			{
+				// If an exception is thrown by the datasource,
+				// it is because the user trying to enroll, already is enrolled.
 				result = 0;
 			}
 			return result;

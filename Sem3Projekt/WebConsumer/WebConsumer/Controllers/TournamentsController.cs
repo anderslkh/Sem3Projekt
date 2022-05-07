@@ -21,7 +21,13 @@ namespace WebConsumer.Controllers {
 
 			return View(await tournamentService.GetItem(tournamentId));
 		}
-
+		
+		// Get request of enroll with tournament id,
+		// how many already enrolled,
+		// and the maximum amount that can enroll to spicific tournament.
+		// Information is provided from previous View. (Get request of Index in tournamentcontroller, the list of tournaments)
+		//
+		// Get: Tournamentcontroller/enroll/5
         [HttpGet]
 		[Route("[controller]/enroll/{TournamentId}")]
 		public ActionResult Enroll(int tournamentId, int enrolledParticipants, int maxNoOfParticipants)
@@ -30,20 +36,28 @@ namespace WebConsumer.Controllers {
 			return View(enrollmentDto);
 		}
 
+		// Post request of enroll, with tournament id,
+		// how many already enrolled,
+		// the email (id) of the person trying to enroll,
+		// and the maximum amount that can enroll to spicific tournament.
+		// This information is provided from the previous view. (Get request of enroll)
+		//
+		// Post: Tournamentcontroller/enroll/5
 		[HttpPost]
 		[Route("[controller]/enroll/{TournamentId}")]
 		public async Task<ActionResult> Enroll(int tournamentId, int enrolledParticipants, string personEmail, int maxNoOfParticipants) {
 			int result = -1;
+			// Create a Enrollment object which has the needed information to try and enroll a user into a tournament.
 			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxNoOfParticipants);
 			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
-			try
-			{
-				result = await tournamentService.EnrollInTournament(enrollmentDto);
-			}
-			catch
-			{
-			}
-
+			
+			result = await tournamentService.EnrollInTournament(enrollmentDto);
+			
+			// SwitchCase from enrollment attempt.
+			// (1) If the attempt results in a 1, the user is now enrolled in the tournament.
+			// (0) If the attempt results in a 0, the user is already enrolled in the tournament.
+			// (-1) If the attempt results in a -1, the user cannot enrolled since the tournament is allready full.
+			// One of three view are returned, depending on the result.
 			switch (result)
 			{
 				case -1:
