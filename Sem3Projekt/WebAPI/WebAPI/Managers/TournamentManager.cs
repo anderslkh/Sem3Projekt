@@ -1,3 +1,5 @@
+using System.Xml;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using NuGet.Packaging.Rules;
 using WebAPI.DataAccess;
@@ -7,7 +9,8 @@ using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public class TournamentManager : IManager<TournamentDTO, int> {
-		public TournamentDTO GetItemById(int tournamentId) {
+
+        public TournamentDTO GetItemById(int tournamentId) {
 			Tournament foundTournament = null;
 			TournamentDTO tournamentToTransfer = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
@@ -73,9 +76,22 @@ namespace WebAPI.Managers {
 			return tournamentsToTransfer;
 		}
 
-		public bool CreateItem(TournamentDTO item) {
-			throw new NotImplementedException();
-		}
+		public bool CreateItem(TournamentDTO item)
+        {
+            bool result = false;
+            IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
+            try
+            {
+				if(dao is TournamentDao tournamentDao) 
+                    result = tournamentDao.CreateItem(item);
+            }
+            catch (Exception e)
+            {
+				Console.WriteLine(e);
+                throw;
+            }
+            return result;
+        }
 
-	}
+    }
 }

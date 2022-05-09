@@ -24,5 +24,10 @@ namespace DesktopConsumer.Controller
         {
             return await tournamentService.GetTournamentById(id);
         }
+
+        public async Task<int> CreateTournament(Tournament tournament)
+        {
+            return await tournamentService.CreateTournament(tournament);
+        }
     }
 }

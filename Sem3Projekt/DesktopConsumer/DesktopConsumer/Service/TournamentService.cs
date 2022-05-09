@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,27 @@ public class TournamentService
         }
         return foundTournaments;
     }
+
+    public async Task<int> CreateTournament(Tournament tournament)
+    {
+        int result = -1;
+        string useUrl = $"{restUrl}Create";
+        var uri = new Uri(useUrl);
+        try
+        {
+            var response = await _client.PostAsJsonAsync(uri, tournament);
+            if (response.Content.ReadAsStringAsync().IsCompletedSuccessfully)
+            {
+                result = 1;
+            }
+        }
+        catch (Exception ex)
+        {
+            throw;
+        }
+        return result;
+    }
+
     public async Task<Tournament> GetTournamentById(int tournamentId)
     {
         Tournament foundTournament = null;

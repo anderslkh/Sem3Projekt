@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Versioning;
+using WebAPI.Model_DTO_s;
 using WebAPI.Models;
 
 namespace WebAPI.DataAccess {
@@ -90,5 +91,25 @@ namespace WebAPI.DataAccess {
 			}
 			return foundTournaments;
 		}
-	}
+
+        public bool CreateItem(TournamentDTO itemToCreate)
+        {
+			bool result = false;
+            string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants) " +
+                              "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants)";
+            var param = new {
+                TimeOfEvent = itemToCreate.TimeOfEvent,
+				RegistrationDeadline = itemToCreate.RegistrationDeadline,
+				TournamentName = itemToCreate.TournamentName,
+				MinParticipants = itemToCreate.MinNoOfParticipants,
+				MaxParticipants = itemToCreate.MaxNoOfParticipants
+            };
+            using (_conn) {
+                if (_conn.Execute(sqlQuery, param) > 0) {
+                    result = true;
+                }
+            }
+            return result;
+		}
+    }
 }

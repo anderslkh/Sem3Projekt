@@ -10,8 +10,10 @@ using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
-namespace WebAPI.Controllers {
-	[Authorize]
+namespace WebAPI.Controllers
+{
+    //[Authorize]
+
     public class TournamentsController : Controller {
 		// GET: TournamentsController
         [Route("api/[controller]")]
@@ -60,15 +62,20 @@ namespace WebAPI.Controllers {
 		}
 
 		// POST: TournamentsController/Create
+        [Route("api/[controller]/Create")]
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
+        public ActionResult Create([FromBody]TournamentDTO inTournament)
+        {
+            if (inTournament != null)
+            {
+                //TournamentDTO tournamentToCreate = new TournamentDTO(tournament.TournamentName, tournament.TimeOfEvent,
+                //    tournament.RegistrationDeadline, tournament.MaxParticipants, tournament.MinParticipants);
+                IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
+                return Ok(manager.CreateItem(inTournament));
+            }
+
+            return NotFound();
+        }
 
 		// GET: TournamentsController/Edit/5
 		public ActionResult Edit(int id) {

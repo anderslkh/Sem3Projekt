@@ -1,8 +1,10 @@
-﻿namespace WebAPI.DataAccess
+﻿using WebAPI.Model_DTO_s;
+
+namespace WebAPI.DataAccess
 {
     public interface IDao<T, I>
     {
-        T GetItemById(I personEmail);
+        T GetItemById(I identifier);
 
         List<T> GetAllItems();
     }
