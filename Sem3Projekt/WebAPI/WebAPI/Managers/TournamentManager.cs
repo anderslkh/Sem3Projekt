@@ -81,5 +81,22 @@ namespace WebAPI.Managers {
 			throw new NotImplementedException();
 		}
 
+		public bool DeleteItem(int tournamentId)
+		{
+			bool res = false;
+			//TournamentDao tournamentDao = (TournamentDao)DaoFactory.CreateTournamentDao();
+			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+			//IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
+			try
+            {
+				res = tournamentDao.DeleteItem(tournamentId);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+			return res;
+		}
 	}
 }

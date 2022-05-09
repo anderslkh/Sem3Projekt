@@ -60,5 +60,10 @@ namespace WebAPI.DataAccess
 	        }
 	        return result;
         }
+
+        public bool DeleteItem(string id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

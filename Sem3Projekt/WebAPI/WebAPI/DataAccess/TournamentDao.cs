@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using NuGet.Versioning;
 using WebAPI.Models;
 using WebAPI.ModelDTOs;
+using System.Transactions;
 
 namespace WebAPI.DataAccess {
 	public class TournamentDao : IDao<Tournament, int> 
@@ -117,6 +118,30 @@ namespace WebAPI.DataAccess {
 
 			}
 			return foundTournaments;
+		}
+
+		public bool DeleteItem(int tournamentId)
+		{
+			bool res = false;
+			string sqlQueryJoinTable = "DELETE FROM PersonInTournament WHERE TournamentId = @TournamentId";
+			string sqlQuery = "DELETE FROM Tournament WHERE TournamentId = @TournamentId";
+			var param = new { TournamentId = tournamentId };
+			using (TransactionScope scope = new TransactionScope())
+            {
+				using (_conn)
+				{
+
+					_conn.Execute(sqlQueryJoinTable, param);
+					if (_conn.Execute(sqlQuery, param) == 1)
+					{
+						res = true;
+					}
+
+				}
+
+				scope.Complete();
+			}
+			return res;
 		}
 	}
 }
