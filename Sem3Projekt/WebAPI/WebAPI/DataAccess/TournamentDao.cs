@@ -4,6 +4,7 @@ using Dapper;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Versioning;
 using WebAPI.Models;
+using WebAPI.ModelDTOs;
 
 namespace WebAPI.DataAccess {
 	public class TournamentDao : IDao<Tournament, int> 
@@ -50,14 +51,14 @@ namespace WebAPI.DataAccess {
 			return foundTournament;
 		}
 
-		public int EnrollInTournament(EnrollmentDto enrollmentDto) 
+		public int EnrollInTournament(EnrollmentDTO enrollmentDto) 
 		{
 			int result = -1;
 			// SQL statement to check if the tourament has room to enroll.
 			string sqlQueryCheckAvailable = "SELECT ISNULL((SELECT 1 FROM TournamentInfo " +
 			                                "WHERE TournamentInfo.TournamentId = @TournamentId " +
 			                                "AND (TournamentInfo.EnrolledParticipants >= @EnrolledParticipants) " +
-			                                "AND (TournamentInfo.MaxParticipants > TournamentInfo.EnrolledParticipants)), 0)"
+			                                "AND (TournamentInfo.MaxParticipants > TournamentInfo.EnrolledParticipants)), 0)";
 				//"SELECT ISNULL((SELECT 1 FROM TournamentInfo WHERE TournamentInfo.TournamentId = @TournamentId AND (TournamentInfo.EnrolledParticipants = @EnrolledParticipants)), 0)";
 
 			// SQL statement to insert (Enroll) the user into the tournament, if the user does NOT already exist in the tournament.
@@ -65,14 +66,14 @@ namespace WebAPI.DataAccess {
 				"INSERT INTO PersonInTournament (PersonEmail, TournamentId) SELECT * FROM (SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp WHERE NOT EXISTS (SELECT @PersonEmail FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentId)";
 			var checkParam = new
 			{
-				TournamentId = enrollmentDto.tournamentId,
-				EnrolledParticipants = enrollmentDto.enrolledParticipants
+				TournamentId = enrollmentDto.TournamentId,
+				EnrolledParticipants = enrollmentDto.EnrolledParticipants
 			};
 
 			var param = new 
 			{
-				PersonEmail = enrollmentDto.personEmail,
-				TournamentId = enrollmentDto.tournamentId,
+				PersonEmail = enrollmentDto.PersonEmail,
+				TournamentId = enrollmentDto.TournamentId,
 			};
 			using (_conn)
 			{
@@ -80,7 +81,7 @@ namespace WebAPI.DataAccess {
 				// has changed since the user retrieved the tournament information.
 				// Is false if the actual number of enrolled participants are less than max,
 				// and less than or equal to what the user recieved.
-				if (_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
+				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
 				{
 					result = _conn.Execute(sqlQueryInsert, param);
 				}

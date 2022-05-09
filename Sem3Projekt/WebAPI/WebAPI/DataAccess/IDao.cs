@@ -2,7 +2,7 @@
 {
     public interface IDao<T, I>
     {
-        T GetItemById(I personEmail);
+        T GetItemById(I itemId);
 
         List<T> GetAllItems();
     }
