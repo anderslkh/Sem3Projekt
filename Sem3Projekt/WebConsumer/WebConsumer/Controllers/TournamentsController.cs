@@ -70,9 +70,14 @@ namespace WebConsumer.Controllers {
 					return View("AlreadyEnrolled");
 					break;
 				}
+				default:
+				{
+					return View("SuccesResult");
+					break;
+				}
 			}
 
-			return View("SuccesResult");
+			
 		}
 
 		

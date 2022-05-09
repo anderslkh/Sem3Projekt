@@ -76,12 +76,11 @@ namespace WebAPI.DataAccess {
 			};
 			using (_conn)
 			{
-				// Repeatable Read
 				// The if statement checks if the number of enrolled participants in the tournament
 				// has changed since the user retrieved the tournament information.
 				// Is false if the actual number of enrolled participants are less than max,
 				// and less than or equal to what the user recieved.
-				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
+				if (_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
 				{
 					result = _conn.Execute(sqlQueryInsert, param);
 				}

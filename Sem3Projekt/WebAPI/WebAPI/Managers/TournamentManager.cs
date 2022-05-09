@@ -36,7 +36,7 @@ namespace WebAPI.Managers {
 			IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
 			try
 			{
-				// If the created instance of the IDao is a tournamentDao the we cast it to be so,
+				// If the created instance of the IDao is a tournamentDao then it's cast to be so,
 				// which gives access to the methods within tournamentDao spicifically.
 				// This is because the method Enroll is not general, it is only relevant for tournaments.
 				// The the if statement also checks if there is room in the tournament, before accessing datasource.
