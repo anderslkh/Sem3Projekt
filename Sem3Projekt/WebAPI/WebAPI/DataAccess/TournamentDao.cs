@@ -76,16 +76,27 @@ namespace WebAPI.DataAccess {
 				PersonEmail = enrollmentDto.PersonEmail,
 				TournamentId = enrollmentDto.TournamentId,
 			};
-			using (_conn)
+			var transactionOptions = new TransactionOptions();
+            transactionOptions.IsolationLevel = IsolationLevel.RepeatableRead;
+            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
 			{
-				// The if statement checks if the number of enrolled participants in the tournament
-				// has changed since the user retrieved the tournament information.
-				// Is false if the actual number of enrolled participants are less than max,
-				// and less than or equal to what the user recieved.
-				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
+				using (_conn)
 				{
-					result = _conn.Execute(sqlQueryInsert, param);
+					// The if statement checks if the number of enrolled participants in the tournament
+					// has changed since the user retrieved the tournament information.
+					// Is false if the actual number of enrolled participants are less than max,
+					// and less than or equal to what the user recieved.
+					int check = (int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam);
+					if (check == 1)
+					{
+						result = _conn.Execute(sqlQueryInsert, param);
+					}
+                    else
+                    {
+						throw new Exception();
+                    }
 				}
+				scope.Complete();
 			}
 			return result;
 		}
@@ -127,7 +138,7 @@ namespace WebAPI.DataAccess {
 			string sqlQuery = "DELETE FROM Tournament WHERE TournamentId = @TournamentId";
 			var param = new { TournamentId = tournamentId };
 			var transactionOptions = new TransactionOptions();
-			transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead;
+			transactionOptions.IsolationLevel = IsolationLevel.RepeatableRead;
 			using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
 				using (_conn)
