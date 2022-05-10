@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
+using WebAPI.Data;
 using WebAPI.Managers;
 using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
@@ -71,10 +72,11 @@ namespace WebAPI.Controllers
                 //TournamentDTO tournamentToCreate = new TournamentDTO(tournament.TournamentName, tournament.TimeOfEvent,
                 //    tournament.RegistrationDeadline, tournament.MaxParticipants, tournament.MinParticipants);
                 IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
-                return Ok(manager.CreateItem(inTournament));
+                manager.CreateItem(inTournament);
+                return Ok(new Response{Status = "Success", Message = "Tournament successfully created"});
             }
 
-            return NotFound();
+            return BadRequest(new Response{Status = "Error", Message = "Tournament not created"});
         }
 
 		// GET: TournamentsController/Edit/5
