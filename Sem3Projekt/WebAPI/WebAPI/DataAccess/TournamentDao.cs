@@ -126,7 +126,9 @@ namespace WebAPI.DataAccess {
 			string sqlQueryJoinTable = "DELETE FROM PersonInTournament WHERE TournamentId = @TournamentId";
 			string sqlQuery = "DELETE FROM Tournament WHERE TournamentId = @TournamentId";
 			var param = new { TournamentId = tournamentId };
-			using (TransactionScope scope = new TransactionScope())
+			var transactionOptions = new TransactionOptions();
+			transactionOptions.IsolationLevel = System.Transactions.IsolationLevel.RepeatableRead;
+			using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
             {
 				using (_conn)
 				{
