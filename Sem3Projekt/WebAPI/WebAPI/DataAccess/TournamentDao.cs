@@ -76,9 +76,8 @@ namespace WebAPI.DataAccess {
 				PersonEmail = enrollmentDto.PersonEmail,
 				TournamentId = enrollmentDto.TournamentId,
 			};
-			var transactionOptions = new TransactionOptions();
-            transactionOptions.IsolationLevel = IsolationLevel.RepeatableRead;
-            using (TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions))
+			//no isolation level is needed here because nothing is being modified in the DB, only insert is made
+            using (TransactionScope scope = new TransactionScope())
 			{
 				using (_conn)
 				{
