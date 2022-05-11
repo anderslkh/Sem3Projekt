@@ -31,14 +31,13 @@
             this.components = new System.ComponentModel.Container();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.panel1 = new System.Windows.Forms.Panel();
-            this.TeamMnuBtn = new System.Windows.Forms.Button();
+            this.User_LoggedIn = new System.Windows.Forms.Label();
+            this.LoggedIn_Infolbl = new System.Windows.Forms.Label();
             this.UserMnuBtn = new System.Windows.Forms.Button();
             this.TournamentMnuBtn = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.settingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.smtToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rrrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.rrrrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ContentPanel = new System.Windows.Forms.Panel();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
@@ -50,7 +49,8 @@
             // 
             this.panel1.AutoScroll = true;
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
-            this.panel1.Controls.Add(this.TeamMnuBtn);
+            this.panel1.Controls.Add(this.User_LoggedIn);
+            this.panel1.Controls.Add(this.LoggedIn_Infolbl);
             this.panel1.Controls.Add(this.UserMnuBtn);
             this.panel1.Controls.Add(this.TournamentMnuBtn);
             this.panel1.Controls.Add(this.menuStrip1);
@@ -60,16 +60,22 @@
             this.panel1.Size = new System.Drawing.Size(1170, 56);
             this.panel1.TabIndex = 0;
             // 
-            // TeamMnuBtn
+            // User_LoggedIn
             // 
-            this.TeamMnuBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TeamMnuBtn.Location = new System.Drawing.Point(300, 28);
-            this.TeamMnuBtn.Name = "TeamMnuBtn";
-            this.TeamMnuBtn.Size = new System.Drawing.Size(150, 28);
-            this.TeamMnuBtn.TabIndex = 3;
-            this.TeamMnuBtn.Text = "Teammenu";
-            this.TeamMnuBtn.UseVisualStyleBackColor = true;
-            this.TeamMnuBtn.Click += new System.EventHandler(this.TeamMnuBtn_Click);
+            this.User_LoggedIn.AutoSize = true;
+            this.User_LoggedIn.Location = new System.Drawing.Point(1069, 28);
+            this.User_LoggedIn.Name = "User_LoggedIn";
+            this.User_LoggedIn.Size = new System.Drawing.Size(0, 20);
+            this.User_LoggedIn.TabIndex = 5;
+            // 
+            // LoggedIn_Infolbl
+            // 
+            this.LoggedIn_Infolbl.AutoSize = true;
+            this.LoggedIn_Infolbl.Location = new System.Drawing.Point(966, 28);
+            this.LoggedIn_Infolbl.Name = "LoggedIn_Infolbl";
+            this.LoggedIn_Infolbl.Size = new System.Drawing.Size(97, 20);
+            this.LoggedIn_Infolbl.TabIndex = 4;
+            this.LoggedIn_Infolbl.Text = "Logged in as:";
             // 
             // UserMnuBtn
             // 
@@ -110,9 +116,7 @@
             // settingToolStripMenuItem
             // 
             this.settingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.smtToolStripMenuItem,
-            this.rrrToolStripMenuItem,
-            this.rrrrToolStripMenuItem});
+            this.smtToolStripMenuItem});
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
             this.settingToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
             this.settingToolStripMenuItem.Text = "Settings";
@@ -120,20 +124,8 @@
             // smtToolStripMenuItem
             // 
             this.smtToolStripMenuItem.Name = "smtToolStripMenuItem";
-            this.smtToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
-            this.smtToolStripMenuItem.Text = "smt";
-            // 
-            // rrrToolStripMenuItem
-            // 
-            this.rrrToolStripMenuItem.Name = "rrrToolStripMenuItem";
-            this.rrrToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
-            this.rrrToolStripMenuItem.Text = "rrr";
-            // 
-            // rrrrToolStripMenuItem
-            // 
-            this.rrrrToolStripMenuItem.Name = "rrrrToolStripMenuItem";
-            this.rrrrToolStripMenuItem.Size = new System.Drawing.Size(116, 26);
-            this.rrrrToolStripMenuItem.Text = "rrrr";
+            this.smtToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.smtToolStripMenuItem.Text = "Login";
             // 
             // helpToolStripMenuItem
             // 
@@ -151,7 +143,7 @@
             this.ContentPanel.Size = new System.Drawing.Size(1170, 685);
             this.ContentPanel.TabIndex = 0;
             // 
-            // Main
+            // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -160,7 +152,7 @@
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
             this.MinimumSize = new System.Drawing.Size(500, 300);
-            this.Name = "Main";
+            this.Name = "MainWindow";
             this.Padding = new System.Windows.Forms.Padding(6);
             this.Text = "Tournament Manager v1";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
@@ -183,8 +175,8 @@
         private ToolStripMenuItem settingToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem smtToolStripMenuItem;
-        private ToolStripMenuItem rrrToolStripMenuItem;
-        private ToolStripMenuItem rrrrToolStripMenuItem;
         private Button TeamMnuBtn;
+        private Label User_LoggedIn;
+        private Label LoggedIn_Infolbl;
     }
 }

@@ -13,23 +13,34 @@ namespace DesktopComsumer.Models
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
 		public DateTime RegistrationDeadline { get; set; }
-		public int MinParticipants { get; set; }
-		public int MaxParticipants { get; set; }
+		public int MinNoOfParticipants { get; set; }
+		public int MaxNoOfParticipants { get; set; }
 
-		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants)
+        public Tournament()
+        {
+
+        }
+		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minNoOfParticipants, int maxNoOfParticipants)
 		{
 			TournamentId = tournamentId;
 			TournamentName = tournamentName;
 			TimeOfEvent = timeOfEvent;
 			RegistrationDeadline = registrationDeadline;
-			MinParticipants = minParticipants;
-			MaxParticipants = maxParticipants;
+			MinNoOfParticipants = minNoOfParticipants;
+			MaxNoOfParticipants = maxNoOfParticipants;
 		}
 
+        public Tournament(string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minNoOfParticipants, int maxNoOfParticipants) {
+            TournamentName = tournamentName;
+            TimeOfEvent = timeOfEvent;
+            RegistrationDeadline = registrationDeadline;
+            MinNoOfParticipants = minNoOfParticipants;
+            MaxNoOfParticipants = maxNoOfParticipants;
+        }
 
-        public override string ToString()
+		public override string ToString()
         {
-            return $"Navn: {TournamentName} | Minimum deltagere: {MinParticipants} | Maximum deltagere: {MaxParticipants}";
+            return $"Navn: {TournamentName} | Minimum deltagere: {MinNoOfParticipants} | Maximum deltagere: {MaxNoOfParticipants}";
         }
     }
 }

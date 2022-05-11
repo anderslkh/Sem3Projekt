@@ -35,6 +35,10 @@ namespace GUI
             return null;
         }
 
+        public static Form CreateTournamentUI()
+        {
+            return new CreateTournamentContentPanel();
+        }
         public static Form ReadTournamentsUI()
         {
             return new ReadTournamentsContentPanel();

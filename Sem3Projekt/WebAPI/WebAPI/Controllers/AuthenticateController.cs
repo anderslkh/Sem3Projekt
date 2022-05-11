@@ -35,17 +35,19 @@ namespace WebAPI.Controllers
         /*
          * The login method provides the JWT based on the user logging in.
          * The JWT is used to make sure the user doesn't have to login again as long as the JWT is valid.
-         *
          */
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]Person model)
         {
             var user = await _userManager.FindByNameAsync(model.UserName);
+            // If the inserted password matches the hashed password in the database, enter if statement
             if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
             {
+                // Find and assert the associated roles of the user
                 var userRoles = await _userManager.GetRolesAsync(user);
 
+                // Adding a list of claims to be added to the JWT, these are used to identify the user
                 var authClaims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Email, user.Email),
@@ -53,19 +55,23 @@ namespace WebAPI.Controllers
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 
+                // Adding all roles to the same list of claims
                 foreach (var userRole in userRoles)
                 {
                     authClaims.Add(new Claim(ClaimTypes.Role, userRole));
                 }
 
+                // Generating JWT by GetToken() from the list of claims
                 var token = GetToken(authClaims);
 
+                // If succeeded, return valid token and expiration as a statuscode
                 return Ok(new
                 {
                     token = new JwtSecurityTokenHandler().WriteToken(token),
                     expiration = token.ValidTo
                 });
             }
+            // If password or username is invalid, return statuscode 401 Unauthorized
             return Unauthorized();
         }
 
@@ -110,6 +116,7 @@ namespace WebAPI.Controllers
             return Ok(new Response { Status = "Success", Message = "User created successfully!" });
         }
 
+        // Method for generating a JWTSecurityToken with a list of claims
         private JwtSecurityToken GetToken(List<Claim> authClaims)
         {
             var authSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:Secret"]));
