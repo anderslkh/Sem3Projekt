@@ -8,7 +8,7 @@ using WebAPI.ModelDTOs;
 using System.Transactions;
 
 namespace WebAPI.DataAccess {
-	public class TournamentDao : IDao<Tournament, int> 
+	public class TournamentDao : ITournamentDao<EnrollmentDTO> 
 	{
 		private readonly SqlConnection _conn;
 
@@ -160,5 +160,5 @@ namespace WebAPI.DataAccess {
 			}
 			return res;
 		}
-	}
+    }
 }
