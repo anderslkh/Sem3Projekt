@@ -103,15 +103,20 @@ namespace WebAPI.Controllers {
 		
 		[Route("api/[controller]/delete/{TournamentId}")]
 		[HttpDelete]
-		public void Delete(int tournamentId) {
+		public ActionResult Delete(int tournamentId) {
 			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
 			//TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
 			//if (foundTournament != null)
 			//{
 			//	tournamentManager.DeleteItem(tournamentId);
 			//}
-			tournamentManager.DeleteItem(tournamentId);
+			//tournamentManager.DeleteItem(tournamentId);
+			if (tournamentManager.DeleteItem(tournamentId))
+			{
+				return Ok();
+			}
 
+			return NotFound();
 			//if (tournamentManager.DeleteItem(tournamentId))
 			//         {
 			//	return Ok();
