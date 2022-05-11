@@ -1,6 +1,7 @@
 ﻿using System.Net.Http.Headers;
 using DesktopConsumer.Models;
 using System.Net.Http.Json;
+using Newtonsoft.Json.Linq;
 
 namespace DesktopConsumer.Service {
     public class LoginService {
@@ -46,7 +47,12 @@ namespace DesktopConsumer.Service {
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     result = content;
-                    _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", content);
+                    if (!string.IsNullOrWhiteSpace(result)) {
+                        JObject ResultObject = JObject.Parse(result);
+                        JToken jt = ResultObject["token"];
+                        result = (string)jt;
+                    }
+                    _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result);
                 }
 
             }

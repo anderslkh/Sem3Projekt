@@ -39,7 +39,7 @@ namespace WebAPI.Controllers {
 				return Ok(foundTournament.ToJson());
 			}
 
-			return NotFound();
+			return Unauthorized();
 		}
 
         [Route("api/[controller]/enroll/{TournamentId}")]
@@ -51,7 +51,7 @@ namespace WebAPI.Controllers {
             {
                 return Ok(tournamentManager.EnrollInTournament(enrollmentDto));
             }
-            return NotFound();
+            return Unauthorized();
 			// another error code
         }
 

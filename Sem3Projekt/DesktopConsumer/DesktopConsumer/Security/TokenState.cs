@@ -1,3 +1,3 @@
 ﻿namespace DesktopConsumer.Security {
-    public enum TokenState { Unregistered, Registered, Valid, Invalid }
+    public enum TokenState { Valid, Invalid }
 }

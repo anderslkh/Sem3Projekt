@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -17,6 +18,7 @@ namespace DesktopConsumer.GUI
         public MainWindow()
         {
             InitializeComponent();
+            User_LoggedIn.Text = ConfigurationManager.AppSettings.Get("Username");
         }
 
         private void ContentPanel_Resize(object sender, System.EventArgs e)

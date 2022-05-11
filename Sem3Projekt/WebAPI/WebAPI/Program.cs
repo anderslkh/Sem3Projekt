@@ -29,6 +29,7 @@ builder.Services.AddAuthentication(options =>
         ValidateAudience = true,
         ValidAudience = "https://localhost:7276",
         ValidIssuer = "https://localhost:7102",
+        ValidateLifetime = true,
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JWT:Secret"]))
     };
 });

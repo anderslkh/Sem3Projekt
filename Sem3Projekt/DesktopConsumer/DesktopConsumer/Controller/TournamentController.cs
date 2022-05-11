@@ -2,6 +2,7 @@
 using DesktopConsumer.Security;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,9 +20,7 @@ namespace DesktopConsumer.Controller
 
         public async Task<List<Tournament>> GetAllTournaments()
         {
-            TokenState currentState = TokenState.Invalid;
-            string tokenValue = await GetToken(currentState);
-            return await tournamentService.GetAllTournaments(tokenValue);
+            return await tournamentService.GetAllTournaments();
         }
         public async Task<Tournament> GetTournamentById(int id)
         {
@@ -31,14 +30,6 @@ namespace DesktopConsumer.Controller
         public async Task<int> CreateTournament(Tournament tournament)
         {
             return await tournamentService.CreateTournament(tournament);
-        }
-
-        private async Task<string> GetToken(TokenState useState)
-        {
-            //string foundToken = null;
-            TokenManager tokenHelp = new TokenManager();
-            string foundToken = await tokenHelp.GetToken(useState);
-            return foundToken;
         }
     }
 }

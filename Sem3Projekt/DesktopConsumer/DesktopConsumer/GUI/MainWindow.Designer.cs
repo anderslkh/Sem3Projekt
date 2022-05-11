@@ -1,4 +1,6 @@
-﻿namespace DesktopConsumer.GUI
+﻿using System.Configuration;
+
+namespace DesktopConsumer.GUI
 {
     partial class MainWindow
     {

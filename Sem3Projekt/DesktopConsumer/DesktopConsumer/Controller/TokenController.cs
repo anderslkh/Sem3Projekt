@@ -1,19 +1,20 @@
-﻿using System.Collections.Specialized;
-using System.Configuration;
-using DesktopConsumer.Models;
+﻿using DesktopConsumer.Models;
+using DesktopConsumer.Security;
 using DesktopConsumer.Service;
-using DesktopConsumer.Servicelayer;
+using System.Collections.Specialized;
+using System.Configuration;
 
-namespace DesktopConsumer.Security {
-    public class TokenManager {
+namespace DesktopConsumer.Controller
+{
+    public class TokenController
+    {
+        private readonly NameValueCollection _tokenAdminValues;
 
-        private readonly NameValueCollection _tokenAdminValues;          // To hold AppSettings
-
-        public TokenManager() {
+        public TokenController()
+        {
             _tokenAdminValues = ConfigurationManager.AppSettings;
         }
-
-        // Relay for calling appropriate method according to TokenState
+        
         public async Task<string> GetToken(TokenState currentState) {
             string foundToken = null;
             if (currentState == TokenState.Valid) {
@@ -25,7 +26,6 @@ namespace DesktopConsumer.Security {
             return foundToken;
         }
 
-        // Get existing JWT token from configuration (AppSettings)
         private string GetTokenExisting() {
             string foundToken = null;
             if (_tokenAdminValues.HasKeys()) {
@@ -33,8 +33,6 @@ namespace DesktopConsumer.Security {
             }
             return foundToken;
         }
-
-        // Manage retrieval and persistense of new token value
         private async Task<string> GetTokenNew() {
             string foundToken;
 
@@ -42,17 +40,14 @@ namespace DesktopConsumer.Security {
             ApiAccount accountData = GetApiAccountCredentials();
 
             // Access a new Token from service (Web API)
-            TokenServiceAccess tokenServiceAccess = new TokenServiceAccess();
-            foundToken = await tokenServiceAccess.GetNewToken(accountData);
+            LoginService loginService = new LoginService();
+            foundToken = await loginService.Login(accountData);
 
             if (foundToken != null) {
                 AddUpdateAppSettings("JwtToken", foundToken);
             }
-
             return foundToken;
         }
-
-        // Get application credentials from configuration (AppSettings)
         private ApiAccount GetApiAccountCredentials() {
             ApiAccount foundData = new ApiAccount();
 
@@ -66,13 +61,6 @@ namespace DesktopConsumer.Security {
             return foundData;
         }
 
-        // Get the process (project) assembly name (applied as application username) 
-        private string GetApplicationAssemblyName() {
-            string assemblyName = System.Reflection.Assembly.GetCallingAssembly().GetName().Name;
-            return assemblyName;
-        }
-
-        // Store new token value for use in successive request to the service
         void AddUpdateAppSettings(string key, string value) {
             try {
                 var configFile = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
@@ -91,4 +79,3 @@ namespace DesktopConsumer.Security {
         }
     }
 }
-
