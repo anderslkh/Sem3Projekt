@@ -48,5 +48,10 @@ namespace WebAPI.Managers
 
 		    return result;
 	    }
-	}
+
+        public bool DeleteItem(string id)
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

@@ -9,5 +9,7 @@ namespace WebAPI.Managers
         List<T> GetAllItems();
 
         bool CreateItem(T item);
+
+        bool DeleteItem(I id);
     }
 }

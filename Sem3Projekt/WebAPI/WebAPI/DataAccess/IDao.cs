@@ -7,5 +7,7 @@ namespace WebAPI.DataAccess
         T GetItemById(I identifier);
 
         List<T> GetAllItems();
+
+        bool DeleteItem(I id);
     }
 }
