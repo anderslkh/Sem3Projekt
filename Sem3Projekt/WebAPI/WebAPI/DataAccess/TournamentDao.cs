@@ -31,22 +31,24 @@ namespace WebAPI.DataAccess {
 			var param = new { TournamentId = tournamentId };
 			
 			using (_conn)
-			{
+            {
+                foundTournament = _conn.QuerySingle<Tournament>(sqlQueryUser, param);
+
 				// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
-				var tournaments = _conn.Query<Tournament, string, Tournament>(
-					sqlQueryAdmin, (tournament, personEmail) =>
-					{
-						tournament.ListOfParticipantIds.Add(personEmail);
-						return tournament;
-					}, param, splitOn: "PersonEmail");
+				//var tournaments = _conn.Query<Tournament, string, Tournament>(
+				//	sqlQueryUser, (tournament, personEmail) =>
+				//	{
+				//		//tournament.ListOfParticipantIds.Add(personEmail);
+				//		return tournament;
+				//	}, param, splitOn: "PersonEmail");
 
 				// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
-				foundTournament = tournaments.GroupBy(tournament => tournament.TournamentId).Select(g =>
-					{
-						var groupedPost = g.First();
-						groupedPost.ListOfParticipantIds = g.Select(p => p.ListOfParticipantIds.Single()).ToList();
-						return groupedPost;
-					}).First();
+				//foundTournament = tournaments.GroupBy(tournament => tournament.TournamentId).Select(g =>
+				//	{
+				//		var groupedPost = g.First();
+				//		groupedPost.ListOfParticipantIds = g.Select(p => p.ListOfParticipantIds.Single()).ToList();
+				//		return groupedPost;
+				//	}).First();
 				// These are returned as an IEnumerable of tournaments, since there is only one, we take the first from the list.
 			}
 
@@ -111,17 +113,17 @@ namespace WebAPI.DataAccess {
 			List<Tournament> foundTournaments = new List<Tournament>();
 			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo";
             using (_conn) {
-                //var tournaments = _conn.Query<Tournament, string, Tournament>(
-                //    sqlQuery, (tournament, personEmail) => {
-                //        tournament.ListOfParticipantIds.Add(personEmail);
+                //var tournaments = _conn.query<tournament, string, tournament>(
+                //    sqlquery, (tournament, personemail) => {
+                //        tournament.listofparticipantids.add(personemail);
                 //        return tournament;
-                //    }, splitOn: "PersonEmail");
-                //foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group => {
-                //    var groupedTournaments = group.First();
-                //    groupedTournaments.ListOfParticipantIds =
-                //        group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
-                //    return groupedTournaments;
-                //}).ToList();
+                //    }, spliton: "personemail");
+                //foundtournaments = tournaments.groupby(tournament => tournament.tournamentid).select(group => {
+                //    var groupedtournaments = group.first();
+                //    groupedtournaments.listofparticipantids =
+                //        group.select(tournament => tournament.listofparticipantids.single()).tolist();
+                //    return groupedtournaments;
+                //}).tolist();
                 foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
             }
 			return foundTournaments;

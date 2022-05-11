@@ -23,7 +23,7 @@ namespace WebAPI.Managers {
                     foundTournament.RegistrationDeadline,
                     foundTournament.MaxParticipants,
                     foundTournament.MinParticipants,
-                    foundTournament.ListOfParticipantIds.Count);
+                    foundTournament.EnrolledParticipants);
             }
             catch (Exception e)
             {
