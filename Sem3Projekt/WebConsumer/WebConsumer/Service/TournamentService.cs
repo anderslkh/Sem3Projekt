@@ -47,13 +47,16 @@ namespace WebConsumer.Service
             List<TournamentDTO> foundTournaments = null;
             string useUrl = $"{restUrl}";
             var uri = new Uri(useUrl);
-            try {
-              var response = await _client.GetAsync(uri);
-              if (response.IsSuccessStatusCode) {
-                var content = await response.Content.ReadAsStringAsync();
-                foundTournaments = JsonConvert.DeserializeObject<List<TournamentDTO>>(content);
-              }
-            } catch (Exception e)
+            try
+            {
+                var response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    foundTournaments = JsonConvert.DeserializeObject<List<TournamentDTO>>(content);
+                }
+            }
+            catch (Exception e)
             {
                 throw;
             }
@@ -62,15 +65,48 @@ namespace WebConsumer.Service
 
         public async Task<int> EnrollInTournament(EnrollmentDTO enrollmentDto)
         {
-	        int result = -1;
-	        string useUrl = $"{restUrl}enroll/{enrollmentDto.TournamentId}";
+            int result = -1;
+            string useUrl = $"{restUrl}enroll/{enrollmentDto.TournamentId}";
             var uri = new Uri(useUrl);
             try
             {
-	            
+
                 var response = await _client.PostAsJsonAsync(uri, enrollmentDto);
                 result = Int32.Parse(response.Content.ReadAsStringAsync().Result);
 
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            return result;
+        }
+        public async Task<bool> DeleteTournament(int tournamentId)
+        {
+
+            bool result = false;
+            string useUrl = $"{restUrl}{tournamentId}/";
+            var uri = new Uri((useUrl));
+            try
+            {
+                var response = await _client.DeleteAsync(uri);
+                if (response != null)
+                {
+                    _client.DefaultRequestHeaders.Add(useUrl, response.Content.ReadAsStringAsync().Result);
+                    HttpResponseMessage responseMessage = null;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        result = true;
+                    }
+                    else
+                    {
+                        result = false;
+                    }
+                }
+                else
+                {
+                    result = false;
+                }
             }
             catch (Exception)
             {

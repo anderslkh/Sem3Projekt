@@ -65,7 +65,7 @@
                 @Html.ActionLink("Details", "Details", new {tournamentId = item.TournamentId}) |
                 @if (Context.User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Delete", "Delete", new {tournamentId = item.TournamentId});
+                    @Html.ActionLink("DeleteTournament", "Delete", new {tournamentId = item.TournamentId, tournamentName = item.TournamentName});
                 }
 
             </td>
