@@ -20,7 +20,7 @@ namespace WebAPI.DataAccess {
 		public Tournament GetItemById(int tournamentId) 
 		{
 			Tournament foundTournament = null;
-			// SQL statement to get a tournament with emails (Id´s) of participants.
+			// SQL statement to get a tournament with emails (IdÂ´s) of participants.
 			// Not yet implemented.
 			string sqlQueryAdmin =
 				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, PersonEmail FROM TournamentInfoView WHERE TournamentId = @TournamentId";
@@ -80,6 +80,11 @@ namespace WebAPI.DataAccess {
             using (TransactionScope scope = new TransactionScope())
 			{
 				using (_conn)
+				// The if statement checks if the number of enrolled participants in the tournament
+				// has changed since the user retrieved the tournament information.
+				// Is false if the actual number of enrolled participants are less than max,
+				// and less than or equal to what the user recieved.
+				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
 				{
 					// The if statement checks if the number of enrolled participants in the tournament
 					// has changed since the user retrieved the tournament information.

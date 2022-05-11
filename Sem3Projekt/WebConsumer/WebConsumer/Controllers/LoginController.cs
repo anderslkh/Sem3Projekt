@@ -8,25 +8,32 @@ using Newtonsoft.Json.Linq;
 using WebConsumer.Models;
 using WebConsumer.Service;
 
-namespace WebConsumer.Controllers {
-    public class LoginController : Controller {
+namespace WebConsumer.Controllers
+{
+    public class LoginController : Controller
+    {
 
         [HttpGet]
         [Route("[controller]")]
-        public IActionResult Login() {
+        public IActionResult Login()
+        {
             return View();
         }
 
         [HttpPost]
         [Route("[controller]")]
-        public async Task<IActionResult> Login(string username, string password) {
+        
+        public async Task<IActionResult> Login(string username, string password)
+        {
             string result = "";
             LoginService loginService = new LoginService();
-            try {
+            try
+            {
                 Person loginPerson = new Person(username, password);
                 result = await loginService.Login(loginPerson);
 
-                if (!string.IsNullOrWhiteSpace(result)) {
+                if (!string.IsNullOrWhiteSpace(result))
+                {
                     JObject ResultObject = JObject.Parse(result);
                     JToken jt = ResultObject["token"];
                     string TokenString = (string)jt;
@@ -40,10 +47,13 @@ namespace WebConsumer.Controllers {
 
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity));
-                    return View("../Home/Index");
+
+                    return RedirectToAction("Index", "Home");
                 }
+
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 Console.WriteLine(e);
                 throw;
             }
@@ -53,13 +63,15 @@ namespace WebConsumer.Controllers {
 
         [HttpGet]
         [Route("Register")]
-        public async Task<IActionResult> Register() {
+        public async Task<IActionResult> Register()
+        {
             return View();
         }
 
         [HttpPost]
         [Route("Register")]
-        public async Task<IActionResult> Register(string firstname, string lastname, string username, string password, string email, DateTime birthdate) {
+        public async Task<IActionResult> Register(string firstname, string lastname, string username, string password, string email, DateTime birthdate)
+        {
             LoginService loginService = new LoginService();
             RegisterModel registerPerson = new RegisterModel { FirstName = firstname, LastName = lastname, Username = username, BirthDate = birthdate, Email = email, Password = password };
             await loginService.Register(registerPerson);
@@ -68,9 +80,10 @@ namespace WebConsumer.Controllers {
 
         [HttpGet]
         [Route("Logout")]
-        public async Task<IActionResult> LogOut() {
+        public async Task<IActionResult> LogOut()
+        {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index","Home");
         }
 
         [HttpGet]
