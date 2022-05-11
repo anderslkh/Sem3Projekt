@@ -12,7 +12,7 @@ using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	//[Authorize]
+	[Authorize]
     public class TournamentsController : Controller {
 		// GET: TournamentsController
         [Route("api/[controller]")]

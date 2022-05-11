@@ -8,19 +8,25 @@ namespace DesktopConsumer.Models
 {
     public class Person
     {
-        public string firstName { get; set; }
-        public string lastName { get; set; }
-        public string nickName { get; set; }
-        public DateTime birthDate { get; set; }
-        public string email { get; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string UserName { get; set; }
+        public DateTime BirthDate { get; set; }
+        public string Email { get; }
+        public string Password { get; set; }
 
         public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)
         {
-            this.firstName = firstName;
-            this.lastName = lastName;
-            this.nickName = nickName;
-            this.birthDate = birthDate;
-            this.email = email;
+            this.FirstName = firstName;
+            this.LastName = lastName;
+            this.UserName = nickName;
+            this.BirthDate = birthDate;
+            this.Email = email;
+        }
+
+        public Person(string userName, string password)
+        {
+            Password = password;
         }
     }
 }

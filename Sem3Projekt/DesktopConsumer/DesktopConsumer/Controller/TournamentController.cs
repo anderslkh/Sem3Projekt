@@ -1,4 +1,5 @@
 ﻿using DesktopComsumer.Models;
+using DesktopConsumer.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace DesktopConsumer.Controller
 
         public async Task<List<Tournament>> GetAllTournaments()
         {
-            return await tournamentService.GetAllTournaments();
+            TokenState currentState = TokenState.Invalid;
+            string tokenValue = await GetToken(currentState);
+            return await tournamentService.GetAllTournaments(tokenValue);
         }
         public async Task<Tournament> GetTournamentById(int id)
         {
@@ -28,6 +31,14 @@ namespace DesktopConsumer.Controller
         public async Task<int> CreateTournament(Tournament tournament)
         {
             return await tournamentService.CreateTournament(tournament);
+        }
+
+        private async Task<string> GetToken(TokenState useState)
+        {
+            //string foundToken = null;
+            TokenManager tokenHelp = new TokenManager();
+            string foundToken = await tokenHelp.GetToken(useState);
+            return foundToken;
         }
     }
 }

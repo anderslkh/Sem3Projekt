@@ -1,4 +1,5 @@
 using DesktopConsumer.GUI;
+using DesktopConsumer.Security;
 
 namespace DesktopConsumer
 {
@@ -14,6 +15,8 @@ namespace DesktopConsumer
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
             Application.Run(new MainWindow());
+
+
         }
         
     }

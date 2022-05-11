@@ -17,12 +17,13 @@ public class TournamentService
         _client = new HttpClient();
     }
 
-    public async Task<List<Tournament>> GetAllTournaments()
+    public async Task<List<Tournament>> GetAllTournaments(string tokenValue)
     {
         List<Tournament> foundTournaments = null;
         string useUrl = $"{restUrl}";
         var uri = new Uri(useUrl);
         try {
+            _client.DefaultRequestHeaders.Add("Bearer", tokenValue);
             var response = await _client.GetAsync(uri);
             if (response.IsSuccessStatusCode) {
                 var content = await response.Content.ReadAsStringAsync();
