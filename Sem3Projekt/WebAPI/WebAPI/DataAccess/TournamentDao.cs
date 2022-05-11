@@ -3,6 +3,7 @@ using System.Data.SqlClient;
 using Dapper;
 using Microsoft.AspNetCore.Identity;
 using NuGet.Versioning;
+using WebAPI.Model_DTO_s;
 using WebAPI.Models;
 using WebAPI.ModelDTOs;
 using System.Transactions;
@@ -108,8 +109,44 @@ namespace WebAPI.DataAccess {
 		public List<Tournament> GetAllItems() 
 		{
 			List<Tournament> foundTournaments = new List<Tournament>();
-			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, PersonEmail FROM TournamentInfoView";
+			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo";
+			using (_conn) {
+				//var tournaments = _conn.Query<Tournament, string, Tournament>(
+				//	sqlQuery, (tournament, personEmail) =>
+				//	{
+    //                    tournament.ListOfParticipantIds.Add(personEmail);
+    //                        return tournament;
+				//	}, splitOn: "PersonEmail");
+				// foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group =>
+				//{
+				//	var groupedTournaments = group.First();
+				//	groupedTournaments.ListOfParticipantIds =
+				//		group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
+				//	return groupedTournaments;
+				//}).ToList();
+                foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
+            }
+			return foundTournaments;
+		}
 
+        public bool CreateItem(TournamentDTO itemToCreate)
+        {
+			bool result = false;
+            string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants) " +
+                              "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants)";
+            var param = new {
+                TimeOfEvent = itemToCreate.TimeOfEvent,
+				RegistrationDeadline = itemToCreate.RegistrationDeadline,
+				TournamentName = itemToCreate.TournamentName,
+				MinParticipants = itemToCreate.MinNoOfParticipants,
+				MaxParticipants = itemToCreate.MaxNoOfParticipants
+            };
+            using (_conn) {
+                if (_conn.Execute(sqlQuery, param) > 0) {
+                    result = true;
+                }
+            }
+            return result;
 			using (_conn) 
 			{
 				// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.

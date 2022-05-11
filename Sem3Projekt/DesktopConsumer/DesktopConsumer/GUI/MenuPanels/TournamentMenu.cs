@@ -29,13 +29,23 @@ namespace DesktopConsumer.GUI.MenuPanels
 
             Button FindTournamentBtn = new Button();
             Button AllTournamentsBtn = new Button();
+            Button CreateTournamentBtn = new Button();
             AllTournamentsBtn.Text = "Alle turneringer";
             AllTournamentsBtn.Click += new System.EventHandler(AllTournamentsBtn_Click);
             FindTournamentBtn.Text = "Find turnering";
             FindTournamentBtn.Click += new System.EventHandler(FindTournamentBtn_Click);
+            CreateTournamentBtn.Text = "Opret turnering";
+            CreateTournamentBtn.Click += new System.EventHandler(CreateTournamentBtn_Click);
+            buttons.Add(CreateTournamentBtn);
             buttons.Add(FindTournamentBtn);
             buttons.Add(AllTournamentsBtn);
             InitializeLayout(buttons);
+        }
+
+        private void CreateTournamentBtn_Click(object? sender, EventArgs e)
+        {
+            Form createTournament = UIFactory.CreateTournamentUI();
+            NavigateTo(createTournament, ContentPanel);
         }
 
         private async void AllTournamentsBtn_Click(object? sender, EventArgs e)

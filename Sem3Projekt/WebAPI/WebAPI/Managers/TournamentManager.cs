@@ -1,3 +1,5 @@
+using System.Xml;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using NuGet.Packaging.Rules;
 using WebAPI.DataAccess;
@@ -5,27 +7,45 @@ using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
-namespace WebAPI.Managers
+namespace WebAPI.Managers {
+	public class TournamentManager : IManager<TournamentDTO, int> {
+
+        public TournamentDTO GetItemById(int tournamentId) {
+			Tournament foundTournament = null;
+			TournamentDTO tournamentToTransfer = null;
+			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+			try
+			{
+				foundTournament = tournamentDao.GetItemById(tournamentId);
+				tournamentToTransfer = new TournamentDTO(foundTournament.TournamentId,
+					foundTournament.TournamentName,
+					foundTournament.TimeOfEvent,
+					foundTournament.RegistrationDeadline,
+					foundTournament.MaxParticipants,
+					foundTournament.MinParticipants,
+					foundTournament.ListOfParticipantIds.Count);
+			}
+			catch (Exception e)
 {
-    public class TournamentManager : IManager<TournamentDTO, int>
-    {
-        public TournamentDTO GetItemById(int tournamentId)
-        {
-            Tournament foundTournament = null;
-            TournamentDTO tournamentToTransfer = null;
-            ITournamentDao<EnrollmentDTO> tournamentDao = DaoFactory.CreateTournamentDao();
-            try
-            {
-                foundTournament = tournamentDao.GetItemById(tournamentId);
-                tournamentToTransfer = new TournamentDTO(foundTournament.TournamentId,
-                    foundTournament.TournamentName,
-                    foundTournament.TimeOfEvent,
-                    foundTournament.RegistrationDeadline,
-                    foundTournament.MaxParticipants,
-                    foundTournament.MinParticipants,
-                    foundTournament.ListOfParticipantIds.Count);
-            }
-            catch (Exception e)
+//    public class TournamentManager : IManager<TournamentDTO, int>
+//    {
+//        public TournamentDTO GetItemById(int tournamentId)
+//        {
+//            Tournament foundTournament = null;
+//            TournamentDTO tournamentToTransfer = null;
+//            ITournamentDao<EnrollmentDTO> tournamentDao = DaoFactory.CreateTournamentDao();
+//            try
+//            {
+//                foundTournament = tournamentDao.GetItemById(tournamentId);
+//                tournamentToTransfer = new TournamentDTO(foundTournament.TournamentId,
+//                    foundTournament.TournamentName,
+//                    foundTournament.TimeOfEvent,
+//                    foundTournament.RegistrationDeadline,
+//                    foundTournament.MaxParticipants,
+//                    foundTournament.MinParticipants,
+//                    foundTournament.ListOfParticipantIds.Count);
+//            }
+//            catch (Exception e)
             {
                 throw;
             }
@@ -84,9 +104,21 @@ namespace WebAPI.Managers
             return tournamentsToTransfer;
         }
 
-        public bool CreateItem(TournamentDTO item)
+		public bool CreateItem(TournamentDTO item)
         {
-            throw new NotImplementedException();
+            bool result = false;
+            IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
+            try
+            {
+				if(dao is TournamentDao tournamentDao) 
+                    result = tournamentDao.CreateItem(item);
+            }
+            catch (Exception e)
+            {
+				Console.WriteLine(e);
+                throw;
+            }
+            return result;
         }
 
         public bool DeleteItem(int tournamentId)
