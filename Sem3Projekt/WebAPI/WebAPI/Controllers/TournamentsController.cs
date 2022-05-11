@@ -11,7 +11,7 @@ using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	[Authorize]
+	//[Authorize]
     public class TournamentsController : Controller {
 		// GET: TournamentsController
         [Route("api/[controller]")]
@@ -86,20 +86,30 @@ namespace WebAPI.Controllers {
 			}
 		}
 
-		// GET: TournamentsController/Delete/5
-		public ActionResult Delete(int id) {
-			return View();
-		}
+		//// GET: TournamentsController/Delete/5
+		//public ActionResult Delete(int id) {
+		//	return View();
+		//}
 
 		// POST: TournamentsController/Delete/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
+		
+		
+		[Route("api/[controller]/delete/{TournamentId}")]
+		[HttpDelete]
+		public void Delete(int tournamentId) {
+			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+			//TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
+			//if (foundTournament != null)
+			//{
+			//	tournamentManager.DeleteItem(tournamentId);
+			//}
+			tournamentManager.DeleteItem(tournamentId);
+
+			//if (tournamentManager.DeleteItem(tournamentId))
+			//         {
+			//	return Ok();
+			//         }
+			//return NotFound();
 		}
 	}
 }
