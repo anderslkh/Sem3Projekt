@@ -8,6 +8,8 @@ namespace WebAPI.Models {
 		public int MinParticipants { get; set; }
 		public int MaxParticipants { get; set; }
 
+		public int EnrolledParticipants { get; set; }
+
 		public List<string> ListOfParticipantIds { get; set; } = new List<string>();
 
 

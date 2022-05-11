@@ -110,26 +110,47 @@ namespace WebAPI.DataAccess {
 		{
 			List<Tournament> foundTournaments = new List<Tournament>();
 			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo";
-			using (_conn) {
-				//var tournaments = _conn.Query<Tournament, string, Tournament>(
-				//	sqlQuery, (tournament, personEmail) =>
-				//	{
-    //                    tournament.ListOfParticipantIds.Add(personEmail);
-    //                        return tournament;
-				//	}, splitOn: "PersonEmail");
-				// foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group =>
-				//{
-				//	var groupedTournaments = group.First();
-				//	groupedTournaments.ListOfParticipantIds =
-				//		group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
-				//	return groupedTournaments;
-				//}).ToList();
+            using (_conn) {
+                //var tournaments = _conn.Query<Tournament, string, Tournament>(
+                //    sqlQuery, (tournament, personEmail) => {
+                //        tournament.ListOfParticipantIds.Add(personEmail);
+                //        return tournament;
+                //    }, splitOn: "PersonEmail");
+                //foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group => {
+                //    var groupedTournaments = group.First();
+                //    groupedTournaments.ListOfParticipantIds =
+                //        group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
+                //    return groupedTournaments;
+                //}).ToList();
                 foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
             }
 			return foundTournaments;
+            //using (_conn) 
+            //{
+            //	// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
+            //	var tournaments = _conn.Query<Tournament, string, Tournament>(
+            //		sqlQuery, (tournament, personEmail) =>
+            //		{
+            //			tournament.ListOfParticipantIds.Add(personEmail);
+            //			return tournament;
+            //		}, splitOn: "PersonEmail");
+
+            //	// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
+            //	foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(
+            //		group =>
+            //		{
+            //			var groupedTournaments = group.First();
+            //			groupedTournaments.ListOfParticipantIds =
+            //				group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
+            //			return groupedTournaments;
+            //		}).ToList();
+            //	// These are returned as an IEnumerable of tournaments, therefor we cast to list.
+
+            //}
+            //return foundTournaments;
 		}
 
-        public bool CreateItem(TournamentDTO itemToCreate)
+		public bool CreateItem(TournamentDTO itemToCreate)
         {
 			bool result = false;
             string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants) " +
@@ -147,29 +168,7 @@ namespace WebAPI.DataAccess {
                 }
             }
             return result;
-			using (_conn) 
-			{
-				// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
-				var tournaments = _conn.Query<Tournament, string, Tournament>(
-					sqlQuery, (tournament, personEmail) =>
-					{
-						tournament.ListOfParticipantIds.Add(personEmail);
-						return tournament;
-					}, splitOn: "PersonEmail");
-
-				// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
-				foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(
-					group =>
-					{
-						var groupedTournaments = group.First();
-						groupedTournaments.ListOfParticipantIds =
-							group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
-						return groupedTournaments;
-					}).ToList();
-				// These are returned as an IEnumerable of tournaments, therefor we cast to list.
-
-			}
-			return foundTournaments;
+			
 		}
 
 		public bool DeleteItem(int tournamentId)

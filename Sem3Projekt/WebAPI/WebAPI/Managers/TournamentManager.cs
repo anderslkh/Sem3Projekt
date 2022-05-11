@@ -14,19 +14,19 @@ namespace WebAPI.Managers {
 			Tournament foundTournament = null;
 			TournamentDTO tournamentToTransfer = null;
 			IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
-			try
-			{
-				foundTournament = tournamentDao.GetItemById(tournamentId);
-				tournamentToTransfer = new TournamentDTO(foundTournament.TournamentId,
-					foundTournament.TournamentName,
-					foundTournament.TimeOfEvent,
-					foundTournament.RegistrationDeadline,
-					foundTournament.MaxParticipants,
-					foundTournament.MinParticipants,
-					foundTournament.ListOfParticipantIds.Count);
-			}
-			catch (Exception e)
-{
+            try
+            {
+                foundTournament = tournamentDao.GetItemById(tournamentId);
+                tournamentToTransfer = new TournamentDTO(foundTournament.TournamentId,
+                    foundTournament.TournamentName,
+                    foundTournament.TimeOfEvent,
+                    foundTournament.RegistrationDeadline,
+                    foundTournament.MaxParticipants,
+                    foundTournament.MinParticipants,
+                    foundTournament.ListOfParticipantIds.Count);
+            }
+            catch (Exception e)
+            {
 //    public class TournamentManager : IManager<TournamentDTO, int>
 //    {
 //        public TournamentDTO GetItemById(int tournamentId)
@@ -46,8 +46,9 @@ namespace WebAPI.Managers {
 //                    foundTournament.ListOfParticipantIds.Count);
 //            }
 //            catch (Exception e)
-            {
-                throw;
+                {
+                    throw;
+                }
             }
             return tournamentToTransfer;
         }
@@ -94,7 +95,7 @@ namespace WebAPI.Managers {
                         tournament.RegistrationDeadline,
                         tournament.MaxParticipants,
                         tournament.MinParticipants,
-                        tournament.ListOfParticipantIds.Count));
+                        tournament.EnrolledParticipants));
                 }
             }
             catch (Exception e)
