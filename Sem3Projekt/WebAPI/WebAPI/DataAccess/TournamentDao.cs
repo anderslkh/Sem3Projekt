@@ -72,23 +72,24 @@ namespace WebAPI.DataAccess {
 		
 		public List<Tournament> GetAllItems() {
 			List<Tournament> foundTournaments = new List<Tournament>();
-			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, PersonEmail FROM TournamentInfoView";
+			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo";
 
 			using (_conn) {
-				var tournaments = _conn.Query<Tournament, string, Tournament>(
-					sqlQuery, (tournament, personEmail) =>
-					{
-						tournament.ListOfParticipantIds.Add(personEmail);
-						return tournament;
-					}, splitOn: "PersonEmail");
-				 foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group =>
-				{
-					var groupedTournaments = group.First();
-					groupedTournaments.ListOfParticipantIds =
-						group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
-					return groupedTournaments;
-				}).ToList();
-			}
+				//var tournaments = _conn.Query<Tournament, string, Tournament>(
+				//	sqlQuery, (tournament, personEmail) =>
+				//	{
+    //                    tournament.ListOfParticipantIds.Add(personEmail);
+    //                        return tournament;
+				//	}, splitOn: "PersonEmail");
+				// foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(group =>
+				//{
+				//	var groupedTournaments = group.First();
+				//	groupedTournaments.ListOfParticipantIds =
+				//		group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
+				//	return groupedTournaments;
+				//}).ToList();
+                foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
+            }
 			return foundTournaments;
 		}
 

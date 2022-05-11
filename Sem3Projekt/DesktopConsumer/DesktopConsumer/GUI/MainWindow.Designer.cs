@@ -33,7 +33,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.User_LoggedIn = new System.Windows.Forms.Label();
             this.LoggedIn_Infolbl = new System.Windows.Forms.Label();
-            this.TeamMnuBtn = new System.Windows.Forms.Button();
             this.UserMnuBtn = new System.Windows.Forms.Button();
             this.TournamentMnuBtn = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -52,7 +51,6 @@
             this.panel1.BackColor = System.Drawing.SystemColors.Control;
             this.panel1.Controls.Add(this.User_LoggedIn);
             this.panel1.Controls.Add(this.LoggedIn_Infolbl);
-            this.panel1.Controls.Add(this.TeamMnuBtn);
             this.panel1.Controls.Add(this.UserMnuBtn);
             this.panel1.Controls.Add(this.TournamentMnuBtn);
             this.panel1.Controls.Add(this.menuStrip1);
@@ -78,17 +76,6 @@
             this.LoggedIn_Infolbl.Size = new System.Drawing.Size(97, 20);
             this.LoggedIn_Infolbl.TabIndex = 4;
             this.LoggedIn_Infolbl.Text = "Logged in as:";
-            // 
-            // TeamMnuBtn
-            // 
-            this.TeamMnuBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TeamMnuBtn.Location = new System.Drawing.Point(300, 28);
-            this.TeamMnuBtn.Name = "TeamMnuBtn";
-            this.TeamMnuBtn.Size = new System.Drawing.Size(150, 28);
-            this.TeamMnuBtn.TabIndex = 3;
-            this.TeamMnuBtn.Text = "Teammenu";
-            this.TeamMnuBtn.UseVisualStyleBackColor = true;
-            this.TeamMnuBtn.Click += new System.EventHandler(this.TeamMnuBtn_Click);
             // 
             // UserMnuBtn
             // 
@@ -137,7 +124,7 @@
             // smtToolStripMenuItem
             // 
             this.smtToolStripMenuItem.Name = "smtToolStripMenuItem";
-            this.smtToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.smtToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
             this.smtToolStripMenuItem.Text = "Login";
             // 
             // helpToolStripMenuItem

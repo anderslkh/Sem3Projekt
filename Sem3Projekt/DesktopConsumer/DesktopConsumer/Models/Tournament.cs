@@ -16,6 +16,10 @@ namespace DesktopComsumer.Models
 		public int MinNoOfParticipants { get; set; }
 		public int MaxNoOfParticipants { get; set; }
 
+        public Tournament()
+        {
+
+        }
 		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minNoOfParticipants, int maxNoOfParticipants)
 		{
 			TournamentId = tournamentId;
