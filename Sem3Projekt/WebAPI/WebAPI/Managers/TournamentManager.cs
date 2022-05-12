@@ -7,7 +7,7 @@ using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Managers {
-	public class TournamentManager : IManager<TournamentDTO, int> {
+	public class TournamentManager : ITournamentManager<EnrollmentDTO, int> {
 
         public TournamentDTO GetItemById(int tournamentId) {
 			Tournament foundTournament = null;
@@ -134,6 +134,11 @@ namespace WebAPI.Managers {
                 throw;
             }
             return res;
+        }
+
+        public bool UpdateItem(TournamentDTO item)
+        {
+            throw new NotImplementedException();
         }
     }
 }

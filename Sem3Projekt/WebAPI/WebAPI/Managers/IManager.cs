@@ -11,5 +11,7 @@ namespace WebAPI.Managers
         bool CreateItem(T item);
 
         bool DeleteItem(I id);
+
+        bool UpdateItem(T item);
     }
 }

@@ -19,7 +19,7 @@ namespace WebAPI.Controllers {
         [HttpGet]
         public ActionResult<List<TournamentDTO>> GetAllTournaments()
         {
-            IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
             List<TournamentDTO> foundTournaments = tournamentManager.GetAllItems();
             if (foundTournaments.Any())
             {
@@ -33,7 +33,7 @@ namespace WebAPI.Controllers {
         [Route("{TournamentId}")]
         public ActionResult<TournamentDTO> GetTournamentById(int tournamentId)
         {
-            IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
             TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
             if (foundTournament != null)
             {
@@ -50,8 +50,8 @@ namespace WebAPI.Controllers {
             {
                 //TournamentDTO tournamentToCreate = new TournamentDTO(tournament.TournamentName, tournament.TimeOfEvent,
                 //    tournament.RegistrationDeadline, tournament.MaxParticipants, tournament.MinParticipants);
-                IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
-                manager.CreateItem(inTournament);
+                ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+                tournamentManager.CreateItem(inTournament);
                 return Ok(new Response { Status = "Success", Message = "Tournament successfully created" });
             }
 
@@ -70,7 +70,7 @@ namespace WebAPI.Controllers {
         [HttpDelete("{TournamentId}")]
         public ActionResult DeleteTournament(int tournamentId)
         {
-            IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
             if (tournamentManager.DeleteItem(tournamentId))
             {
                 return Ok();
