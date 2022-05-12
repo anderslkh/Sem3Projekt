@@ -3,7 +3,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.Data.SqlClient;
 using NuGet.Packaging.Rules;
 using WebAPI.DataAccess;
-using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
@@ -23,7 +22,7 @@ namespace WebAPI.Managers {
                     foundTournament.RegistrationDeadline,
                     foundTournament.MaxParticipants,
                     foundTournament.MinParticipants,
-                    foundTournament.ListOfParticipantIds.Count);
+                    foundTournament.EnrolledParticipants);
             }
             catch (Exception e)
             {
@@ -64,7 +63,7 @@ namespace WebAPI.Managers {
                 // which gives access to the methods within tournamentDao spicifically.
                 // This is because the method Enroll is not general, it is only relevant for tournaments.
                 // The the if statement also checks if there is room in the tournament, before accessing datasource.
-                if (enrollmentDto.MaxNoOfParticipants > enrollmentDto.EnrolledParticipants)
+                if (enrollmentDto.MaxParticipants > enrollmentDto.EnrolledParticipants)
                 {
                     result = tournamentDao.EnrollInTournament(enrollmentDto);
                 }

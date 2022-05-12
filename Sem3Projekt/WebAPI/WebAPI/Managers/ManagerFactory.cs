@@ -1,4 +1,4 @@
-﻿using WebAPI.Model_DTO_s;
+﻿using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Managers {

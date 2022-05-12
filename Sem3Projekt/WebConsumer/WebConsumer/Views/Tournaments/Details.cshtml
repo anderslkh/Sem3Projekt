@@ -35,16 +35,16 @@
             @Html.DisplayFor(model => model.RegistrationDeadline)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MinNoOfParticipants)
+            @Html.DisplayNameFor(model => model.MinParticipants)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MinNoOfParticipants)
+            @Html.DisplayFor(model => model.MinParticipants)
         </dd>
         <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaxNoOfParticipants)
+            @Html.DisplayNameFor(model => model.MaxParticipants)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaxNoOfParticipants)
+            @Html.DisplayFor(model => model.MaxParticipants)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.EnrolledParticipants)
@@ -61,6 +61,6 @@
     {
         tournamentId = Model.TournamentId, 
         enrolledParticipants = Model.EnrolledParticipants,
-        maxNoOfParticipants = Model.MaxNoOfParticipants
+        maxNoOfParticipants = Model.MaxParticipants
     })
 </div>

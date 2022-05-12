@@ -5,17 +5,17 @@
 		public int EnrolledParticipants { get; set; }
 		public string PersonEmail { get; set; }
 
-		public int MaxNoOfParticipants { get; set; }
+		public int MaxParticipants { get; set; }
 
 		public EnrollmentDTO()
 		{
 		}
-		public EnrollmentDTO(int tournamentId, int enrolledParticipants, string personEmail, int maxNoOfParticipants)
+		public EnrollmentDTO(int tournamentId, int enrolledParticipants, string personEmail, int maxParticipants)
 		{
 			TournamentId = tournamentId;
 			EnrolledParticipants = enrolledParticipants;
 			PersonEmail = personEmail;
-			MaxNoOfParticipants = maxNoOfParticipants;
+			MaxParticipants = maxParticipants;
 		}
 	}
 }

@@ -10,25 +10,19 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TournamentId)
+                Turnerings ID
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TournamentName)
+                Turnerings navn
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TimeOfEvent)
+                Afholdelses tidspunkt
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.RegistrationDeadline)
+                Tilmeldingsfrist
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.MinNoOfParticipants)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MaxNoOfParticipants)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EnrolledParticipants)
+                Tilmeldte
             </th>
             <th></th>
         </tr>
@@ -49,13 +43,9 @@
                 @Html.DisplayFor(modelItem => item.RegistrationDeadline)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.MinNoOfParticipants)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaxNoOfParticipants)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.EnrolledParticipants)
+                /
+                @Html.DisplayFor(modelItem => item.MaxParticipants)
             </td>
             <td>
                 @if (Context.User.IsInRole("Admin"))

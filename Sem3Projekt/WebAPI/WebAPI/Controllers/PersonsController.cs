@@ -7,82 +7,57 @@ using WebAPI.Managers;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	[Route("api/[controller]")]
-	public class PersonsController : Controller {
-		// GET: api/persons
+	//[Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class PersonsController : ControllerBase {
+        // GET: api/<Persons>
         [HttpGet]
-		public IActionResult Index()
-		{
+        public ActionResult<List<Person>> GetAllPersons()
+        {
             IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
-			List<Person> foundList = personManager.GetAllItems();
-			if (foundList.Any())
-			{
-				return Ok(foundList.ToJson());
-			}
+            List<Person> foundList = personManager.GetAllItems();
+            if (foundList.Any())
+            {
+                return Ok(foundList.ToJson());
+            }
 
-			return NotFound();
-		}
+            return NotFound();
+        }
 
-		// GET: api/persons/5
-        [Route("{email}")]
-		public IActionResult Details(string email)
-		{
+        // GET api/<Persons>/mail@mail.com
+        [HttpGet]
+        [Route("{PersonEmail}")]
+        public ActionResult<Person> GetTournamentById(string personEmail)
+        {
+            IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
+            Person foundPerson = personManager.GetItemById(personEmail);
+            if (foundPerson != null)
+            {
+                return Ok(foundPerson.ToJson());
+            }
+            return NotFound();
+        }
 
-			IManager<Person, string> personManager = ManagerFactory.CreatePersonManager();
-			Person foundPerson = personManager.GetItemById(email);
-			if (foundPerson != null)
-			{
-				return Ok(foundPerson.ToJson());
-			}
-			return NotFound();
-		}
+        // POST api/<Persons>
+        [HttpPost]
+        public ActionResult CreatePerson([FromBody] Person inPerson)
+        {
+            return null;
+        }
 
-		// GET: PersonsController/Create
-		public ActionResult Create() {
-			return View();
-		}
+        // PUT api/<Persons>/mail@mail.com
+        [HttpPut("{PersonEmail}")]
+        public ActionResult UpdatePerson([FromBody] Person person)
+        {
+            return null;
+        }
 
-		// POST: PersonsController/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
-
-		// GET: PersonsController/Edit/5
-		public ActionResult Edit(int id) {
-			return View();
-		}
-
-		// POST: PersonsController/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
-
-		// GET: PersonsController/Delete/5
-		public ActionResult Delete(int id) {
-			return View();
-		}
-
-		// POST: PersonsController/Delete/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
-	}
+        // DELETE api/<Persons>/mail@mail.com
+        [HttpDelete("{PersonEmail}")]
+        public ActionResult DeletePerson(string personEmail)
+        {
+            return null;
+        }
+    }
 }
