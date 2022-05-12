@@ -15,6 +15,7 @@ namespace DesktopComsumer.Models
 		public DateTime RegistrationDeadline { get; set; }
 		public int MinNoOfParticipants { get; set; }
 		public int MaxNoOfParticipants { get; set; }
+		public int EnrolledParticipants { get; set; }
 
         public Tournament()
         {
@@ -40,7 +41,7 @@ namespace DesktopComsumer.Models
 
 		public override string ToString()
         {
-            return $"Navn: {TournamentName} | Minimum deltagere: {MinNoOfParticipants} | Maximum deltagere: {MaxNoOfParticipants}";
+            return $"Navn: {TournamentName} | Minimum deltagere: {MinNoOfParticipants} | Maximum deltagere: {MaxNoOfParticipants} | Tilmeldte: {EnrolledParticipants}";
         }
     }
 }

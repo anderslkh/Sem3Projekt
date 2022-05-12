@@ -20,10 +20,10 @@ namespace DesktopConsumer.GUI.ContentPanels
         }
         public void Populate(Person person)
         {
-            txtInsertName.Text = person.firstName + " " + person.lastName;
-            txtUsername.Text = person.firstName;
-            txtEmail.Text = person.email;
-            txtBirthdate.Text = person.birthDate.ToString();
+            txtInsertName.Text = person.FirstName + " " + person.LastName;
+            txtUsername.Text = person.FirstName;
+            txtEmail.Text = person.Email;
+            txtBirthdate.Text = person.BirthDate.ToString();
         }
     }
     

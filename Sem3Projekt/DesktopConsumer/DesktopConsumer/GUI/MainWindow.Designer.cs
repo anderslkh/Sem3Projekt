@@ -1,4 +1,7 @@
-﻿namespace DesktopConsumer.GUI
+﻿using System.Configuration;
+using DesktopConsumer.Controller;
+
+namespace DesktopConsumer.GUI
 {
     partial class MainWindow
     {
@@ -161,7 +164,6 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
