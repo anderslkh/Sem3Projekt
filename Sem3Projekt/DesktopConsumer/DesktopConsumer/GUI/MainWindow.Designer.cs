@@ -1,4 +1,5 @@
 ﻿using System.Configuration;
+using DesktopConsumer.Controller;
 
 namespace DesktopConsumer.GUI
 {
@@ -163,7 +164,6 @@ namespace DesktopConsumer.GUI
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
