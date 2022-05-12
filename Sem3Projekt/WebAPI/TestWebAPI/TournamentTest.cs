@@ -40,10 +40,10 @@ namespace TestWebAPI {
 			//Tournament info
 			tournamentId = 1;
 			tournamentName = "Test";
-			timeOfEvent = new DateTime(2001, 01, 01, 00,00,00,000);
-			registrationDeadline = new DateTime(2001, 01, 01, 00,00,00,000);
+			timeOfEvent = new DateTime(2022,10,10,00,00,00,000);
+			registrationDeadline = new DateTime(2022, 10, 10, 00, 00, 00, 000);
 			minParticipants = 0;
-			maxParticipants = 16;
+			maxParticipants = 2;
 
 			expectedTournament = new Tournament(tournamentId, tournamentName, timeOfEvent, registrationDeadline, minParticipants, maxParticipants);
 			}
