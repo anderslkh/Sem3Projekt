@@ -31,12 +31,13 @@ namespace WebAPI.Controllers
         //}
 
         [HttpPost]
-        public ActionResult EnrollInTournament([FromBody]EnrollmentDTO enrollmentDTO)
+        public IActionResult EnrollInTournament([FromBody]EnrollmentDTO enrollmentDTO)
         {
-            IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
-            if (manager is TournamentManager tournamentManager)
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            int result = tournamentManager.EnrollInTournament(enrollmentDTO);
+            if (result == 1)
             {
-                return Ok(tournamentManager.EnrollInTournament(enrollmentDTO));
+                return Ok(result);
             }
             return NotFound();
         }

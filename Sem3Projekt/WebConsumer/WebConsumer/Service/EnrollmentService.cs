@@ -34,7 +34,8 @@ namespace WebConsumer.Service
             }
             catch (Exception)
             {
-                throw;
+
+                
             }
             return result;
         }

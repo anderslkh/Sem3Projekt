@@ -53,5 +53,10 @@ namespace WebAPI.Managers
         {
             throw new NotImplementedException();
         }
+
+        public bool UpdateItem(Person item)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -3,7 +3,7 @@ using WebAPI.Models;
 
 namespace WebAPI.Managers {
 	public static class ManagerFactory {
-		public static IManager<TournamentDTO, int> CreateTournamentManager()
+		public static ITournamentManager<EnrollmentDTO, int> CreateTournamentManager()
 		{
 			return new TournamentManager();
 		}
