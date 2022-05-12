@@ -45,11 +45,11 @@ namespace WebConsumer.Controllers {
 		// Post: Tournamentcontroller/enroll/5
 		[HttpPost]
 		[Route("[controller]/enroll/{TournamentId}")]
-		public async Task<ActionResult> Enroll(int tournamentId, int enrolledParticipants, string personEmail, int maxNoOfParticipants) {
+		public async Task<ActionResult> Enroll(int tournamentId, int enrolledParticipants, string personEmail, int maxParticipants) {
 			int result = -1;
 			// Create a Enrollment object which has the needed information to try and enroll a user into a tournament.
-			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxNoOfParticipants);
-			EnrollmentService enrollmentService = new EnrollmentService(User.FindFirst("access_token").Value);
+			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxParticipants);
+			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
 			
 			result = await enrollmentService.EnrollInTournament(enrollmentDto);
 			
