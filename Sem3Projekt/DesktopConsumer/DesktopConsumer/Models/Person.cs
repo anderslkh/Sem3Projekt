@@ -24,9 +24,18 @@ namespace DesktopConsumer.Models
             this.Email = email;
         }
 
+        public Person()
+        {
+
+        }
         public Person(string userName, string password)
         {
             Password = password;
+        }
+
+        public override string ToString()
+        {
+            return $"Navn: {FirstName} {LastName} | Brugernavn: {UserName} | Email: {Email}";
         }
     }
 }

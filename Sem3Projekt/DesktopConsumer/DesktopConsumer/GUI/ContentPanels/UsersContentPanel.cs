@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.ContentPanels
 {
@@ -15,6 +16,12 @@ namespace DesktopConsumer.GUI.ContentPanels
         public UsersContentPanel()
         {
             InitializeComponent();
+        }
+
+        public void Populate(List<Person> persons) {
+            foreach (Person person in persons) {
+                listBox1.Items.Add(person.ToString());
+            }
         }
     }
 }

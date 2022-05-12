@@ -21,5 +21,10 @@ namespace DesktopConsumer.Controller
         {
            return await personService.GetPersonByEmail(email);
         }
+
+        public async Task<List<Person>> GetAllPersons()
+        {
+            return await personService.GetAllPersons();
+        }
     }
 }
