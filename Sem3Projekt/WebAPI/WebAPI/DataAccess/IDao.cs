@@ -1,6 +1,4 @@
-﻿using WebAPI.Model_DTO_s;
-
-namespace WebAPI.DataAccess
+﻿namespace WebAPI.DataAccess
 {
     public interface IDao<T, I>
     {
