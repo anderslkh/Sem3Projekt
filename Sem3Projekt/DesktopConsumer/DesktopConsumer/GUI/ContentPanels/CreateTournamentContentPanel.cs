@@ -14,6 +14,7 @@ namespace DesktopConsumer.GUI.ContentPanels {
     public partial class CreateTournamentContentPanel : Form {
         public CreateTournamentContentPanel() {
             InitializeComponent();
+
         }
 
         private async void button1_Click(object sender, EventArgs e)

@@ -49,7 +49,7 @@ public class TournamentService
     public async Task<int> CreateTournament(Tournament tournament)
     {
         int result = -1;
-        string useUrl = $"{restUrl}Create";
+        string useUrl = $"{restUrl}";
         var uri = new Uri(useUrl);
         try
         {

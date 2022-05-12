@@ -13,35 +13,35 @@ namespace DesktopComsumer.Models
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
 		public DateTime RegistrationDeadline { get; set; }
-		public int MinNoOfParticipants { get; set; }
-		public int MaxNoOfParticipants { get; set; }
+		public int MinParticipants { get; set; }
+		public int MaxParticipants { get; set; }
 		public int EnrolledParticipants { get; set; }
 
         public Tournament()
         {
 
         }
-		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minNoOfParticipants, int maxNoOfParticipants)
+		public Tournament(int tournamentId, string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants)
 		{
 			TournamentId = tournamentId;
 			TournamentName = tournamentName;
 			TimeOfEvent = timeOfEvent;
 			RegistrationDeadline = registrationDeadline;
-			MinNoOfParticipants = minNoOfParticipants;
-			MaxNoOfParticipants = maxNoOfParticipants;
+			MinParticipants = minParticipants;
+			MaxParticipants = maxParticipants;
 		}
 
-        public Tournament(string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minNoOfParticipants, int maxNoOfParticipants) {
+        public Tournament(string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants) {
             TournamentName = tournamentName;
             TimeOfEvent = timeOfEvent;
             RegistrationDeadline = registrationDeadline;
-            MinNoOfParticipants = minNoOfParticipants;
-            MaxNoOfParticipants = maxNoOfParticipants;
+            MinParticipants = minParticipants;
+            MaxParticipants = maxParticipants;
         }
 
 		public override string ToString()
         {
-            return $"Navn: {TournamentName} | Minimum deltagere: {MinNoOfParticipants} | Maximum deltagere: {MaxNoOfParticipants} | Tilmeldte: {EnrolledParticipants}";
+            return $"Navn: {TournamentName} | Minimum deltagere: {MinParticipants} | Maximum deltagere: {MaxParticipants} | Tilmeldte: {EnrolledParticipants}";
         }
     }
 }

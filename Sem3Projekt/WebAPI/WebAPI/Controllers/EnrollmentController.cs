@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using WebAPI.Managers;
-using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -31,8 +30,8 @@ namespace WebAPI.Controllers
         //{
         //}
 
-        [HttpPut("{TournamentId}")]
-        public ActionResult EnrollInTournament([FromBody] EnrollmentDTO enrollmentDTO)
+        [HttpPost]
+        public ActionResult EnrollInTournament([FromBody]EnrollmentDTO enrollmentDTO)
         {
             IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
             if (manager is TournamentManager tournamentManager)

@@ -8,7 +8,7 @@ namespace WebConsumer.Service
 
 
         private readonly HttpClient _client;
-        private static readonly string restUrl = "https://localhost:7276/api/tournaments/";
+        private static readonly string restUrl = "https://localhost:7276/api/";
 
         public EnrollmentService()
         {
@@ -23,12 +23,12 @@ namespace WebConsumer.Service
         public async Task<int> EnrollInTournament(EnrollmentDTO enrollmentDto)
         {
             int result = -1;
-            string useUrl = $"{restUrl}enrollment/{enrollmentDto.TournamentId}";
+            string useUrl = $"{restUrl}enrollment";
             var uri = new Uri(useUrl);
             try
             {
 
-                var response = await _client.PutAsJsonAsync(uri, enrollmentDto);
+                var response = await _client.PostAsJsonAsync(uri, enrollmentDto);
                 result = Int32.Parse(response.Content.ReadAsStringAsync().Result);
 
             }

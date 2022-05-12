@@ -22,8 +22,8 @@ namespace DesktopConsumer.GUI.ContentPanels
             txtInsertTournamentName.Text = tournament.TournamentName;
             txtTimeOfEvent.Text = tournament.TimeOfEvent.ToString();
             txtRegistrationDeadline.Text = tournament.RegistrationDeadline.ToString();
-            txtMinNoOfParticipant.Text = tournament.MinNoOfParticipants.ToString();
-            txtMaxNoOfParticipant.Text = tournament.MaxNoOfParticipants.ToString();
+            txtMinNoOfParticipant.Text = tournament.MinParticipants.ToString();
+            txtMaxNoOfParticipant.Text = tournament.MaxParticipants.ToString();
         }
     }
 }

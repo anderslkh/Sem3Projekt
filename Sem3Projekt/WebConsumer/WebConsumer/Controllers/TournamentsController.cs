@@ -49,7 +49,7 @@ namespace WebConsumer.Controllers {
 			int result = -1;
 			// Create a Enrollment object which has the needed information to try and enroll a user into a tournament.
 			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxParticipants);
-			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
+			EnrollmentService enrollmentService = new EnrollmentService(User.FindFirst("access_token").Value);
 			
 			result = await enrollmentService.EnrollInTournament(enrollmentDto);
 			

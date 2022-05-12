@@ -1,4 +1,6 @@
-﻿namespace DesktopConsumer.GUI.ContentPanels {
+﻿using System.Runtime.CompilerServices;
+
+namespace DesktopConsumer.GUI.ContentPanels {
     partial class CreateTournamentContentPanel {
         /// <summary>
         /// Required designer variable.
@@ -104,17 +106,21 @@
             // 
             // registrationDeadline
             // 
+            this.registrationDeadline.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.registrationDeadline.Location = new System.Drawing.Point(202, 123);
             this.registrationDeadline.Name = "registrationDeadline";
             this.registrationDeadline.Size = new System.Drawing.Size(250, 27);
             this.registrationDeadline.TabIndex = 5;
+            this.registrationDeadline.CustomFormat = "MM/dd/yyyy hh:mm";
             // 
             // timeOfEvent
             // 
+            this.timeOfEvent.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
             this.timeOfEvent.Location = new System.Drawing.Point(202, 90);
             this.timeOfEvent.Name = "timeOfEvent";
             this.timeOfEvent.Size = new System.Drawing.Size(250, 27);
             this.timeOfEvent.TabIndex = 4;
+            this.timeOfEvent.CustomFormat = "dd/MM/yyyy hh:mm";
             // 
             // label3
             // 
