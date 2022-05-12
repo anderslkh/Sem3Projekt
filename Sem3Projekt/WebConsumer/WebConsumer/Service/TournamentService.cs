@@ -60,23 +60,10 @@ namespace WebConsumer.Service
             return foundTournaments;
         }
 
-        public async Task<int> EnrollInTournament(EnrollmentDTO enrollmentDto)
+        public async Task<TournamentDTO> UpdateTournament(int tournamentId)
         {
-	        int result = -1;
-	        string useUrl = $"{restUrl}enroll/{enrollmentDto.TournamentId}";
-            var uri = new Uri(useUrl);
-            try
-            {
-	            
-                var response = await _client.PostAsJsonAsync(uri, enrollmentDto);
-                result = Int32.Parse(response.Content.ReadAsStringAsync().Result);
-
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-            return result;
+            //implement update method for tournament
+            return null;
         }
     }
 

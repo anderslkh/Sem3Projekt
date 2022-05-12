@@ -51,7 +51,7 @@ namespace WebConsumer.Controllers {
 			EnrollmentDTO enrollmentDto = new EnrollmentDTO(tournamentId, enrolledParticipants, personEmail, maxParticipants);
 			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
 			
-			result = await tournamentService.EnrollInTournament(enrollmentDto);
+			result = await enrollmentService.EnrollInTournament(enrollmentDto);
 			
 			// SwitchCase from enrollment attempt.
 			// (1) If the attempt results in a 1, the user is now enrolled in the tournament.
