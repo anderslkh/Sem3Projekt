@@ -8,6 +8,7 @@ using System.Transactions;
 using WebAPI.DataAccess;
 using WebAPI.Managers;
 using WebAPI.ModelDTOs;
+using WebAPI.Models;
 using Xunit;
 
 namespace TestWebAPI
@@ -24,31 +25,50 @@ namespace TestWebAPI
         [Fact]
         public void EnrollIntoTournamentTest()
         {
-            //Arrange
-            int isEnrolled =-1;
-            EnrollmentDTO enrollmentDTO = new EnrollmentDTO(5, 0, "user@user.com", 16);
+            {
+                //Arrange
+                int isEnrolled = -1;
+                EnrollmentDTO enrollmentDTO = new EnrollmentDTO(5, 1, "bob@bob", 16);
 
-            //Act
-            isEnrolled = tournamentDao.EnrollInTournament(enrollmentDTO);
+                //Act
+                isEnrolled = tournamentDao.EnrollInTournament(enrollmentDTO);
 
-            //Assert
-            Assert.Equal(1, isEnrolled);
-            
+                //Assert
+                Assert.Equal(1, isEnrolled);
+            }
+            //transaction.Dispose();
         }
 
         [Fact]
         public void GetNoOfParticipantsTest()
         {
             //Arrange
-            //int noOfParticipants;
+            int noOfParticipants;
 
             //Act
-            //noOfParticipants = tournamentDao
+            noOfParticipants = tournamentDao.GetItemById(5).EnrolledParticipants;
 
             //Assert
-            //Assert.Equal(1, noOfParticipants);
+            Assert.Equal(1, noOfParticipants);
 
+            
+        }
 
+        [Fact]
+        public void TournamentFullTest()
+        {
+
+            //Arrange
+            int isEnrolled = -1;
+            //Tournament foundTournament = tournamentDao.GetItemById(1);
+            //EnrollmentDTO enrollmentDTO = new EnrollmentDTO(foundTournament.TournamentId, foundTournament.EnrolledParticipants, "bob@bob", foundTournament.MaxParticipants);
+            EnrollmentDTO enrollmentDTO = new EnrollmentDTO(1, 2, "bob@bob", 2);
+
+            //Act
+            isEnrolled = tournamentDao.EnrollInTournament(enrollmentDTO);
+
+            //Assert
+            Assert.Equal(-1, isEnrolled);
         }
 
     }
