@@ -25,5 +25,14 @@ namespace WebAPI.Models {
 			MinParticipants = minParticipants;
 			MaxParticipants = maxParticipants;
 		}
-	}
+
+        public Tournament(string tournamentName, DateTime timeOfEvent, DateTime registrationDeadline, int minParticipants, int maxParticipants)
+        {
+            TournamentName = tournamentName;
+            TimeOfEvent = timeOfEvent;
+            RegistrationDeadline = registrationDeadline;
+            MinParticipants = minParticipants;
+            MaxParticipants = maxParticipants;
+        }
+    }
 }

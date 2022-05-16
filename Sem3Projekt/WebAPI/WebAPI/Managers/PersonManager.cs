@@ -40,7 +40,10 @@ namespace WebAPI.Managers
 		    bool result = false;
 		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
 		    try {
-			    result = personDao.CreateItem(person);
+                if (personDao.CreateItem(person) == 1)
+                {
+					result = true;
+                }
 		    } catch (Exception e) {
 			    Console.WriteLine(e);
 			    throw;

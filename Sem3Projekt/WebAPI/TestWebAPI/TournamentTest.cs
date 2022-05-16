@@ -19,7 +19,6 @@ namespace TestWebAPI {
 		private Tournament expectedTournament;
 		private int tournamentId;
 		private string tournamentName;
-		private TournamentDescription tournamentDescription;
 
 		private string tournamentDetails;
 

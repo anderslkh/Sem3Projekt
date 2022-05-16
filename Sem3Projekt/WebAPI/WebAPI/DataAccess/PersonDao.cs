@@ -40,11 +40,8 @@ namespace WebAPI.DataAccess
 	        }
 	        return foundList;
         }
-        public bool CreateItem(Person person) {
-
-
-
-	        bool result = false;
+        public int CreateItem(Person person) {
+            int isCreated = -1;
 	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, BirthDate, Email) " +
 	                          "VALUES (@FirstName, @LastName, @BirthDate, @Email)";
 	        var param = new {
@@ -54,11 +51,9 @@ namespace WebAPI.DataAccess
 		        Email = person.Email
 	        };
 	        using (_conn) {
-		        if (_conn.Execute(sqlQuery, param) > 0) {
-			        result = true;
-		        }
-	        }
-	        return result;
+                isCreated = _conn.Execute(sqlQuery, param);
+            }
+	        return isCreated;
         }
 
         public bool DeleteItem(string id)

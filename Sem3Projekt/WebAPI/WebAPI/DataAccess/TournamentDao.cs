@@ -137,9 +137,9 @@ namespace WebAPI.DataAccess {
             //return foundTournaments;
 		}
 
-		public bool CreateItem(TournamentDTO itemToCreate)
+		public int CreateItem(Tournament itemToCreate)
         {
-			bool result = false;
+			int id = -1;
             string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants, EnrolledParticipants) " +
                               "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants, @EnrolledParticipants)";
             var param = new {
@@ -151,11 +151,12 @@ namespace WebAPI.DataAccess {
 				itemToCreate.EnrolledParticipants
             };
             using (_conn) {
-                if (_conn.Execute(sqlQuery, param) > 0) {
-                    result = true;
-                }
+				id = Convert.ToInt32(_conn.ExecuteScalar(sqlQuery, param));
+                //if (_conn.ExecuteScalar(sqlQuery, param) > 0) {
+                //    result = true;
+                //}
             }
-            return result;
+            return id;
 			
 		}
 
@@ -184,5 +185,10 @@ namespace WebAPI.DataAccess {
 			}
 			return res;
 		}
+
+        //public bool CreateItem(Tournament itemDto)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

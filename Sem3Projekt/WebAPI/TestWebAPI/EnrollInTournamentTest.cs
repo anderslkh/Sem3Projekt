@@ -27,11 +27,11 @@ namespace TestWebAPI {
             bool result;
 
             // Act
-            //result = tournamentDao.EnrollInTournament("test@test", 1);
+            result = tournamentDao.EnrollInTournament("test@test", 1);
 
             // Assert
-            //Assert.True(result);
-            
+            Assert.True(result);
+
             transaction.Dispose();
         }
         public void GetNoOfParticipantsTest()
