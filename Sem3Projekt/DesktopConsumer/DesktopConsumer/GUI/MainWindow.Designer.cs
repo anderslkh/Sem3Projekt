@@ -184,7 +184,6 @@ namespace DesktopConsumer.GUI
         private ToolStripMenuItem settingToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem smtToolStripMenuItem;
-        private Button TeamMnuBtn;
         private Label User_LoggedIn;
         private Label LoggedIn_Infolbl;
     }

@@ -1,4 +1,4 @@
-﻿namespace GUI
+﻿namespace DesktopConsumer.GUI.MenuPanels
 {
     partial class SubBaseMenu
     {
