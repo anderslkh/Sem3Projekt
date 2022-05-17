@@ -11,7 +11,7 @@ using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-    //[Authorize]
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class TournamentsController : ControllerBase {

@@ -9,7 +9,7 @@ namespace DesktopComsumer.Models
 
 	public class Tournament
 	{
-		public int TournamentId { get; }
+		public int TournamentId { get; set; }
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
 		public DateTime RegistrationDeadline { get; set; }

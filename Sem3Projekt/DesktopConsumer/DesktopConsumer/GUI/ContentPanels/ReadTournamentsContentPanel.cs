@@ -17,9 +17,27 @@ namespace DesktopConsumer.GUI.ContentPanels {
 
         public void Populate(List<Tournament> tournaments)
         {
-            foreach (Tournament tournament in tournaments)
+            if (tournaments != null)
             {
-                AllTournamentsList.Items.Add(tournament.ToString());
+                foreach (Tournament tournament in tournaments)
+                {
+                    ListViewItem listItem = new ListViewItem(tournament.TournamentId.ToString());
+                    listItem.SubItems.Add(tournament.TournamentName);
+                    listItem.SubItems.Add(tournament.TimeOfEvent.ToString());
+                    listItem.SubItems.Add(tournament.RegistrationDeadline.ToString());
+                    listItem.SubItems.Add(tournament.MaxParticipants.ToString());
+                    listItem.SubItems.Add(tournament.EnrolledParticipants.ToString());
+                    listView1.Items.Add(listItem);
+                }
+            }
+        }
+
+        private void searchBar_TextChanged(object sender, EventArgs e)
+        {
+            ListViewItem foundItem = listView1.FindItemWithText(searchBar.Text, false, 0, true);
+            if (foundItem != null)
+            {
+                listView1.TopItem = foundItem;
             }
         }
     }

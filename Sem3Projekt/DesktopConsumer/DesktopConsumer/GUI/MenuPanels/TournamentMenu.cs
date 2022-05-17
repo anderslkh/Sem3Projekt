@@ -82,7 +82,8 @@ namespace DesktopConsumer.GUI.MenuPanels
 
         public async Task<List<Tournament>> PopulateAllTournamentsContentPanel()
         {
-            return await Task.Run(async () => {
+            return await Task.Run(async () =>
+            {
                 TournamentController tournamentController = new TournamentController();
                 return await tournamentController.GetAllTournaments();
             });
