@@ -15,7 +15,7 @@ namespace WebAPI.Managers
         {
             Tournament foundTournament = null;
             TournamentDTO tournamentToTransfer = null;
-            IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+            ITournamentDao<EnrollmentDTO> tournamentDao = DaoFactory.CreateTournamentDao();
             try
             {
                 foundTournament = tournamentDao.GetItemById(tournamentId);
@@ -114,10 +114,11 @@ namespace WebAPI.Managers
                     tournamentDTO.TournamentName,
                     tournamentDTO.TimeOfEvent,
                     tournamentDTO.RegistrationDeadline,
-                    tournamentDTO.MaxParticipants,
-                    tournamentDTO.MinParticipants);
+                    tournamentDTO.MinParticipants,
+                    tournamentDTO.MaxParticipants
+                    );
 
-            IDao<Tournament, int> tournamentDao = DaoFactory.CreateTournamentDao();
+            ITournamentDao<EnrollmentDTO> tournamentDao = DaoFactory.CreateTournamentDao();
             try
             {
                 if (tournamentDao.CreateItem(tournament) > 0)

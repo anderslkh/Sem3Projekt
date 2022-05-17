@@ -140,8 +140,9 @@ namespace WebAPI.DataAccess {
 		public int CreateItem(Tournament itemToCreate)
         {
 			int id = -1;
-            string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants, EnrolledParticipants) " +
-                              "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants, @EnrolledParticipants)";
+            string sqlQuery = "INSERT INTO Tournament (TournamentName, MinParticipants, MaxParticipants, TimeOfEvent, RegistrationDeadline, EnrolledParticipants) " +
+								"OUTPUT INSERTED.TournamentId " +
+							  "VALUES (@TournamentName, @MinParticipants, @MaxParticipants, @TimeOfEvent, @RegistrationDeadline, @EnrolledParticipants)";
             var param = new {
                 itemToCreate.TimeOfEvent,
 				itemToCreate.RegistrationDeadline,
@@ -151,7 +152,7 @@ namespace WebAPI.DataAccess {
 				itemToCreate.EnrolledParticipants
             };
             using (_conn) {
-				id = Convert.ToInt32(_conn.ExecuteScalar(sqlQuery, param));
+				id = _conn.QuerySingle<int>(sqlQuery, param);
                 //if (_conn.ExecuteScalar(sqlQuery, param) > 0) {
                 //    result = true;
                 //}
