@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DesktopComsumer.Models;
 using DesktopConsumer.Controller;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.ContentPanels {
     public partial class CreateTournamentContentPanel : Form {

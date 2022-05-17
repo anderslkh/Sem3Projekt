@@ -1,6 +1,6 @@
-﻿using DesktopComsumer.Models;
-using DesktopConsumer.Controller;
+﻿using DesktopConsumer.Controller;
 using DesktopConsumer.GUI.ContentPanels;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.MenuPanels
 {

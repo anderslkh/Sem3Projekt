@@ -1,5 +1,4 @@
-﻿using DesktopComsumer.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -10,6 +9,7 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using DesktopConsumer.Controller;
+using DesktopConsumer.Models;
 using DesktopConsumer.Security;
 using Microsoft.IdentityModel.Tokens;
 

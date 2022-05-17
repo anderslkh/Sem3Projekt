@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DesktopComsumer.Models;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.ContentPanels {
     public partial class ReadTournamentsContentPanel : Form {
