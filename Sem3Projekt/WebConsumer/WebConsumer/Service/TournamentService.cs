@@ -20,7 +20,7 @@ namespace WebConsumer.Service
             _client = new HttpClient();
             _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
         }
-        public async Task<TournamentDTO> GetItem(int tournamentId)
+        public async Task<TournamentDTO> GetItemById(int tournamentId)
         {
             TournamentDTO foundTournament = null;
             string useUrl = $"{restUrl}{tournamentId}/";

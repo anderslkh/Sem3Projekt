@@ -15,7 +15,7 @@ namespace WebAPI.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class TournamentsController : ControllerBase {
-        // GET: api/<Tournaments>
+        // GET: api/tournaments
         [HttpGet]
         public ActionResult<List<TournamentDTO>> GetAllTournaments()
         {
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers {
             return NotFound();
         }
 
-        // GET api/<Tournaments>/5
+        // GET api/tournaments/5
         [HttpGet]
         [Route("{TournamentId}")]
         public ActionResult<TournamentDTO> GetTournamentById(int tournamentId)
@@ -42,7 +42,7 @@ namespace WebAPI.Controllers {
             return NotFound();
         }
 
-        // POST api/<Tournaments>
+        // POST api/tournaments
         [HttpPost]
         public ActionResult CreateTournament([FromBody] TournamentDTO inTournament)
         {
@@ -58,7 +58,7 @@ namespace WebAPI.Controllers {
             return BadRequest(new Response { Status = "Error", Message = "Tournament not created" });
         }
 
-        // PUT api/<Tournaments>/5
+        // PUT api/tournaments/5
         [HttpPut("{TournamentId}")]
         public ActionResult UpdateTournament([FromBody] EnrollmentDTO enrollmentDTO)
         {
@@ -66,7 +66,7 @@ namespace WebAPI.Controllers {
             return null;
         }
 
-        // DELETE api/<Tournaments>/5
+        // DELETE api/tournaments/5
         [HttpDelete("{TournamentId}")]
         public ActionResult DeleteTournament(int tournamentId)
         {

@@ -12,7 +12,7 @@ namespace WebConsumer.Service
         {
             _client = new HttpClient();
         }
-        public async Task<Person> GetItem(string email)
+        public async Task<Person> GetItemById(string email)
         {
             Person foundPerson = null;
             string useUrl =$"{restUrl}{email}";
