@@ -1,8 +1,21 @@
-﻿@{
+﻿@model WebConsumer.Models.TournamentDTO
+
+@{
     ViewBag.Title = "SuccesResult";
     Layout = "_Layout";
 }
+<h1>Your request was... successful</h1>
+<div>
+    @if (@User.IsInRole("Admin"))
+    {
+        <p>The tournament with ID: @Html.DisplayFor(model => model.TournamentId) has been deleted. </p>
+    }
+    else
+    {
+        <p>You have successfully joined tournament @Html.DisplayFor(model => model.TournamentName)</p>
+    }
 
-<h1>Tournament enrollment</h1>
+
+</div>
 <h2>Successfully joined tournament</h2>
 <a asp-action="Index">Back to List</a> 

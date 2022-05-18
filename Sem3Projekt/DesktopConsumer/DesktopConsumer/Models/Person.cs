@@ -12,7 +12,7 @@ namespace DesktopConsumer.Models
         public string LastName { get; set; }
         public string UserName { get; set; }
         public DateTime BirthDate { get; set; }
-        public string Email { get; }
+        public string Email { get; set; }
         public string Password { get; set; }
 
         public Person(string firstName, string lastName, string nickName, DateTime birthDate, string email)

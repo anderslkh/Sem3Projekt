@@ -113,21 +113,22 @@ namespace WebConsumer.Controllers {
 				return View();
 			}
 		}
-
+		[HttpGet]
+		[Route("[controller]/delete/{TournamentId}")]
 		// GET: TournamentsController/Delete/5
-		public ActionResult Delete(int id) {
-			return View();
+		public ActionResult Delete(int tournamentId, string tournamentName) {
+			return View(new TournamentDTO() { TournamentId = tournamentId, TournamentName = tournamentName});
 		}
 
 		// POST: TournamentsController/Delete/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public ActionResult Delete(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
+		[Route("[controller]/deletetournament")]
+		public async Task<ActionResult> DeleteTournament(int tournamentId) {
+			TournamentDTO dto = new TournamentDTO() { TournamentId = tournamentId};
+			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
+            await tournamentService.DeleteTournament(dto.TournamentId);
+            return RedirectToAction(nameof(Index));
 		}
 	}
 }

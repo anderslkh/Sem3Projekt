@@ -58,34 +58,36 @@ namespace DesktopConsumer.GUI
             this.panel1.Controls.Add(this.TournamentMnuBtn);
             this.panel1.Controls.Add(this.menuStrip1);
             this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.panel1.Location = new System.Drawing.Point(6, 6);
+            this.panel1.Location = new System.Drawing.Point(5, 4);
+            this.panel1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1170, 56);
+            this.panel1.Size = new System.Drawing.Size(1024, 55);
             this.panel1.TabIndex = 0;
             // 
             // User_LoggedIn
             // 
             this.User_LoggedIn.AutoSize = true;
-            this.User_LoggedIn.Location = new System.Drawing.Point(1069, 28);
+            this.User_LoggedIn.Location = new System.Drawing.Point(935, 21);
             this.User_LoggedIn.Name = "User_LoggedIn";
-            this.User_LoggedIn.Size = new System.Drawing.Size(0, 20);
+            this.User_LoggedIn.Size = new System.Drawing.Size(0, 15);
             this.User_LoggedIn.TabIndex = 5;
             // 
             // LoggedIn_Infolbl
             // 
             this.LoggedIn_Infolbl.AutoSize = true;
-            this.LoggedIn_Infolbl.Location = new System.Drawing.Point(966, 28);
+            this.LoggedIn_Infolbl.Location = new System.Drawing.Point(845, 21);
             this.LoggedIn_Infolbl.Name = "LoggedIn_Infolbl";
-            this.LoggedIn_Infolbl.Size = new System.Drawing.Size(97, 20);
+            this.LoggedIn_Infolbl.Size = new System.Drawing.Size(77, 15);
             this.LoggedIn_Infolbl.TabIndex = 4;
             this.LoggedIn_Infolbl.Text = "Logged in as:";
             // 
             // UserMnuBtn
             // 
             this.UserMnuBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.UserMnuBtn.Location = new System.Drawing.Point(150, 28);
+            this.UserMnuBtn.Location = new System.Drawing.Point(131, 24);
+            this.UserMnuBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.UserMnuBtn.Name = "UserMnuBtn";
-            this.UserMnuBtn.Size = new System.Drawing.Size(150, 28);
+            this.UserMnuBtn.Size = new System.Drawing.Size(131, 31);
             this.UserMnuBtn.TabIndex = 1;
             this.UserMnuBtn.Text = "Brugermenu";
             this.UserMnuBtn.UseVisualStyleBackColor = true;
@@ -95,9 +97,10 @@ namespace DesktopConsumer.GUI
             // 
             this.TournamentMnuBtn.BackColor = System.Drawing.SystemColors.ControlLight;
             this.TournamentMnuBtn.Dock = System.Windows.Forms.DockStyle.Left;
-            this.TournamentMnuBtn.Location = new System.Drawing.Point(0, 28);
+            this.TournamentMnuBtn.Location = new System.Drawing.Point(0, 24);
+            this.TournamentMnuBtn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.TournamentMnuBtn.Name = "TournamentMnuBtn";
-            this.TournamentMnuBtn.Size = new System.Drawing.Size(150, 28);
+            this.TournamentMnuBtn.Size = new System.Drawing.Size(131, 31);
             this.TournamentMnuBtn.TabIndex = 0;
             this.TournamentMnuBtn.Text = "Turneringsmenu";
             this.TournamentMnuBtn.UseVisualStyleBackColor = false;
@@ -112,7 +115,8 @@ namespace DesktopConsumer.GUI
             this.helpToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1170, 28);
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
+            this.menuStrip1.Size = new System.Drawing.Size(1024, 24);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -121,19 +125,19 @@ namespace DesktopConsumer.GUI
             this.settingToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.smtToolStripMenuItem});
             this.settingToolStripMenuItem.Name = "settingToolStripMenuItem";
-            this.settingToolStripMenuItem.Size = new System.Drawing.Size(76, 24);
+            this.settingToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingToolStripMenuItem.Text = "Settings";
             // 
             // smtToolStripMenuItem
             // 
             this.smtToolStripMenuItem.Name = "smtToolStripMenuItem";
-            this.smtToolStripMenuItem.Size = new System.Drawing.Size(129, 26);
+            this.smtToolStripMenuItem.Size = new System.Drawing.Size(104, 22);
             this.smtToolStripMenuItem.Text = "Login";
             // 
             // helpToolStripMenuItem
             // 
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
             // 
             // ContentPanel
@@ -141,22 +145,24 @@ namespace DesktopConsumer.GUI
             this.ContentPanel.BackColor = System.Drawing.SystemColors.Control;
             this.ContentPanel.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.ContentPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ContentPanel.Location = new System.Drawing.Point(6, 62);
+            this.ContentPanel.Location = new System.Drawing.Point(5, 59);
+            this.ContentPanel.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.ContentPanel.Name = "ContentPanel";
-            this.ContentPanel.Size = new System.Drawing.Size(1170, 685);
+            this.ContentPanel.Size = new System.Drawing.Size(1024, 502);
             this.ContentPanel.TabIndex = 0;
             // 
             // MainWindow
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 753);
+            this.ClientSize = new System.Drawing.Size(1034, 565);
             this.Controls.Add(this.ContentPanel);
             this.Controls.Add(this.panel1);
             this.MainMenuStrip = this.menuStrip1;
-            this.MinimumSize = new System.Drawing.Size(500, 300);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MinimumSize = new System.Drawing.Size(440, 235);
             this.Name = "MainWindow";
-            this.Padding = new System.Windows.Forms.Padding(6);
+            this.Padding = new System.Windows.Forms.Padding(5, 4, 5, 4);
             this.Text = "Tournament Manager v1";
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.panel1.ResumeLayout(false);
@@ -164,6 +170,7 @@ namespace DesktopConsumer.GUI
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         #endregion
@@ -177,7 +184,6 @@ namespace DesktopConsumer.GUI
         private ToolStripMenuItem settingToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem smtToolStripMenuItem;
-        private Button TeamMnuBtn;
         private Label User_LoggedIn;
         private Label LoggedIn_Infolbl;
     }

@@ -57,10 +57,13 @@
 <div>
 
     <a asp-action="Index">Back to List</a> |
-    @Html.ActionLink("Enroll", "Enroll", new
+    @if (!Context.User.IsInRole("Admin"))
     {
-        tournamentId = Model.TournamentId, 
-        enrolledParticipants = Model.EnrolledParticipants,
-        maxNoOfParticipants = Model.MaxParticipants
-    })
+        @Html.ActionLink("Enroll", "Enroll", new
+        {
+            tournamentId = Model.TournamentId, 
+            enrolledParticipants = Model.EnrolledParticipants,
+            maxNoOfParticipants = Model.MaxParticipants
+        })
+    }
 </div>

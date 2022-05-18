@@ -47,13 +47,16 @@ namespace WebConsumer.Service
             List<TournamentDTO> foundTournaments = null;
             string useUrl = $"{restUrl}";
             var uri = new Uri(useUrl);
-            try {
-              var response = await _client.GetAsync(uri);
-              if (response.IsSuccessStatusCode) {
-                var content = await response.Content.ReadAsStringAsync();
-                foundTournaments = JsonConvert.DeserializeObject<List<TournamentDTO>>(content);
-              }
-            } catch (Exception e)
+            try
+            {
+                var response = await _client.GetAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    foundTournaments = JsonConvert.DeserializeObject<List<TournamentDTO>>(content);
+                }
+            }
+            catch (Exception e)
             {
                 throw;
             }
@@ -64,6 +67,29 @@ namespace WebConsumer.Service
         {
             //implement update method for tournament
             return null;
+        }
+        public async Task<bool> DeleteTournament(int tournamentId)
+        {
+
+            bool result = false;
+            string useUrl = $"{restUrl}{tournamentId}/";
+            var uri = new Uri((useUrl));
+            try
+            {
+                var response = await _client.DeleteAsync(uri);
+                if (response.IsSuccessStatusCode)
+                {
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
+            }
+            catch (Exception e)
+            {
+            }
+            return result;
         }
     }
 
