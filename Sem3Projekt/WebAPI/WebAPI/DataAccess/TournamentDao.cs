@@ -137,26 +137,26 @@ namespace WebAPI.DataAccess {
             //return foundTournaments;
 		}
 
-		public bool CreateItem(TournamentDTO itemToCreate)
-        {
-			bool result = false;
-            string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants, EnrolledParticipants) " +
-                              "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants, @EnrolledParticipants)";
-            var param = new {
-                itemToCreate.TimeOfEvent,
+		public int CreateItem(Tournament itemToCreate) {
+			int id = -1;
+			string sqlQuery = "INSERT INTO Tournament (TournamentName, MinParticipants, MaxParticipants, TimeOfEvent, RegistrationDeadline, EnrolledParticipants) " +
+								"OUTPUT INSERTED.TournamentId " +
+							  "VALUES (@TournamentName, @MinParticipants, @MaxParticipants, @TimeOfEvent, @RegistrationDeadline, @EnrolledParticipants)";
+			var param = new {
+				itemToCreate.TimeOfEvent,
 				itemToCreate.RegistrationDeadline,
 				itemToCreate.TournamentName,
 				itemToCreate.MinParticipants,
 				itemToCreate.MaxParticipants,
 				itemToCreate.EnrolledParticipants
-            };
-            using (_conn) {
-                if (_conn.Execute(sqlQuery, param) > 0) {
-                    result = true;
-                }
-            }
-            return result;
-			
+			};
+			using (_conn) {
+				id = _conn.QuerySingle<int>(sqlQuery, param);
+				//if (_conn.ExecuteScalar(sqlQuery, param) > 0) {
+				//    result = true;
+				//}
+			}
+			return id;
 		}
 
 		public bool DeleteItem(int tournamentId)

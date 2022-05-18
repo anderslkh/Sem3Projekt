@@ -6,6 +6,8 @@
 
         List<T> GetAllItems();
 
+        int CreateItem(T item);
+
         bool DeleteItem(I id);
     }
 }

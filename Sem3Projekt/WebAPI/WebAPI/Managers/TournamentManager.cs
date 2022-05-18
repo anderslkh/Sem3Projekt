@@ -104,18 +104,23 @@ namespace WebAPI.Managers {
             return tournamentsToTransfer;
         }
 
-		public bool CreateItem(TournamentDTO item)
-        {
+        public bool CreateItem(TournamentDTO tournamentDTO) {
             bool result = false;
-            IDao<Tournament, int> dao = DaoFactory.CreateTournamentDao();
-            try
-            {
-				if(dao is TournamentDao tournamentDao) 
-                    result = tournamentDao.CreateItem(item);
-            }
-            catch (Exception e)
-            {
-				Console.WriteLine(e);
+            Tournament tournament = new Tournament(tournamentDTO.TournamentId,
+                    tournamentDTO.TournamentName,
+                    tournamentDTO.TimeOfEvent,
+                    tournamentDTO.RegistrationDeadline,
+                    tournamentDTO.MinParticipants,
+                    tournamentDTO.MaxParticipants
+                    );
+
+            ITournamentDao<EnrollmentDTO> tournamentDao = DaoFactory.CreateTournamentDao();
+            try {
+                if (tournamentDao.CreateItem(tournament) > 0) {
+                    result = true;
+                }
+            } catch (Exception e) {
+                Console.WriteLine(e);
                 throw;
             }
             return result;
@@ -140,5 +145,7 @@ namespace WebAPI.Managers {
         {
             throw new NotImplementedException();
         }
+
+        
     }
 }

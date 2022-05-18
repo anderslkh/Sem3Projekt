@@ -40,25 +40,20 @@ namespace WebAPI.DataAccess
 	        }
 	        return foundList;
         }
-        public bool CreateItem(Person person) {
-
-
-
-	        bool result = false;
-	        string sqlQuery = "INSERT INTO Person (FirstName, LastName, BirthDate, Email) " +
-	                          "VALUES (@FirstName, @LastName, @BirthDate, @Email)";
-	        var param = new {
-		        FirstName = person.FirstName,
-		        LastName = person.LastName,
-		        BirthDate = person.BirthDate,
-		        Email = person.Email
-	        };
-	        using (_conn) {
-		        if (_conn.Execute(sqlQuery, param) > 0) {
-			        result = true;
-		        }
-	        }
-	        return result;
+        public int CreateItem(Person person) {
+            int isCreated = -1;
+            string sqlQuery = "INSERT INTO Person (FirstName, LastName, BirthDate, Email) " +
+                              "VALUES (@FirstName, @LastName, @BirthDate, @Email)";
+            var param = new {
+                FirstName = person.FirstName,
+                LastName = person.LastName,
+                BirthDate = person.BirthDate,
+                Email = person.Email
+            };
+            using (_conn) {
+                isCreated = _conn.Execute(sqlQuery, param);
+            }
+            return isCreated;
         }
 
         public bool DeleteItem(string id)
