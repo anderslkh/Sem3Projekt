@@ -5,6 +5,7 @@ using System.Transactions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Linq;
 using WebAPI.Data;
 using WebAPI.Managers;
 using WebAPI.Models;
@@ -40,36 +41,10 @@ namespace WebAPI.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody]Person model)
         {
-            var user = await _userManager.FindByNameAsync(model.UserName);
-            // If the inserted password matches the hashed password in the database, enter if statement
-            if (user != null && await _userManager.CheckPasswordAsync(user, model.Password))
+            string result = await authenticateManager.Login(model);
+            if (string.IsNullOrEmpty(result))
             {
-                // Find and assert the associated roles of the user
-                var userRoles = await _userManager.GetRolesAsync(user);
-
-                // Adding a list of claims to be added to the JWT, these are used to identify the user
-                var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Email, user.Email),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
-
-                // Adding all roles to the same list of claims
-                foreach (var userRole in userRoles)
-                {
-                    authClaims.Add(new Claim(ClaimTypes.Role, userRole));
-                }
-
-                // Generating JWT by GetToken() from the list of claims
-                var token = GetToken(authClaims);
-
-                // If succeeded, return valid token and expiration as a statuscode
-                return Ok(new
-                {
-                    token = new JwtSecurityTokenHandler().WriteToken(token),
-                    expiration = token.ValidTo
-                });
+                return Ok(authenticateManager.Login(model));
             }
             // If password or username is invalid, return statuscode 401 Unauthorized
             return Unauthorized();

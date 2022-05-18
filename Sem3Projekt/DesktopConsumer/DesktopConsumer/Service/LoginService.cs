@@ -47,11 +47,11 @@ namespace DesktopConsumer.Service {
                 {
                     var content = await response.Content.ReadAsStringAsync();
                     result = content;
-                    if (!string.IsNullOrWhiteSpace(result)) {
-                        JObject ResultObject = JObject.Parse(result);
-                        JToken jt = ResultObject["token"];
-                        result = (string)jt;
-                    }
+                    //if (!string.IsNullOrWhiteSpace(result)) {
+                    //    JObject ResultObject = JObject.Parse(result);
+                    //    JToken jt = ResultObject["token"];
+                    //    result = (string)jt;
+                    //}
                     _client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", result);
                 }
 
