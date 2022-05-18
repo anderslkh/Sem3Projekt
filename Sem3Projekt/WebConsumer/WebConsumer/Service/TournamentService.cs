@@ -77,27 +77,17 @@ namespace WebConsumer.Service
             try
             {
                 var response = await _client.DeleteAsync(uri);
-                if (response != null)
+                if (response.IsSuccessStatusCode)
                 {
-                    _client.DefaultRequestHeaders.Add(useUrl, response.Content.ReadAsStringAsync().Result);
-                    HttpResponseMessage responseMessage = null;
-                    if (response.IsSuccessStatusCode)
-                    {
-                        result = true;
-                    }
-                    else
-                    {
-                        result = false;
-                    }
+                    result = true;
                 }
                 else
                 {
                     result = false;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                throw;
             }
             return result;
         }

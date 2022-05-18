@@ -123,16 +123,12 @@ namespace WebConsumer.Controllers {
 		// POST: TournamentsController/Delete/5
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		[Route("[controller]/delete/{TournamentId}")]
-		public async Task<ActionResult> DeleteTournament(int tournamentId, string tournamentName) {
-			TournamentDTO dto = new TournamentDTO() { TournamentId = tournamentId, TournamentName = tournamentName };
+		[Route("[controller]/deletetournament")]
+		public async Task<ActionResult> DeleteTournament(int tournamentId) {
+			TournamentDTO dto = new TournamentDTO() { TournamentId = tournamentId};
 			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);
-			try {
-				bool wasOk = await tournamentService.DeleteTournament(dto.TournamentId);
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View(dto);
-			}
+            await tournamentService.DeleteTournament(dto.TournamentId);
+            return RedirectToAction(nameof(Index));
 		}
 	}
 }
