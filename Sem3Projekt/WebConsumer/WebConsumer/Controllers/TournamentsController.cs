@@ -19,7 +19,7 @@ namespace WebConsumer.Controllers {
 		public async Task<IActionResult> Details(int tournamentId) {
 			TournamentService tournamentService = new TournamentService(User.FindFirstValue("access_token"));
 
-			return View(await tournamentService.GetItem(tournamentId));
+			return View(await tournamentService.GetItemById(tournamentId));
 		}
 		
 		// Get request of enroll with tournament id,

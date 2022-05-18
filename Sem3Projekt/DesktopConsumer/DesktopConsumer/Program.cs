@@ -1,6 +1,4 @@
-using DesktopConsumer.Controller;
 using DesktopConsumer.GUI;
-using DesktopConsumer.Security;
 
 namespace DesktopConsumer
 {

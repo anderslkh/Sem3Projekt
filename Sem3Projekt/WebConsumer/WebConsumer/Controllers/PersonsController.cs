@@ -25,7 +25,7 @@ namespace WebConsumer.Controllers
         public async Task<IActionResult> Details(string email)
         {
             IService<Person, string> personService = ServiceFactory.CreatePersonService();
-            Person foundPerson = await personService.GetItem(email);
+            Person foundPerson = await personService.GetItemById(email);
             return View(foundPerson);
         }
 
