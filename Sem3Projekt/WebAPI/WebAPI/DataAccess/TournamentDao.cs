@@ -1,14 +1,11 @@
-using System;
 using System.Data.SqlClient;
 using Dapper;
-using Microsoft.AspNetCore.Identity;
-using NuGet.Versioning;
 using WebAPI.Models;
 using WebAPI.ModelDTOs;
 using System.Transactions;
 
 namespace WebAPI.DataAccess {
-	public class TournamentDao : IDao<Tournament, int> 
+	public class TournamentDao : ITournamentDao<EnrollmentDTO> 
 	{
 		private readonly SqlConnection _conn;
 
@@ -30,22 +27,24 @@ namespace WebAPI.DataAccess {
 			var param = new { TournamentId = tournamentId };
 			
 			using (_conn)
-			{
+            {
+                foundTournament = _conn.QuerySingle<Tournament>(sqlQueryUser, param);
+
 				// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
-				var tournaments = _conn.Query<Tournament, string, Tournament>(
-					sqlQueryAdmin, (tournament, personEmail) =>
-					{
-						tournament.ListOfParticipantIds.Add(personEmail);
-						return tournament;
-					}, param, splitOn: "PersonEmail");
+				//var tournaments = _conn.Query<Tournament, string, Tournament>(
+				//	sqlQueryUser, (tournament, personEmail) =>
+				//	{
+				//		//tournament.ListOfParticipantIds.Add(personEmail);
+				//		return tournament;
+				//	}, param, splitOn: "PersonEmail");
 
 				// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
-				foundTournament = tournaments.GroupBy(tournament => tournament.TournamentId).Select(g =>
-					{
-						var groupedPost = g.First();
-						groupedPost.ListOfParticipantIds = g.Select(p => p.ListOfParticipantIds.Single()).ToList();
-						return groupedPost;
-					}).First();
+				//foundTournament = tournaments.GroupBy(tournament => tournament.TournamentId).Select(g =>
+				//	{
+				//		var groupedPost = g.First();
+				//		groupedPost.ListOfParticipantIds = g.Select(p => p.ListOfParticipantIds.Single()).ToList();
+				//		return groupedPost;
+				//	}).First();
 				// These are returned as an IEnumerable of tournaments, since there is only one, we take the first from the list.
 			}
 
@@ -56,83 +55,108 @@ namespace WebAPI.DataAccess {
 		{
 			int result = -1;
 			// SQL statement to check if the tourament has room to enroll.
-			string sqlQueryCheckAvailable = "SELECT ISNULL((SELECT 1 FROM TournamentInfo " +
-			                                "WHERE TournamentInfo.TournamentId = @TournamentId " +
-			                                "AND (TournamentInfo.EnrolledParticipants >= @EnrolledParticipants) " +
-			                                "AND (TournamentInfo.MaxParticipants > TournamentInfo.EnrolledParticipants)), 0)";
+			string sqlQueryCheckAvailable = "UPDATE Tournament SET EnrolledParticipants +=1 WHERE TournamentId = @TournamentId AND MaxParticipants > EnrolledParticipants";
 				//"SELECT ISNULL((SELECT 1 FROM TournamentInfo WHERE TournamentInfo.TournamentId = @TournamentId AND (TournamentInfo.EnrolledParticipants = @EnrolledParticipants)), 0)";
-
-			// SQL statement to insert (Enroll) the user into the tournament, if the user does NOT already exist in the tournament.
-			string sqlQueryInsert =
-				"INSERT INTO PersonInTournament (PersonEmail, TournamentId) SELECT * FROM (SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp WHERE NOT EXISTS (SELECT @PersonEmail FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentId)";
-			var checkParam = new
+                // SQL statement to insert (Enroll) the user into the tournament, if the user does NOT already exist in the tournament.
+			string sqlQueryInsert = "INSERT INTO PersonInTournament(PersonEmail, TournamentId) SELECT* FROM(SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp WHERE NOT EXISTS(SELECT @PersonEmail FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentId)";
+            var checkParam = new
 			{
 				TournamentId = enrollmentDto.TournamentId,
-				EnrolledParticipants = enrollmentDto.EnrolledParticipants
+                MaxParticipants = enrollmentDto.MaxParticipants,
+                EnrolledParticipants = enrollmentDto.EnrolledParticipants
 			};
 
 			var param = new 
 			{
-				PersonEmail = enrollmentDto.PersonEmail,
-				TournamentId = enrollmentDto.TournamentId,
+				enrollmentDto.PersonEmail,
+				enrollmentDto.TournamentId,
 			};
-			//no isolation level is needed here because nothing is being modified in the DB, only insert is made
-            using (TransactionScope scope = new TransactionScope())
-			{
-				using (_conn)
-				// The if statement checks if the number of enrolled participants in the tournament
-				// has changed since the user retrieved the tournament information.
-				// Is false if the actual number of enrolled participants are less than max,
-				// and less than or equal to what the user recieved.
-				if ((int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam) == 1)
-				{
-					// The if statement checks if the number of enrolled participants in the tournament
-					// has changed since the user retrieved the tournament information.
-					// Is false if the actual number of enrolled participants are less than max,
-					// and less than or equal to what the user recieved.
-					int check = (int)_conn.ExecuteScalar(sqlQueryCheckAvailable, checkParam);
-					if (check == 1)
-					{
-						result = _conn.Execute(sqlQueryInsert, param);
-					}
-                    else
+
+            var txOptions = new TransactionOptions();
+            txOptions.IsolationLevel = IsolationLevel.ReadUncommitted;
+			using (var scope = new TransactionScope(TransactionScopeOption.Required, txOptions)) {
+                using (_conn)
+                {
+                    // The if statement checks if the number of enrolled participants in the tournament
+                    // has changed since the user retrieved the tournament information.
+                    // Is false if the actual number of enrolled participants are less than max,
+                    // and less than or equal to what the user recieved.
+                    if ((int) _conn.Execute(sqlQueryCheckAvailable, checkParam) == 1)
                     {
-						throw new Exception();
+                        result = _conn.Execute(sqlQueryInsert, param);
                     }
-				}
-				scope.Complete();
-			}
+                }
+                if (result == 1) {
+                    scope.Complete();
+                }
+            }
 			return result;
 		}
 		
 		public List<Tournament> GetAllItems() 
 		{
 			List<Tournament> foundTournaments = new List<Tournament>();
-			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, PersonEmail FROM TournamentInfoView";
-
-			using (_conn) 
-			{
-				// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
-				var tournaments = _conn.Query<Tournament, string, Tournament>(
-					sqlQuery, (tournament, personEmail) =>
-					{
-						tournament.ListOfParticipantIds.Add(personEmail);
-						return tournament;
-					}, splitOn: "PersonEmail");
-
-				// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
-				foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(
-					group =>
-					{
-						var groupedTournaments = group.First();
-						groupedTournaments.ListOfParticipantIds =
-							group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
-						return groupedTournaments;
-					}).ToList();
-				// These are returned as an IEnumerable of tournaments, therefor we cast to list.
-
-			}
+			string sqlQuery = "SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo";
+            using (_conn) {
+                //var tournaments = _conn.query<tournament, string, tournament>(
+                //    sqlquery, (tournament, personemail) => {
+                //        tournament.listofparticipantids.add(personemail);
+                //        return tournament;
+                //    }, spliton: "personemail");
+                //foundtournaments = tournaments.groupby(tournament => tournament.tournamentid).select(group => {
+                //    var groupedtournaments = group.first();
+                //    groupedtournaments.listofparticipantids =
+                //        group.select(tournament => tournament.listofparticipantids.single()).tolist();
+                //    return groupedtournaments;
+                //}).tolist();
+                foundTournaments = _conn.Query<Tournament>(sqlQuery).ToList();
+            }
 			return foundTournaments;
+            //using (_conn) 
+            //{
+            //	// Retrieves a resultset with information about the tournament, in a row for each email in the tournament.
+            //	var tournaments = _conn.Query<Tournament, string, Tournament>(
+            //		sqlQuery, (tournament, personEmail) =>
+            //		{
+            //			tournament.ListOfParticipantIds.Add(personEmail);
+            //			return tournament;
+            //		}, splitOn: "PersonEmail");
+
+            //	// Now the resultset has to be grouped by tournament id, meaning that the emails needs to be listed.
+            //	foundTournaments = tournaments.GroupBy(tournament => tournament.TournamentId).Select(
+            //		group =>
+            //		{
+            //			var groupedTournaments = group.First();
+            //			groupedTournaments.ListOfParticipantIds =
+            //				group.Select(tournament => tournament.ListOfParticipantIds.Single()).ToList();
+            //			return groupedTournaments;
+            //		}).ToList();
+            //	// These are returned as an IEnumerable of tournaments, therefor we cast to list.
+
+            //}
+            //return foundTournaments;
+		}
+
+		public bool CreateItem(TournamentDTO itemToCreate)
+        {
+			bool result = false;
+            string sqlQuery = "INSERT INTO Tournament (TimeOfEvent, RegistrationDeadline, TournamentName, MinParticipants, MaxParticipants, EnrolledParticipants) " +
+                              "VALUES (@TimeOfEvent, @RegistrationDeadline, @TournamentName, @MinParticipants, @MaxParticipants, @EnrolledParticipants)";
+            var param = new {
+                itemToCreate.TimeOfEvent,
+				itemToCreate.RegistrationDeadline,
+				itemToCreate.TournamentName,
+				itemToCreate.MinParticipants,
+				itemToCreate.MaxParticipants,
+				itemToCreate.EnrolledParticipants
+            };
+            using (_conn) {
+                if (_conn.Execute(sqlQuery, param) > 0) {
+                    result = true;
+                }
+            }
+            return result;
+			
 		}
 
 		public bool DeleteItem(int tournamentId)
@@ -160,5 +184,5 @@ namespace WebAPI.DataAccess {
 			}
 			return res;
 		}
-	}
+    }
 }

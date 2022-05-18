@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DesktopConsumer.GUI.ContentPanels;
+﻿using DesktopConsumer.GUI.ContentPanels;
 using DesktopConsumer.GUI.MenuPanels;
-using GUI;
 
-namespace GUI
+namespace DesktopConsumer.GUI
 {
     public class UIFactory
     {
@@ -35,6 +29,14 @@ namespace GUI
             return null;
         }
 
+        public static Form ReadAllUsersUI()
+        {
+            return new ReadUsersContentPanel();
+        }
+        public static Form CreateTournamentUI()
+        {
+            return new CreateTournamentContentPanel();
+        }
         public static Form ReadTournamentsUI()
         {
             return new ReadTournamentsContentPanel();
@@ -47,11 +49,6 @@ namespace GUI
         public static Form ReadUserUI()
         {
             return new ReadUserContentPanel();
-        }
-
-        public static Form UserContentSearch()
-        {
-            return new UsersContentPanel();
         }
 
     }

@@ -5,111 +5,77 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using NuGet.Protocol;
+using WebAPI.Data;
 using WebAPI.Managers;
-using WebAPI.Model_DTO_s;
 using WebAPI.ModelDTOs;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	//[Authorize]
-    public class TournamentsController : Controller {
-		// GET: TournamentsController
-        [Route("api/[controller]")]
-		public IActionResult Index()
-		{
-			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			List<TournamentDTO> foundTournaments = tournamentManager.GetAllItems();
-			if (foundTournaments.Any())
-			{
-				return Ok(foundTournaments.ToJson());
-			}
-
-			return NotFound();
-		}
-
-		// GET: api/tournaments/5
-		[Route("api/[controller]/{TournamentId}")]
-		public IActionResult Details(int tournamentId)
-		{
-			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
-			if (foundTournament != null)
-			{
-				return Ok(foundTournament.ToJson());
-			}
-
-			return NotFound();
-		}
-
-        [Route("api/[controller]/enroll/{TournamentId}")]
-		[HttpPost]
-        public ActionResult Enroll([FromBody]EnrollmentDTO enrollmentDto)
+    [Authorize]
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TournamentsController : ControllerBase {
+        // GET: api/<Tournaments>
+        [HttpGet]
+        public ActionResult<List<TournamentDTO>> GetAllTournaments()
         {
-	        IManager<TournamentDTO, int> manager = ManagerFactory.CreateTournamentManager();
-            if (manager is TournamentManager tournamentManager)
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            List<TournamentDTO> foundTournaments = tournamentManager.GetAllItems();
+            if (foundTournaments.Any())
             {
-                return Ok(tournamentManager.EnrollInTournament(enrollmentDto));
+                return Ok(foundTournaments.ToJson());
             }
             return NotFound();
-			// another error code
         }
 
-		// GET: TournamentsController/Create
-		public ActionResult Create() {
-			return View();
-		}
+        // GET api/<Tournaments>/5
+        [HttpGet]
+        [Route("{TournamentId}")]
+        public ActionResult<TournamentDTO> GetTournamentById(int tournamentId)
+        {
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
+            if (foundTournament != null)
+            {
+                return Ok(foundTournament.ToJson());
+            }
+            return NotFound();
+        }
 
-		// POST: TournamentsController/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
+        // POST api/<Tournaments>
+        [HttpPost]
+        public ActionResult CreateTournament([FromBody] TournamentDTO inTournament)
+        {
+            if (inTournament != null)
+            {
+                //TournamentDTO tournamentToCreate = new TournamentDTO(tournament.TournamentName, tournament.TimeOfEvent,
+                //    tournament.RegistrationDeadline, tournament.MaxParticipants, tournament.MinParticipants);
+                ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+                tournamentManager.CreateItem(inTournament);
+                return Ok(new Response { Status = "Success", Message = "Tournament successfully created" });
+            }
 
-		// GET: TournamentsController/Edit/5
-		public ActionResult Edit(int id) {
-			return View();
-		}
+            return BadRequest(new Response { Status = "Error", Message = "Tournament not created" });
+        }
 
-		// POST: TournamentsController/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
+        // PUT api/<Tournaments>/5
+        [HttpPut("{TournamentId}")]
+        public ActionResult UpdateTournament([FromBody] EnrollmentDTO enrollmentDTO)
+        {
+            //implement update method for tournament
+            return null;
+        }
 
-		//// GET: TournamentsController/Delete/5
-		//public ActionResult Delete(int id) {
-		//	return View();
-		//}
-
-		// POST: TournamentsController/Delete/5
-		
-		
-		[Route("api/[controller]/delete/{TournamentId}")]
-		[HttpDelete]
-		public void Delete(int tournamentId) {
-			IManager<TournamentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
-			//TournamentDTO foundTournament = tournamentManager.GetItemById(tournamentId);
-			//if (foundTournament != null)
-			//{
-			//	tournamentManager.DeleteItem(tournamentId);
-			//}
-			tournamentManager.DeleteItem(tournamentId);
-
-			//if (tournamentManager.DeleteItem(tournamentId))
-			//         {
-			//	return Ok();
-			//         }
-			//return NotFound();
-		}
-	}
+        // DELETE api/<Tournaments>/5
+        [HttpDelete("{TournamentId}")]
+        public ActionResult DeleteTournament(int tournamentId)
+        {
+            ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
+            if (tournamentManager.DeleteItem(tournamentId))
+            {
+                return Ok();
+            }
+            return NotFound();
+        }
+    }
 }

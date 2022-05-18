@@ -1,13 +1,17 @@
-﻿using GUI;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DesktopConsumer.Controller;
+using DesktopConsumer.Security;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DesktopConsumer.GUI
 {
@@ -16,6 +20,19 @@ namespace DesktopConsumer.GUI
         public MainWindow()
         {
             InitializeComponent();
+            CheckUserValidity();
+        }
+
+        private void CheckUserValidity()
+        {
+            if (!ConfigurationManager.AppSettings.Get("JwtToken").IsNullOrEmpty())
+            {
+                User_LoggedIn.Text = ConfigurationManager.AppSettings.Get("Username");
+            }
+            else
+            {
+                LoggedIn_Infolbl.Text = "Not logged in";
+            }
         }
 
         private void ContentPanel_Resize(object sender, System.EventArgs e)

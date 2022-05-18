@@ -10,23 +10,22 @@ using System.Windows.Forms;
 using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.ContentPanels {
-    public partial class ReadTournamentsContentPanel : Form {
-        public ReadTournamentsContentPanel() {
+    public partial class ReadUsersContentPanel : Form {
+        public ReadUsersContentPanel() {
             InitializeComponent();
         }
 
-        public void Populate(List<Tournament> tournaments)
+        public void Populate(List<Person> persons)
         {
-            if (tournaments != null)
+            if (persons != null)
             {
-                foreach (Tournament tournament in tournaments)
+                foreach (Person person in persons)
                 {
-                    ListViewItem listItem = new ListViewItem(tournament.TournamentId.ToString());
-                    listItem.SubItems.Add(tournament.TournamentName);
-                    listItem.SubItems.Add(tournament.TimeOfEvent.ToString());
-                    listItem.SubItems.Add(tournament.RegistrationDeadline.ToString());
-                    listItem.SubItems.Add(tournament.MaxParticipants.ToString());
-                    listItem.SubItems.Add(tournament.EnrolledParticipants.ToString());
+                    ListViewItem listItem = new ListViewItem(person.FirstName);
+                    listItem.SubItems.Add(person.LastName);
+                    listItem.SubItems.Add(person.UserName);
+                    listItem.SubItems.Add(person.Email);
+                    listItem.SubItems.Add(person.BirthDate.ToString("dd/MM/yyyy"));
                     listView1.Items.Add(listItem);
                 }
             }

@@ -1,9 +1,11 @@
-﻿using DesktopComsumer.Models;
+﻿using DesktopConsumer.Security;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.Controller
 {
@@ -23,6 +25,11 @@ namespace DesktopConsumer.Controller
         public async Task<Tournament> GetTournamentById(int id)
         {
             return await tournamentService.GetTournamentById(id);
+        }
+
+        public async Task<int> CreateTournament(Tournament tournament)
+        {
+            return await tournamentService.CreateTournament(tournament);
         }
     }
 }

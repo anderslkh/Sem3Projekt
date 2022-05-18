@@ -32,6 +32,7 @@ CREATE table Tournament(
 	TimeOfEvent datetime not null,
 	RegistrationDeadline datetime not null,
 	TournamentName varchar(255) not null,
+	EnrolledParticipants int not null
 );
 
 CREATE table PersonInTournament(

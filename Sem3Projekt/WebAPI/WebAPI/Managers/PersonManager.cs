@@ -40,7 +40,7 @@ namespace WebAPI.Managers
 		    bool result = false;
 		    PersonDao personDao = (PersonDao)DaoFactory.CreatePersonDao();
 		    try {
-			    result = personDao.CreatePerson(person);
+			    result = personDao.CreateItem(person);
 		    } catch (Exception e) {
 			    Console.WriteLine(e);
 			    throw;
@@ -50,6 +50,11 @@ namespace WebAPI.Managers
 	    }
 
         public bool DeleteItem(string id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool UpdateItem(Person item)
         {
             throw new NotImplementedException();
         }

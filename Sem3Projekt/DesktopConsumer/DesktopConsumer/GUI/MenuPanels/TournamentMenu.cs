@@ -1,16 +1,6 @@
-﻿using DesktopComsumer.Models;
-using DesktopConsumer.Controller;
+﻿using DesktopConsumer.Controller;
 using DesktopConsumer.GUI.ContentPanels;
-using GUI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.MenuPanels
 {
@@ -29,13 +19,23 @@ namespace DesktopConsumer.GUI.MenuPanels
 
             Button FindTournamentBtn = new Button();
             Button AllTournamentsBtn = new Button();
+            Button CreateTournamentBtn = new Button();
             AllTournamentsBtn.Text = "Alle turneringer";
             AllTournamentsBtn.Click += new System.EventHandler(AllTournamentsBtn_Click);
             FindTournamentBtn.Text = "Find turnering";
             FindTournamentBtn.Click += new System.EventHandler(FindTournamentBtn_Click);
+            CreateTournamentBtn.Text = "Opret turnering";
+            CreateTournamentBtn.Click += new System.EventHandler(CreateTournamentBtn_Click);
+            buttons.Add(CreateTournamentBtn);
             buttons.Add(FindTournamentBtn);
             buttons.Add(AllTournamentsBtn);
             InitializeLayout(buttons);
+        }
+
+        private void CreateTournamentBtn_Click(object? sender, EventArgs e)
+        {
+            Form createTournament = UIFactory.CreateTournamentUI();
+            NavigateTo(createTournament, ContentPanel);
         }
 
         private async void AllTournamentsBtn_Click(object? sender, EventArgs e)
@@ -72,7 +72,8 @@ namespace DesktopConsumer.GUI.MenuPanels
 
         public async Task<List<Tournament>> PopulateAllTournamentsContentPanel()
         {
-            return await Task.Run(async () => {
+            return await Task.Run(async () =>
+            {
                 TournamentController tournamentController = new TournamentController();
                 return await tournamentController.GetAllTournaments();
             });
