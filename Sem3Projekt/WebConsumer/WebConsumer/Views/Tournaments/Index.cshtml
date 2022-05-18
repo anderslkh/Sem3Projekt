@@ -48,14 +48,10 @@
                 @Html.DisplayFor(modelItem => item.MaxParticipants)
             </td>
             <td>
+                @Html.ActionLink("Details", "Details", new {tournamentId = item.TournamentId})
                 @if (Context.User.IsInRole("Admin"))
                 {
-                    @Html.ActionLink("Edit", "Edit", new {tournamentId = item.TournamentId});
-                } |
-                @Html.ActionLink("Details", "Details", new {tournamentId = item.TournamentId}) |
-                @if (Context.User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Delete", "Delete", new {tournamentId = item.TournamentId});
+                    @Html.ActionLink("Delete", "Delete", new {tournamentId = item.TournamentId, tournamentName = item.TournamentName});
                 }
 
             </td>

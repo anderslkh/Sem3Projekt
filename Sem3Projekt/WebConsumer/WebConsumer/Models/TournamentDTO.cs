@@ -18,4 +18,8 @@ public class TournamentDTO {
 		MinParticipants = minParticipants;
 		EnrolledParticipants = _enrolledParticipants;
 	}
+    public TournamentDTO()
+    {
+
+    }
 }

@@ -1,0 +1,22 @@
+﻿@model TournamentDTO
+@{
+    ViewData["Title"] = "DeleteTournament";
+}
+<h1>Delete</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+
+<form  asp-action="DeleteTournament">
+    <div class="form-group">
+        <label asp-for="TournamentId" class="control-label"></label>
+        <input asp-for="TournamentId" class="form-control"  readonly="readonly"/>
+        <label asp-for="TournamentName" class="control-label"></label>
+        <input asp-for="TournamentName" class="form-control"  readonly="readonly"/>
+
+    </div>
+<div class="form-group">
+    <input type="submit" value="Delete Tournament" class="btn btn-danger" />
+</div>
+<a asp-action="Index">Back to List</a>
+</form>
+
