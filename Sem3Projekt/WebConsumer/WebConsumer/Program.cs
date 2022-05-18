@@ -1,9 +1,4 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using WebConsumer.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

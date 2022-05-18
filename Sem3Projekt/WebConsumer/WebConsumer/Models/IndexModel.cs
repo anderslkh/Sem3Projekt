@@ -1,5 +1,4 @@
-﻿using System.Dynamic;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace WebConsumer.Models {
     public class IndexModel : PageModel {

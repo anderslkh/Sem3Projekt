@@ -15,7 +15,7 @@ namespace WebAPI.Controllers {
     [Route("api/[controller]")]
     [ApiController]
     public class TournamentsController : ControllerBase {
-        // GET: api/<Tournaments>
+        // GET: api/tournaments
         [HttpGet]
         public ActionResult<List<TournamentDTO>> GetAllTournaments()
         {
@@ -28,7 +28,7 @@ namespace WebAPI.Controllers {
             return NotFound();
         }
 
-        // GET api/<Tournaments>/5
+        // GET api/tournaments/5
         [HttpGet]
         [Route("{TournamentId}")]
         public ActionResult<TournamentDTO> GetTournamentById(int tournamentId)
@@ -42,7 +42,8 @@ namespace WebAPI.Controllers {
             return NotFound();
         }
 
-        // POST api/<Tournaments>
+        // POST api/tournaments
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult CreateTournament([FromBody] TournamentDTO inTournament)
         {
@@ -58,16 +59,10 @@ namespace WebAPI.Controllers {
             return BadRequest(new Response { Status = "Error", Message = "Tournament not created" });
         }
 
-        // PUT api/<Tournaments>/5
-        [HttpPut("{TournamentId}")]
-        public ActionResult UpdateTournament([FromBody] EnrollmentDTO enrollmentDTO)
-        {
-            //implement update method for tournament
-            return null;
-        }
-
-        // DELETE api/<Tournaments>/5
-        [HttpDelete("{TournamentId}")]
+        // DELETE api/tournaments/5
+        [Authorize(Roles = "Admin")]
+        [HttpDelete]
+        [Route("{tournamentId}")]
         public ActionResult DeleteTournament(int tournamentId)
         {
             ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();

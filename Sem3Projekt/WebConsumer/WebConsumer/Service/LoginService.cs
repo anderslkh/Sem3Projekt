@@ -1,7 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using NuGet.Protocol;
 using WebConsumer.Models;
 
 namespace WebConsumer.Service {

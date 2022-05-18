@@ -7,11 +7,11 @@ using WebAPI.Managers;
 using WebAPI.Models;
 
 namespace WebAPI.Controllers {
-	//[Authorize]
+    [Authorize(Roles = "Admin")]
     [Route("api/[controller]")]
     [ApiController]
     public class PersonsController : ControllerBase {
-        // GET: api/<Persons>
+        // GET: api/persons
         [HttpGet]
         public ActionResult<List<Person>> GetAllPersons()
         {
@@ -25,7 +25,7 @@ namespace WebAPI.Controllers {
             return NotFound();
         }
 
-        // GET api/<Persons>/mail@mail.com
+        // GET api/persons/mail@mail.com
         [HttpGet]
         [Route("{PersonEmail}")]
         public ActionResult<Person> GetTournamentById(string personEmail)
@@ -37,27 +37,6 @@ namespace WebAPI.Controllers {
                 return Ok(foundPerson.ToJson());
             }
             return NotFound();
-        }
-
-        // POST api/<Persons>
-        [HttpPost]
-        public ActionResult CreatePerson([FromBody] Person inPerson)
-        {
-            return null;
-        }
-
-        // PUT api/<Persons>/mail@mail.com
-        [HttpPut("{PersonEmail}")]
-        public ActionResult UpdatePerson([FromBody] Person person)
-        {
-            return null;
-        }
-
-        // DELETE api/<Persons>/mail@mail.com
-        [HttpDelete("{PersonEmail}")]
-        public ActionResult DeletePerson(string personEmail)
-        {
-            return null;
         }
     }
 }

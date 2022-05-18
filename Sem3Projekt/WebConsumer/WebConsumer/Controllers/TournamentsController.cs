@@ -1,7 +1,5 @@
-using System.Net;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using WebConsumer.Models;
 using WebConsumer.Service;
@@ -76,43 +74,9 @@ namespace WebConsumer.Controllers {
 					break;
 				}
 			}
+        }
 
-			
-		}
-
-		
-
-		// GET: TournamentsController/Create
-		public ActionResult Create() {
-			return View();
-		}
-
-		// POST: TournamentsController/Create
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Create(IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
-
-		// GET: TournamentsController/Edit/5
-		public ActionResult Edit(int id) {
-			return View();
-		}
-
-		// POST: TournamentsController/Edit/5
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public ActionResult Edit(int id, IFormCollection collection) {
-			try {
-				return RedirectToAction(nameof(Index));
-			} catch {
-				return View();
-			}
-		}
+        [Authorize(Roles = "Admin")]
 		[HttpGet]
 		[Route("[controller]/delete/{TournamentId}")]
 		// GET: TournamentsController/Delete/5
@@ -122,8 +86,7 @@ namespace WebConsumer.Controllers {
 
 		// POST: TournamentsController/Delete/5
 		[HttpPost]
-		[ValidateAntiForgeryToken]
-		[Route("[controller]/deletetournament")]
+        [Route("[controller]/deletetournament")]
 		public async Task<ActionResult> DeleteTournament(int tournamentId) {
 			TournamentDTO dto = new TournamentDTO() { TournamentId = tournamentId};
 			TournamentService tournamentService = new TournamentService(User.FindFirst("access_token").Value);

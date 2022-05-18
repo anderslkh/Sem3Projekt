@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using WebAPI.Managers;
 using WebAPI.ModelDTOs;
 
@@ -6,30 +7,11 @@ using WebAPI.ModelDTOs;
 
 namespace WebAPI.Controllers
 {
+    [Authorize(Roles = "User")]
     [Route("api/[controller]")]
     [ApiController]
     public class EnrollmentController : ControllerBase
     {
-        //// GET: api/<EnrollmentController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
-
-        //// GET api/<EnrollmentController>/5
-        //[HttpGet("{id}")]
-        //public string Get(int id)
-        //{
-        //    return "value";
-        //}
-
-        //// POST api/<EnrollmentController>
-        //[HttpPost]
-        //public void Post([FromBody] string value)
-        //{
-        //}
-
         [HttpPost]
         public IActionResult EnrollInTournament([FromBody]EnrollmentDTO enrollmentDTO)
         {
@@ -41,11 +23,5 @@ namespace WebAPI.Controllers
             }
             return NotFound();
         }
-
-        //// DELETE api/<EnrollmentController>/5
-        //[HttpDelete("{id}")]
-        //public void Delete(int id)
-        //{
-        //}
     }
 }
