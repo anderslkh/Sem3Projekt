@@ -10,9 +10,9 @@ namespace DesktopConsumer.Security {
     static class CheckTokenValidity
     {
         private static TokenController tokenController = new TokenController();
-        public static async void VerifyTokenValidity(TokenState tokenState)
+        public static async Task<string> VerifyTokenValidity(TokenState tokenState)
         {
-            await tokenController.GetToken(tokenState);
+            return await tokenController.GetToken(tokenState);
         }
     }
 }

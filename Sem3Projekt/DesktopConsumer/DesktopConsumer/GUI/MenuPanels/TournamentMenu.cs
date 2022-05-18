@@ -1,16 +1,6 @@
-﻿using DesktopComsumer.Models;
-using DesktopConsumer.Controller;
+﻿using DesktopConsumer.Controller;
 using DesktopConsumer.GUI.ContentPanels;
-using GUI;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.MenuPanels
 {
@@ -82,7 +72,8 @@ namespace DesktopConsumer.GUI.MenuPanels
 
         public async Task<List<Tournament>> PopulateAllTournamentsContentPanel()
         {
-            return await Task.Run(async () => {
+            return await Task.Run(async () =>
+            {
                 TournamentController tournamentController = new TournamentController();
                 return await tournamentController.GetAllTournaments();
             });

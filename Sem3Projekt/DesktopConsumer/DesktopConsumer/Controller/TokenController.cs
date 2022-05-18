@@ -45,6 +45,7 @@ namespace DesktopConsumer.Controller
 
             if (foundToken != null) {
                 AddUpdateAppSettings("JwtToken", foundToken);
+                GetApiAccountCredentials();
             }
             return foundToken;
         }

@@ -7,8 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using DesktopComsumer.Models;
 using DesktopConsumer.Controller;
+using DesktopConsumer.Models;
 
 namespace DesktopConsumer.GUI.ContentPanels {
     public partial class CreateTournamentContentPanel : Form {
@@ -29,7 +29,21 @@ namespace DesktopConsumer.GUI.ContentPanels {
             Tournament tournamentToCreate = new Tournament(tournamentName, timeOfEvent, registrationDeadline,
                 minParticpants, maxParticipants);
 
-            await tournamentController.CreateTournament(tournamentToCreate);
+            int result;
+            result = await tournamentController.CreateTournament(tournamentToCreate);
+
+            if (result == -1)
+            {
+                MessageBox.Show("Oprettelse af turnering fejlede", "Fejl");
+            } else if (result == 1)
+            {
+                MessageBox.Show("Turnering oprettet", "Succes");
+                this.tournamentName.Text = "";
+                this.timeOfEvent.Value = DateTime.Now;
+                this.registrationDeadline.Value = DateTime.Now;
+                this.minParticipants.Value = 0;
+                this.maxParticipants.Value = 0;
+            }
         }
     }
 }

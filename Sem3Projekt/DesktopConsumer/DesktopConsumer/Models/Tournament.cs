@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DesktopComsumer.Models
+﻿namespace DesktopConsumer.Models
 {
 
 	public class Tournament
 	{
-		public int TournamentId { get; }
+		public int TournamentId { get; set; }
 		public string TournamentName { get; set; }
 		public DateTime TimeOfEvent { get; set; }
 		public DateTime RegistrationDeadline { get; set; }
