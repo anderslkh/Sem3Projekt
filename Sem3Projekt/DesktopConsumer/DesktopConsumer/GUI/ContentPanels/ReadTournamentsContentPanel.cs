@@ -25,8 +25,8 @@ namespace DesktopConsumer.GUI.ContentPanels {
                     listItem.SubItems.Add(tournament.TournamentName);
                     listItem.SubItems.Add(tournament.TimeOfEvent.ToString());
                     listItem.SubItems.Add(tournament.RegistrationDeadline.ToString());
-                    listItem.SubItems.Add(tournament.MaxParticipants.ToString());
                     listItem.SubItems.Add(tournament.EnrolledParticipants.ToString());
+                    listItem.SubItems.Add(tournament.MaxParticipants.ToString());
                     listView1.Items.Add(listItem);
                 }
             }
@@ -40,5 +40,9 @@ namespace DesktopConsumer.GUI.ContentPanels {
                 listView1.TopItem = foundItem;
             }
         }
-    }
+
+		private void listView1_SelectedIndexChanged(object sender, EventArgs e) {
+
+		}
+	}
 }

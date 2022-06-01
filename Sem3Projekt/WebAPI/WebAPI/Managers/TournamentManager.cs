@@ -70,9 +70,7 @@ namespace WebAPI.Managers {
             }
             catch (Exception e)
             {
-                // If an exception is thrown by the datasource,
-                // it is because the user trying to enroll, already is enrolled.
-                result = 0;
+	            result = -1;
             }
             return result;
         }

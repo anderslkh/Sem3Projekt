@@ -25,7 +25,7 @@ namespace WebAPI.DataAccess {
 			string sqlQueryUser = 
 				"SELECT TournamentId, TournamentName, TimeOfEvent, RegistrationDeadline, MinParticipants, MaxParticipants, EnrolledParticipants FROM TournamentInfo WHERE TournamentId = @TournamentId";
 			var param = new { TournamentId = tournamentId };
-			
+
 			using (_conn)
             {
                 foundTournament = _conn.QuerySingle<Tournament>(sqlQueryUser, param);
@@ -72,12 +72,17 @@ namespace WebAPI.DataAccess {
 				enrollmentDto.TournamentId,
 			};
 
-            var txOptions = new TransactionOptions();
-            txOptions.IsolationLevel = IsolationLevel.ReadUncommitted;
-			using (var scope = new TransactionScope(TransactionScopeOption.Required, txOptions)) {
+			// Default level is SERIALIZABLE ?!?!?!?!? (╯°□°）╯︵ ┻━┻
+			// https://docs.microsoft.com/en-us/dotnet/api/system.transactions.isolationlevel?view=netframework-4.7.2
+			// 
+
+			TransactionOptions transactionOptions = new TransactionOptions();
+			transactionOptions.IsolationLevel = IsolationLevel.ReadUncommitted;
+			using (var scope = new TransactionScope(TransactionScopeOption.Required, transactionOptions)) 
+			{
                 using (_conn)
                 {
-                    // The if statement checks if the number of enrolled participants in the tournament
+	                // The if statement checks if the number of enrolled participants in the tournament
                     // has changed since the user retrieved the tournament information.
                     // Is false if the actual number of enrolled participants are less than max,
                     // and less than or equal to what the user recieved.

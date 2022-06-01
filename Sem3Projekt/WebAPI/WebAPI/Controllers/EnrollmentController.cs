@@ -35,11 +35,8 @@ namespace WebAPI.Controllers
         {
             ITournamentManager<EnrollmentDTO, int> tournamentManager = ManagerFactory.CreateTournamentManager();
             int result = tournamentManager.EnrollInTournament(enrollmentDTO);
-            if (result == 1)
-            {
-                return Ok(result);
-            }
-            return NotFound();
+           
+	        return Ok(result);
         }
 
         //// DELETE api/<EnrollmentController>/5
