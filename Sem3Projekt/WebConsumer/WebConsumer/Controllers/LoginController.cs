@@ -44,7 +44,8 @@ namespace WebConsumer.Controllers
                         CookieAuthenticationDefaults.AuthenticationScheme);
                     claimsIdentity.AddClaim(new Claim("access_token", jwtToken.RawData));
 
-
+                    // Setting the cookie in the HTTP response header
+                    // https://whosnailaspnetcoredocs.readthedocs.io/ko/latest/security/authentication/cookie.html
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(claimsIdentity));
 

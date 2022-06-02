@@ -67,6 +67,7 @@ namespace WebAPI.Controllers {
         }
 
         // DELETE api/tournaments/5
+        [Authorize(Roles="Admin")]
         [HttpDelete("{TournamentId}")]
         public ActionResult DeleteTournament(int tournamentId)
         {

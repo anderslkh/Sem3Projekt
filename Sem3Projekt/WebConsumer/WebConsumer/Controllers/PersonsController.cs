@@ -68,14 +68,15 @@ namespace WebConsumer.Controllers
 		}
 
 		// GET: PersonsController/Delete/5
+		
 		[Route("delete/{id}")]
 		[HttpGet]
-		public ActionResult Delete(int id) {
+        public ActionResult Delete(int id) {
 			return View();
 		}
 
 		// POST: PersonsController/Delete/5
-		[Route("delete/{id}")]
+        [Route("delete/{id}")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		public ActionResult Delete(int id, IFormCollection collection) {

@@ -113,14 +113,17 @@ namespace WebConsumer.Controllers {
 				return View();
 			}
 		}
+
+        [Authorize(Roles = "Admin")]
 		[HttpGet]
-		[Route("[controller]/delete/{TournamentId}")]
+        [Route("[controller]/delete/{TournamentId}")]
 		// GET: TournamentsController/Delete/5
 		public ActionResult Delete(int tournamentId, string tournamentName) {
 			return View(new TournamentDTO() { TournamentId = tournamentId, TournamentName = tournamentName});
 		}
 
 		// POST: TournamentsController/Delete/5
+        [Authorize(Roles = "Admin")]
 		[HttpPost]
 		[ValidateAntiForgeryToken]
 		[Route("[controller]/deletetournament")]
