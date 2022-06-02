@@ -52,6 +52,8 @@ namespace WebAPI.Controllers
                 {
                     new Claim(ClaimTypes.Email, user.Email),
                     new Claim(ClaimTypes.Name, user.UserName),
+                    // Identifier for the JSON Web Token JWT, Not ever used
+                    // https://datatracker.ietf.org/doc/html/rfc7519#section-4
                     new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 };
 

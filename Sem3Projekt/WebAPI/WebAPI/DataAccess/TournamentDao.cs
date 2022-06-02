@@ -61,9 +61,10 @@ namespace WebAPI.DataAccess {
 			string sqlQueryInsert = "INSERT INTO PersonInTournament(PersonEmail, TournamentId) SELECT* FROM(SELECT @PersonEmail AS PersonEmail, @TournamentId AS TournamentId) AS temp WHERE NOT EXISTS(SELECT @PersonEmail FROM PersonInTournament WHERE PersonEmail = @PersonEmail AND TournamentId = @TournamentId)";
             var checkParam = new
 			{
-				TournamentId = enrollmentDto.TournamentId,
-                MaxParticipants = enrollmentDto.MaxParticipants,
-                EnrolledParticipants = enrollmentDto.EnrolledParticipants
+				TournamentId = enrollmentDto.TournamentId
+				// Er ikke brugt i denne implementation, kig linje 58
+                //MaxParticipants = enrollmentDto.MaxParticipants,
+                //EnrolledParticipants = enrollmentDto.EnrolledParticipants
 			};
 
 			var param = new 
@@ -94,7 +95,8 @@ namespace WebAPI.DataAccess {
                 if (result == 1) {
                     scope.Complete();
                 }
-            }
+			}
+			// Hvis ikke scope.Complete() ses indenfor using(scope) så laves et rollback
 			return result;
 		}
 		
@@ -167,6 +169,7 @@ namespace WebAPI.DataAccess {
 		public bool DeleteItem(int tournamentId)
 		{
 			bool res = false;
+			// Der slettes brugere som har en foreign key til TournamentId, ellers kan turneringen ikke slettes
 			string sqlQueryJoinTable = "DELETE FROM PersonInTournament WHERE TournamentId = @TournamentId";
 			string sqlQuery = "DELETE FROM Tournament WHERE TournamentId = @TournamentId";
 			var param = new { TournamentId = tournamentId };
@@ -176,15 +179,12 @@ namespace WebAPI.DataAccess {
             {
 				using (_conn)
 				{
-
 					_conn.Execute(sqlQueryJoinTable, param);
 					if (_conn.Execute(sqlQuery, param) == 1)
 					{
 						res = true;
 					}
-
 				}
-
 				scope.Complete();
 			}
 			return res;

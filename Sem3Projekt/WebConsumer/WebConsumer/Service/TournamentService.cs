@@ -30,7 +30,7 @@ namespace WebConsumer.Service
                 var response = await _client.GetAsync(uri);
                 if (response.IsSuccessStatusCode)
                 {
-                    var content = await response.Content.ReadAsStringAsync();
+	                var content = await response.Content.ReadAsStringAsync();
                     foundTournament = JsonConvert.DeserializeObject<TournamentDTO>(content);
                 }
             }
